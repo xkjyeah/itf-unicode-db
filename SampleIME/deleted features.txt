@@ -1,0 +1,4 @@
+Compartments for half/full width etc.
+Compartments for keyboard open/close
+Compartments for keyboard disabled/enabled
+Handling of softkeyboard keys
