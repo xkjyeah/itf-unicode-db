@@ -35,11 +35,9 @@ const int MOVETO_BOTTOM = -1;
 //
 //----------------------------------------------------------------------------
 
-CCandidateListUIPresenter::CCandidateListUIPresenter(_In_ CSampleIME *pTextService, ATOM atom, InputStates state, _In_ CCandidateRange *pIndexRange, BOOL hideWindow) : CTfTextLayoutSink(pTextService)
+CCandidateListUIPresenter::CCandidateListUIPresenter(_In_ CSampleIME *pTextService, ATOM atom, InputStates state, BOOL hideWindow) : CTfTextLayoutSink(pTextService)
 {
     _atom = atom;
-
-    _pIndexRange = pIndexRange;
 
     _parentWndHandle = nullptr;
     _pCandidateWnd = nullptr;
@@ -537,7 +535,7 @@ void CCandidateListUIPresenter::_EndCandidateList()
 
 void CCandidateListUIPresenter::_SetText(_In_ std::vector<CCandidateListItem> &pCandidateList, BOOL isAddFindKeyCode)
 {
-    AddCandidateToCandidateListUI(pCandidateList, isAddFindKeyCode);
+    AddCandidateToCandidateListUI(pCandidateList);
 
     SetPageIndexWithScrollInfo(pCandidateList);
 
@@ -556,17 +554,17 @@ void CCandidateListUIPresenter::_SetText(_In_ std::vector<CCandidateListItem> &p
     }
 }
 
-void CCandidateListUIPresenter::AddCandidateToCandidateListUI(_In_ std::vector<CCandidateListItem> &pCandidateList, BOOL isAddFindKeyCode)
+void CCandidateListUIPresenter::AddCandidateToCandidateListUI(_In_ std::vector<CCandidateListItem> &pCandidateList)
 {
     for (UINT index = 0; index < pCandidateList.size(); index++)
     {
-        _pCandidateWnd->_AddString(pCandidateList[index], isAddFindKeyCode);
+        _pCandidateWnd->_AddString(pCandidateList[index]);
     }
 }
 
 void CCandidateListUIPresenter::SetPageIndexWithScrollInfo(_In_ std::vector<CCandidateListItem> &pCandidateList)
 {
-    UINT candCntInPage = _pIndexRange->Count();
+    UINT candCntInPage = this->CandidatesPerPage();
     size_t bufferSize = pCandidateList.size() / candCntInPage + 1;
     UINT* puPageIndex = new (std::nothrow) UINT[ bufferSize ];
     if (puPageIndex != nullptr)

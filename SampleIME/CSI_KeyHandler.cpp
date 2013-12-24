@@ -175,8 +175,6 @@ HRESULT CSampleIME::_HandleHexInput(TfEditCookie ec, _In_ ITfContext *pContext, 
 {
 	HRESULT hr = S_OK;
 
-    CCompositionProcessorEngine* pCompositionProcessorEngine = this->_pCompositionProcessorEngine;
-	
 	if (this->_ResetDecor(ec, pContext)) {
 
 		// Add virtual key to composition processor engine
@@ -297,7 +295,7 @@ HRESULT CSampleIME::_HandleCompositionInputWorker(_In_ CCompositionProcessorEngi
     /* Handle the candidate list */
     std::vector<CCandidateListItem> candidateList;
 
-    pCompositionProcessorEngine->GetCandidateList(&candidateList);
+	pCompositionProcessorEngine->GetCandidateList(this->_keystrokeBuffer, &candidateList);
 
 	/* (Re)initialize the candidate list */
     hr = _CreateAndStartCandidate(pCompositionProcessorEngine, ec, pContext);
@@ -315,11 +313,13 @@ HRESULT CSampleIME::_HandleCompositionInputWorker(_In_ CCompositionProcessorEngi
 // _CreateAndStartCandidate
 /*
 This is called every time the candidate list is changed.
+
+TODO: maybe we don't have to be so drastic and delete the list every time.
 */
 //
 //----------------------------------------------------------------------------
 
-HRESULT CSampleIME::_CreateAndStartCandidate(_In_ CCompositionProcessorEngine *pCompositionProcessorEngine, TfEditCookie ec, _In_ ITfContext *pContext)
+HRESULT CSampleIME::_CreateAndStartCandidate(TfEditCookie ec, _In_ ITfContext *pContext)
 {
     HRESULT hr = S_OK;
 
@@ -338,16 +338,13 @@ HRESULT CSampleIME::_CreateAndStartCandidate(_In_ CCompositionProcessorEngine *p
     if (_pCandidateListUIPresenter == nullptr)
     {
         _pCandidateListUIPresenter = new (std::nothrow) CCandidateListUIPresenter(this, Global::AtomCandidateWindow,
-            CATEGORY_CANDIDATE,
-            pCompositionProcessorEngine->GetCandidateListIndexRange(),
+			this->_inputState,
             FALSE);
-        if (!_pCandidateListUIPresenter)
+        
+		if (!_pCandidateListUIPresenter)
         {
             return E_OUTOFMEMORY;
         }
-
-        _candidateMode = CANDIDATE_INCREMENTAL;
-        _isCandidateWithWildcard = FALSE;
 
         // we don't cache the document manager object. So get it from pContext.
         ITfDocumentMgr* pDocumentMgr = nullptr;
@@ -434,15 +431,11 @@ HRESULT CSampleIME::_HandleCompositionFinalize(TfEditCookie ec, _In_ ITfContext 
 HRESULT CSampleIME::_HandleSearchSelectByNumber(TfEditCookie ec, _In_ ITfContext *pContext, _In_ UINT uCode)
 {
 	HRESULT hr;
-    int iSelectAsNumber = _pCompositionProcessorEngine->GetCandidateListIndexRange()->GetIndex(uCode);
-    if (iSelectAsNumber == -1)
-    {
-        return S_FALSE;
-    }
+	int array_index = CCandidateListUIPresenter::VKeyToArrayIndex(uCode);
 
     if (_pCandidateListUIPresenter)
     {
-        if (_pCandidateListUIPresenter->_SetSelectionInPage(iSelectAsNumber))
+        if (_pCandidateListUIPresenter->_SetSelectionInPage(array_index))
         {	
 			const wchar_t *pCandidateString;
 			DWORD_PTR candidateLen;
@@ -518,8 +511,8 @@ HRESULT CSampleIME::_HandleHexConvert(TfEditCookie ec, _In_ ITfContext *pContext
 		uint16_t lead = LEAD_OFFSET + (unicode_char >> 10);
 		uint16_t trail = 0xDC00 + (unicode_char & 0x3FF);
 
-		finalString.append( (wchar_t) &lead, 1 );
-		finalString.append( (wchar_t) &trail, 1 );
+		finalString.append( (wchar_t*) &lead, 1 );
+		finalString.append( (wchar_t*) &trail, 1 );
 	}
 	else {
 		// Erroneous code. Pass an empty string

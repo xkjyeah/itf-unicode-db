@@ -56,6 +56,7 @@ HRESULT CSampleIME::CreateInstance(_In_ IUnknown *pUnkOuter, REFIID riid, _Outpt
 //----------------------------------------------------------------------------
 
 CSampleIME::CSampleIME()
+	: _unicodeDB(NULL)
 {
     DllAddRef();
 
@@ -72,8 +73,6 @@ CSampleIME::CSampleIME()
 
     _pComposition = nullptr;
 
-    _pCompositionProcessorEngine = nullptr;
-
     _candidateMode = CANDIDATE_NONE;
     _pCandidateListUIPresenter = nullptr;
     _isCandidateWithWildcard = FALSE;
@@ -89,6 +88,13 @@ CSampleIME::CSampleIME()
     _refCount = 1;
 
 	_inputState = STATE_NORMAL;
+	
+	/**** CPE ****/
+    _langid = 0xffff;
+    _guidProfile = GUID_NULL;
+    _tfClientId = TF_CLIENTID_NULL;
+
+    _candidateWndWidth = CAND_WIDTH;
 }
 
 //+---------------------------------------------------------------------------
@@ -104,6 +110,12 @@ CSampleIME::~CSampleIME()
         delete _pCandidateListUIPresenter;
         _pCandidateListUIPresenter = nullptr;
     }
+
+	if (_unicodeDB) {
+		delete _unicodeDB;
+		_unicodeDB = NULL;
+	}
+
     DllRelease();
 }
 

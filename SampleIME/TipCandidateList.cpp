@@ -115,22 +115,22 @@ STDMETHODIMP CTipCandidateList::GetCandidate(ULONG nIndex, _Outptr_result_mayben
     }
     *ppCandStr = nullptr;
 
-    ULONG sizeCandStr = (ULONG)_tfCandStrList.Count();
+    ULONG sizeCandStr = (ULONG)_tfCandStrList.size();
     if (sizeCandStr <= nIndex)
     {
         return E_FAIL;
     }
 
-    for (UINT i = 0; i < _tfCandStrList.Count(); i++)
+    for (UINT i = 0; i < _tfCandStrList.size(); i++)
     {
-        ITfCandidateString** ppCandStrCur = _tfCandStrList.GetAt(i);
+        ITfCandidateString* ppCandStrCur = _tfCandStrList[i];
         ULONG indexCur = 0;
-        if ((nullptr != ppCandStrCur) && (SUCCEEDED((*ppCandStrCur)->GetIndex(&indexCur))))
+        if ((nullptr != ppCandStrCur) && (SUCCEEDED((ppCandStrCur)->GetIndex(&indexCur))))
         {
             if (nIndex == indexCur)
             {
                 BSTR bstr;
-                CTipCandidateString* pTipCandidateStrCur = (CTipCandidateString*)(*ppCandStrCur);
+                CTipCandidateString* pTipCandidateStrCur = (CTipCandidateString*)(ppCandStrCur);
                 pTipCandidateStrCur->GetString(&bstr);
 
                 CTipCandidateString::CreateInstance(IID_ITfCandidateString, (void**)ppCandStr);
@@ -157,7 +157,7 @@ STDMETHODIMP CTipCandidateList::GetCandidateNum(_Out_ ULONG *pnCnt)
         return E_POINTER;
     }
 
-    *pnCnt = (ULONG)(_tfCandStrList.Count());
+    *pnCnt = (ULONG)(_tfCandStrList.size());
     return S_OK;
 }
 
@@ -175,11 +175,7 @@ STDMETHODIMP CTipCandidateList::SetCandidate(_In_ ITfCandidateString **ppCandStr
         return E_POINTER;
     }
 
-    ITfCandidateString** ppCandLast = _tfCandStrList.Append();
-    if (ppCandLast)
-    {
-        *ppCandLast = *ppCandStr;
-    }
+	_tfCandStrList.push_back(*ppCandStr);
 
     return S_OK;
 }

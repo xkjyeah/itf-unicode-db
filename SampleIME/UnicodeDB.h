@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <cstdint>
+#include <cstring>
 
 using namespace std;
 

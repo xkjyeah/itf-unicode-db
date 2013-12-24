@@ -33,7 +33,6 @@ class CCandidateListUIPresenter : public CTfTextLayoutSink,
 public:
     CCandidateListUIPresenter(_In_ CSampleIME *pTextService, ATOM atom,
 		InputStates state,
-        _In_ CCandidateRange *pIndexRange,
         BOOL hideWindow);
     virtual ~CCandidateListUIPresenter();
 
@@ -98,6 +97,24 @@ public:
     void RemoveSpecificCandidateFromList(_In_ LCID Locale, _Inout_ std::vector<CCandidateListItem> &candidateList, _In_ std::wstring &srgCandidateString);
     void AdviseUIChangedByArrowKey(_In_ KEYSTROKE_FUNCTION arrowKey);
 
+	inline int CandidatesPerPage() { return 10; }
+	static inline int VKeyToArrayIndex(int vk) {
+		int s;
+
+		if (L'0' <= vk && vk <= L'9')
+			s = vk - L'0';
+		else if (VK_NUMPAD0 <= vk && vk <= VK_NUMPAD9)
+			s = vk - VK_NUMPAD0;
+		else
+			return 0;
+
+		// However, because on the keyboard, 0 ==> 10 and 1 ==> 1, we need to shift everything
+		return (s + 9) % 10;
+	}
+	static inline int ArrayIndexToKey(int index) {
+		return (index + 1) % 10;
+	}
+
 private:
     virtual HRESULT CALLBACK _CandidateChangeNotification(_In_ enum CANDWND_ACTION action);
 
@@ -117,7 +134,7 @@ private:
     HRESULT MakeCandidateWindow(_In_ ITfContext *pContextDocument, _In_ UINT wndWidth);
     void DisposeCandidateWindow();
 
-    void AddCandidateToCandidateListUI(_In_ std::vector<CCandidateListItem> &pCandidateList, BOOL isAddFindKeyCode);
+    void AddCandidateToCandidateListUI(_In_ std::vector<CCandidateListItem> &pCandidateList);
 
     void SetPageIndexWithScrollInfo(_In_ std::vector<CCandidateListItem> &pCandidateList);
 
@@ -130,7 +147,6 @@ private:
 
     HWND _parentWndHandle;
     ATOM _atom;
-    CCandidateRange* _pIndexRange;
     InputStates _State;
     DWORD _updatedFlags;
     DWORD _uiElementId;

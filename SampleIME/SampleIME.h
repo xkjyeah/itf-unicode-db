@@ -9,6 +9,7 @@
 
 #include "KeyHandlerEditSession.h"
 #include "SampleIMEBaseStructure.h"
+#include "UnicodeDB.h"
 
 class CLangBarItemButton;
 class CCandidateListUIPresenter;
@@ -239,12 +240,37 @@ public:
     BOOL _IsComLess(void) { return (_dwActivateFlags & TF_TMAE_COMLESS) ? TRUE : FALSE; }
     BOOL _IsStoreAppMode(void) { return (_dwActivateFlags & TF_TMF_IMMERSIVEMODE) ? TRUE : FALSE; };
 
-    CCompositionProcessorEngine* GetCompositionProcessorEngine() { return (_pCompositionProcessorEngine); };
-
     // comless helpers
     static HRESULT CSampleIME::CreateInstance(REFCLSID rclsid, REFIID riid, _Outptr_result_maybenull_ LPVOID* ppv, _Out_opt_ HINSTANCE* phInst, BOOL isComLessMode);
     static HRESULT CSampleIME::ComLessCreateInstance(REFGUID rclsid, REFIID riid, _Outptr_result_maybenull_ void **ppv, _Out_opt_ HINSTANCE *phInst);
     static HRESULT CSampleIME::GetComModuleName(REFGUID rclsid, _Out_writes_(cchPath)WCHAR* wchPath, DWORD cchPath);
+
+	/**** CPE public functions ****/
+    BOOL SetupLanguageProfile(LANGID langid, REFGUID guidLanguageProfile, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, BOOL isSecureMode, BOOL isComLessMode);
+    // Get language profile.
+    GUID GetLanguageProfile(LANGID *plangid)
+    {
+        *plangid = _langid;
+        return _guidProfile;
+    }
+    // Get locale
+    LCID GetLocale()
+    {
+        return MAKELCID(_langid, SORT_DEFAULT);
+    }
+	void GetCandidateList(const std::wstring &keystrokeBuffer, _Inout_ vector<CCandidateListItem> &pCandidateList);
+    // Preserved key handler
+    void OnPreservedKey(REFGUID rguid, _Out_ BOOL *pIsEaten, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
+
+    // Language bar control
+    void SetLanguageBarStatus(DWORD status, BOOL isSet);
+
+    void ConversionModeCompartmentUpdated(_In_ ITfThreadMgr *pThreadMgr);
+
+    void ShowAllLanguageBarIcons();
+    void HideAllLanguageBarIcons();
+
+    inline UINT GetCandidateWindowWidth() { return _candidateWndWidth; }
 
 private:
     // functions for the composition object.
@@ -309,7 +335,37 @@ private:
 
     friend LRESULT CALLBACK CSampleIME_WindowProc(HWND wndHandle, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+	/**** From CompositionProcessorEngine ****/
+    BOOL InitLanguageBar(_In_ CLangBarItemButton *pLanguageBar, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, REFGUID guidCompartment);
+
+	// SetupLanguageProfile
+    void SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
+	void InitializeSampleIMECompartment(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
+		void PrivateCompartmentsUpdated(_In_ ITfThreadMgr *pThreadMgr);
+    void SetupLanguageBar(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, BOOL isSecureMode);
+		static HRESULT CompartmentCallback(_In_ void *pv, REFGUID guidCompartment);
+			void KeyboardOpenCompartmentUpdated(_In_ ITfThreadMgr *pThreadMgr);
+		void CreateLanguageBarButton(DWORD dwEnable, GUID guidLangBar, _In_z_ LPCWSTR pwszDescriptionValue, _In_z_ LPCWSTR pwszTooltipValue, DWORD dwOnIconIndex, DWORD dwOffIconIndex, _Outptr_result_maybenull_ CLangBarItemButton **ppLangBarItemButton, BOOL isSecureMode);
+    void SetupConfiguration();
+		void SetDefaultCandidateTextFont();
+    BOOL SetupDictionaryFile();
+		HRESULT _ConvertToCandidateListItem(CCandidateListItem &clitem, const UNICODE_T &unicode_item);
+
+	// Teardown
+	void TeardownPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
+
 private:
+	/**** From CompositionProcessorEngine ****/
+    LANGID _langid;
+    GUID _guidProfile;
+	std::vector<TF_PRESERVEDKEY> _preservedKeys;
+
+    UINT _candidateWndWidth;
+
+	UnicodeDB *_unicodeDB;
+    static const int OUT_OF_FILE_INDEX = -1;
+
+	/**** Original CSampleIME ****/
     ITfThreadMgr* _pThreadMgr;
     TfClientId _tfClientId;
     DWORD _dwActivateFlags;
@@ -325,9 +381,6 @@ private:
 
     // The cookie of ThreadFocusSink
     DWORD _dwThreadFocusSinkCookie;
-
-    // Composition Processor Engine object.
-    CCompositionProcessorEngine* _pCompositionProcessorEngine;
 
     // Language bar item object.
     CLangBarItemButton* _pLangBarItem;

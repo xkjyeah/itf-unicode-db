@@ -8,7 +8,7 @@
 #include "private.h"
 #include "EnumTfCandidates.h"
 
-HRESULT CEnumTfCandidates::CreateInstance(_Out_ CEnumTfCandidates **ppobj, _In_ const CSampleImeArray<ITfCandidateString*> &rgelm, UINT currentNum)
+HRESULT CEnumTfCandidates::CreateInstance(_Out_ CEnumTfCandidates **ppobj, _In_ const std::vector<ITfCandidateString*> &rgelm, UINT currentNum)
 {
     if (ppobj == nullptr)
     {
@@ -25,7 +25,7 @@ HRESULT CEnumTfCandidates::CreateInstance(_Out_ CEnumTfCandidates **ppobj, _In_ 
     return S_OK;
 }
 
-HRESULT CEnumTfCandidates::CreateInstance(REFIID riid, _Out_ void **ppvObj, _In_ const CSampleImeArray<ITfCandidateString*> &rgelm, UINT currentNum)
+HRESULT CEnumTfCandidates::CreateInstance(REFIID riid, _Out_ void **ppvObj, _In_ const std::vector<ITfCandidateString*> &rgelm, UINT currentNum)
 {
     if (ppvObj == nullptr)
     {
@@ -42,7 +42,7 @@ HRESULT CEnumTfCandidates::CreateInstance(REFIID riid, _Out_ void **ppvObj, _In_
     return ((CEnumTfCandidates*)(*ppvObj))->QueryInterface(riid, ppvObj);
 }
 
-CEnumTfCandidates::CEnumTfCandidates(_In_ const CSampleImeArray<ITfCandidateString*> &rgelm, UINT currentNum)
+CEnumTfCandidates::CEnumTfCandidates(_In_ const std::vector<ITfCandidateString*> &rgelm, UINT currentNum)
 {
     _refCount = 0;
     _rgelm = rgelm;
@@ -108,9 +108,9 @@ STDMETHODIMP CEnumTfCandidates::Next(ULONG ulCount, _Out_ ITfCandidateString **p
     }
     *ppObj = nullptr;
 
-    while ((fetched < ulCount) && (_currentCandidateStrIndex < _rgelm.Count()))
+    while ((fetched < ulCount) && (_currentCandidateStrIndex < _rgelm.size()))
     {
-        *ppObj = *_rgelm.GetAt(_currentCandidateStrIndex);
+        *ppObj = _rgelm[_currentCandidateStrIndex];
         _currentCandidateStrIndex++;
         fetched++;
     }
@@ -125,7 +125,7 @@ STDMETHODIMP CEnumTfCandidates::Next(ULONG ulCount, _Out_ ITfCandidateString **p
 
 STDMETHODIMP CEnumTfCandidates::Skip(ULONG ulCount)
 {
-    while ((0 < ulCount) && (_currentCandidateStrIndex < _rgelm.Count()))
+    while ((0 < ulCount) && (_currentCandidateStrIndex < _rgelm.size()))
     {
         _currentCandidateStrIndex++;
         ulCount--;

@@ -24,7 +24,7 @@ typedef HRESULT (*CANDWNDCALLBACK)(void *pv, enum CANDWND_ACTION action);
 class CCandidateWindow : public CBaseWindow
 {
 public:
-    CCandidateWindow(_In_ CANDWNDCALLBACK pfnCallback, _In_ void *pv, _In_ CCandidateRange *pIndexRange, _In_ BOOL isStoreAppMode);
+    CCandidateWindow(_In_ CANDWNDCALLBACK pfnCallback, _In_ void *pv, _In_ int numCandidatesPerPage, _In_ BOOL isStoreAppMode);
     virtual ~CCandidateWindow();
 
     BOOL _Create(ATOM atom, _In_ UINT wndWidth, _In_opt_ HWND parentWndHandle);
@@ -42,11 +42,11 @@ public:
     void _OnMouseMove(POINT pt);
     void _OnVScroll(DWORD dwSB, _In_ DWORD nPos);
 
-    void _AddString(_Inout_ const CCandidateListItem &pCandidateItem, _In_ BOOL isAddFindKeyCode);
+    void _AddString(_Inout_ const CCandidateListItem &pCandidateItem);
     void _ClearList();
     UINT _GetCount()
     {
-        return _candidateList.Count();
+        return _candidateList.size();
     }
     UINT _GetSelection()
     {
@@ -63,17 +63,11 @@ public:
     BOOL _MovePage(_In_ int offSet, _In_ BOOL isNotify);
     BOOL _SetSelectionInPage(int nPos);
 
-    HRESULT _GetPageIndex(UINT *pIndex, _In_ UINT uSize, _Inout_ UINT *puPageCnt);
-    HRESULT _SetPageIndex(UINT *pIndex, _In_ UINT uPageCnt);
-    HRESULT _GetCurrentPage(_Inout_ UINT *pCurrentPage);
-    HRESULT _GetCurrentPage(_Inout_ int *pCurrentPage);
-
 private:
     void _HandleMouseMsg(_In_ UINT mouseMsg, _In_ POINT point);
     void _DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT *prc);
     void _DrawBorder(_In_ HWND wndHandle, _In_ int cx);
     BOOL _SetSelectionOffset(_In_ int offSet);
-    BOOL _AdjustPageIndexForSelection();
     HRESULT _CurrentPageHasEmptyItems(_Inout_ BOOL *pfHasEmptyItems);
 
 	// LightDismiss feature support, it will fire messages lightdismiss-related to the light dismiss layout.
@@ -87,14 +81,25 @@ private:
 
     void _ResizeWindow();
     void _DeleteShadowWnd();
-    void _DeleteVScrollBarWnd();
 
     friend COLORREF _AdjustTextColor(_In_ COLORREF crColor, _In_ COLORREF crBkColor);
 
+	inline int _PageNumberToCandidateIndex( int iPage ) {
+		return this->_numCandidatesPerPage * iPage;
+	}
+	inline int _CandidateIndexToPageNumber( int iIndex ) {
+		return iIndex % this->_numCandidatesPerPage;
+	}
+	inline int _PageCount() {
+		return
+			(this->_candidateList.size() / this->_numCandidatesPerPage) + // number of full pages
+			((this->_candidateList.size() % this->_numCandidatesPerPage)?1:0); // the last page
+	}
+
 private:
     UINT _currentSelection;
-    CSampleImeArray<CCandidateListItem> _candidateList;
-    CSampleImeArray<UINT> _PageIndex;
+    std::vector<CCandidateListItem> _candidateList;
+	int _numCandidatesPerPage;
 
     COLORREF _crTextColor;
     COLORREF _crBkColor;
@@ -105,13 +110,10 @@ private:
     int _cxTitle;
     UINT _wndWidth;
 
-    CCandidateRange* _pIndexRange;
-
     CANDWNDCALLBACK _pfnCallback;
     void* _pObj;
 
     CShadowWindow* _pShadowWnd;
-    CScrollBarWindow* _pVScrollBarWnd;
 
     BOOL _dontAdjustOnEmptyItemPage;
     BOOL _isStoreAppMode;

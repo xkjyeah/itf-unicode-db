@@ -368,12 +368,40 @@ STDAPI CSampleIME::OnKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, B
 
 STDAPI CSampleIME::OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIsEaten)
 {
-	pContext;
+	if (IsEqualGUID(rguid, Global::SampleIMEGuidComposePreservedKey))
+    {
+		if (_inputState == STATE_NORMAL) {
+			*pIsEaten = TRUE;
+		
+			// The original _InvokeKeyHandler
+			CKeyHandlerEditSession* pEditSession = nullptr;
+			_KEYSTROKE_STATE KeystrokeState;
+			HRESULT hr = E_FAIL;
 
-    CCompositionProcessorEngine *pCompositionProcessorEngine;
-    pCompositionProcessorEngine = _pCompositionProcessorEngine;
+			KeystrokeState.State = _inputState;
+			KeystrokeState.Function = FUNCTION_HEX_MODE;
 
-    pCompositionProcessorEngine->OnPreservedKey(rguid, pIsEaten, _GetThreadMgr(), _GetClientId());
+			// do something instead of this keystroke
+			pEditSession = new (std::nothrow) CKeyHandlerEditSession(this, pContext, 0, 0, KeystrokeState);
+			if (pEditSession == nullptr)
+			{
+				*pIsEaten = FALSE;
+				goto Exit;
+			}
+
+			hr = pContext->RequestEditSession(_tfClientId, pEditSession, TF_ES_ASYNCDONTCARE | TF_ES_READWRITE, &hr);
+
+			pEditSession->Release();
+Exit:
+		}
+		else {
+			*pIsEaten = FALSE;
+		}
+    }
+    else
+    {
+        *pIsEaten = FALSE;
+    }
 
     return S_OK;
 }

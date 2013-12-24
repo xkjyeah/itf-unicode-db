@@ -9,9 +9,10 @@
 #include "resource.h"
 
 #define TEXTSERVICE_MODEL        L"Apartment"
-#define TEXTSERVICE_LANGID       MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED)
+#define TEXTSERVICE_LANGID       MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US)
 #define TEXTSERVICE_ICON_INDEX   -IDIS_SAMPLEIME
-#define TEXTSERVICE_DIC L"SampleIMESimplifiedQuanPin.txt"
+#define TEXTSERVICE_DESCRIPTION_DB	L"UnicodeData.txt"
+#define TEXTSERVICE_INDEX_FILE		L"index"
 
 #define IME_MODE_ON_ICON_INDEX      IDI_IME_MODE_ON
 #define IME_MODE_OFF_ICON_INDEX     IDI_IME_MODE_OFF
@@ -20,7 +21,7 @@
 #define IME_PUNCTUATION_ON_INDEX    IDI_PUNCTUATION_ON
 #define IME_PUNCTUATION_OFF_INDEX   IDI_PUNCTUATION_OFF
 
-#define SAMPLEIME_FONT_DEFAULT L"Microsoft YaHei UI"
+#define SAMPLEIME_FONT_DEFAULT L"Tahoma"
 
 //---------------------------------------------------------------------
 // defined Candidated Window

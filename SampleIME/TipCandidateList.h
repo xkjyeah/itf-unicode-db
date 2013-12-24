@@ -38,6 +38,6 @@ public:
 
 protected:
     long _refCount;
-    CSampleImeArray<ITfCandidateString*> _tfCandStrList;
+    std::vector<ITfCandidateString*> _tfCandStrList;
 };
 
