@@ -9,7 +9,6 @@
 #include "SearchCandidateProvider.h"
 #include <new>
 #include "SampleIME.h"
-#include "CompositionProcessorEngine.h"
 #include "TipCandidateList.h"
 #include "TipCandidateString.h"
 
@@ -190,16 +189,11 @@ STDMETHODIMP CSearchCandidateProvider::GetSearchCandidates(BSTR bstrQuery, BSTR 
         return hr;
     }
 
-    CCompositionProcessorEngine* pCompositionProcessorEngine = ((CSampleIME*)_pTip)->GetCompositionProcessorEngine();
-    if (nullptr == pCompositionProcessorEngine)
-    {
-        return hr;
-    }
+	CSampleIME *cime = dynamic_cast<CSampleIME*>(_pTip);
+	std::vector<CCandidateListItem> candidateList;
+    cime->GetCandidateList(bstrQuery, candidateList);
 
-    CSampleImeArray<CCandidateListItem> candidateList;
-    pCompositionProcessorEngine->GetCandidateList(&candidateList, TRUE, FALSE);
-
-    int cCand = min(candidateList.Count(), FAKECANDIDATENUMBER);
+    int cCand = min(candidateList.size(), FAKECANDIDATENUMBER);
     if (0 < cCand)
     {
         hr = CTipCandidateList::CreateInstance(pplist, cCand);
@@ -214,8 +208,8 @@ STDMETHODIMP CSearchCandidateProvider::GetSearchCandidates(BSTR bstrQuery, BSTR 
 
             ((CTipCandidateString*)pCandStr)->SetIndex(iCand);
             ((CTipCandidateString*)pCandStr)->SetString(
-				candidateList.GetAt(iCand)->_ItemString.c_str(),
-				candidateList.GetAt(iCand)->_ItemString.size());
+				candidateList[iCand].GetChar(),
+				wcslen(candidateList[iCand].GetChar()));
 
             ((CTipCandidateList*)(*pplist))->SetCandidate(&pCandStr);
         }

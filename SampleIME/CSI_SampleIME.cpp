@@ -9,7 +9,6 @@
 #include "globals.h"
 #include "SampleIME.h"
 #include "CandidateListUIPresenter.h"
-#include "CompositionProcessorEngine.h"
 #include "Compartment.h"
 
 //+---------------------------------------------------------------------------
@@ -296,13 +295,14 @@ ExitError:
 
 STDAPI CSampleIME::Deactivate()
 {
-    if (_pCompositionProcessorEngine)
-    {
-        delete _pCompositionProcessorEngine;
-        _pCompositionProcessorEngine = nullptr;
-    }
-
     ITfContext* pContext = _pContext;
+	
+	this->DeactivateProcessorPart();
+	if (this->_unicodeDB) {
+		delete this->_unicodeDB;
+		this->_unicodeDB = NULL;
+	}
+
     if (_pContext)
     {   
         pContext->AddRef();

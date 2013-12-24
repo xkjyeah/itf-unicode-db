@@ -9,7 +9,6 @@
 #include "KeyHandlerEditSession.h"
 #include "EditSession.h"
 #include "SampleIME.h"
-#include "CompositionProcessorEngine.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -33,10 +32,34 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 
 	switch (this->_KeyState.State) {
 	case STATE_NORMAL:
-		/* Do nothing during normal input -- the other input states
-			will be handled by the PreservedKey
-		*/
+		switch (this->_KeyState.Function) {
+		case FUNCTION_HEX_MODE:
+			hResult = this->_pTextService->_HandleEnterHexMode(dto.ec, dto.pContext);
+			break;
+		default:
+			break;
+		}
         break;
+
+	case STATE_AMBIGUOUS:
+		switch (this->_KeyState.Function) {
+		case FUNCTION_INPUT:
+			/* i.e. we've received some characters, which may or may not be hexadecimal */
+			hResult = this->_pTextService->_HandleHexInput(dto.ec, dto.pContext, dto.wch);
+			break;
+		case FUNCTION_SEARCH_MODE:
+			hResult = this->_pTextService->_HandleEnterSearchMode(dto.ec, dto.pContext);
+			break;
+		case FUNCTION_BACKSPACE:
+			hResult = this->_pTextService->_HandleHexBackspace(dto.ec, dto.pContext);
+			break;
+		case FUNCTION_CANCEL:
+			hResult = this->_pTextService->_HandleInputCancel(dto.ec, dto.pContext);
+			break;
+		default:
+			break;
+		}
+		break;
 
     case STATE_HEX:
 		switch (this->_KeyState.Function) {
@@ -51,7 +74,7 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 			hResult = this->_pTextService->_HandleHexBackspace(dto.ec, dto.pContext);
 			break;
 		case FUNCTION_CANCEL:
-			hResult = this->_pTextService->_HandleCancel(dto.ec, dto.pContext);
+			hResult = this->_pTextService->_HandleInputCancel(dto.ec, dto.pContext);
 			break;
 		case FUNCTION_CONVERT:
 			hResult = this->_pTextService->_HandleHexConvert(dto.ec, dto.pContext);
@@ -73,7 +96,7 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 			hResult = this->_pTextService->_HandleEnterHexMode(dto.ec, dto.pContext);
 			break;
 		case FUNCTION_CANCEL:
-			hResult = this->_pTextService->_HandleCancel(dto.ec, dto.pContext);
+			hResult = this->_pTextService->_HandleInputCancel(dto.ec, dto.pContext);
 			break;
 		case FUNCTION_SELECT_BY_NUMBER:
 			hResult = _pTextService->_HandleSearchSelectByNumber(dto.ec, dto.pContext, dto.code);

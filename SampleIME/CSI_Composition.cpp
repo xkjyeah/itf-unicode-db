@@ -8,7 +8,6 @@
 #include "Private.h"
 #include "Globals.h"
 #include "SampleIME.h"
-#include "CompositionProcessorEngine.h"
 
 //+---------------------------------------------------------------------------
 //
@@ -98,11 +97,8 @@ HRESULT CSampleIME::_UpdateCandidateString(TfEditCookie ec, _In_ ITfContext *pCo
             BOOL exist_composing = _FindComposingRange(ec, pContext, pAheadSelection, &pRange);
 			// Well... since we want an initial 'u'
 			// TODO: This is obviously inefficient allocation of memory for another string
-			std::wstring pstrAddStringWithU = L"u";
 			
-			pstrAddStringWithU.append(pstrAddString);
-
-            _SetInputString(ec, pContext, pRange, pstrAddStringWithU, exist_composing);
+            _SetInputString(ec, pContext, pRange, pstrAddString, exist_composing);
 
             if (pRange)
             {
@@ -127,10 +123,19 @@ HRESULT CSampleIME::_UpdateCandidateString(TfEditCookie ec, _In_ ITfContext *pCo
 //
 //----------------------------------------------------------------------------
 
-HRESULT CSampleIME::_FinalizeText(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring pstrAddString)
+HRESULT CSampleIME::_FinalizeText(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring &pstrAddString)
 {
-    HRESULT hr = E_FAIL;
+	HRESULT hr = E_FAIL;
 
+	// Add composing character
+	hr = this->_UpdateCandidateString(ec, pContext, pstrAddString);
+
+	hr = _HandleComplete(ec, pContext);
+
+	this->_inputState = STATE_NORMAL;
+
+	return hr;
+	/*
     ULONG fetched = 0;
     TF_SELECTION tfSelection;
 
@@ -150,7 +155,7 @@ HRESULT CSampleIME::_FinalizeText(TfEditCookie ec, _In_ ITfContext *pContext, _I
 
     tfSelection.range->Release();
 
-    return hr;
+    return hr;*/
 }
 
 //+---------------------------------------------------------------------------
@@ -351,11 +356,8 @@ BOOL CSampleIME::_SetCompositionLanguage(TfEditCookie ec, _In_ ITfContext *pCont
     HRESULT hr = S_OK;
     BOOL ret = TRUE;
 
-    CCompositionProcessorEngine* pCompositionProcessorEngine = nullptr;
-    pCompositionProcessorEngine = _pCompositionProcessorEngine;
-
     LANGID langidProfile = 0;
-    pCompositionProcessorEngine->GetLanguageProfile(&langidProfile);
+    GetLanguageProfile(&langidProfile);
 
     ITfRange* pRangeComposition = nullptr;
     ITfProperty* pLanguageProperty = nullptr;

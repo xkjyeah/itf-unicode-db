@@ -8,7 +8,6 @@
 #include "Private.h"
 #include "Globals.h"
 #include "SampleIME.h"
-#include "CompositionProcessorEngine.h"
 
 BOOL CSampleIME::VerifySampleIMECLSID(_In_ REFCLSID clsid)
 {
@@ -40,22 +39,15 @@ STDAPI CSampleIME::OnActivated(_In_ REFCLSID clsid, _In_ REFGUID guidProfile, _I
         _AddTextProcessorEngine();
     }
 
-    if (nullptr == _pCompositionProcessorEngine)
-    {
-        return S_OK;
-    }
-
     if (isActivated)
     {
-        _pCompositionProcessorEngine->ShowAllLanguageBarIcons();
-
-        _pCompositionProcessorEngine->ConversionModeCompartmentUpdated(_pThreadMgr);
+        ShowAllLanguageBarIcons();
+		ConversionModeCompartmentUpdated(_pThreadMgr);
     }
     else
     {
         _DeleteCandidateList(FALSE, nullptr);
-
-        _pCompositionProcessorEngine->HideAllLanguageBarIcons();
+        HideAllLanguageBarIcons();
     }
 
     return S_OK;

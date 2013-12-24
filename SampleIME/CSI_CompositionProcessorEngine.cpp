@@ -69,20 +69,6 @@ BOOL CSampleIME::_AddTextProcessorEngine()
 
 //+---------------------------------------------------------------------------
 //
-// dtor
-//
-//----------------------------------------------------------------------------
-
-CSampleIME::~CSampleIME()
-{
-	if (_unicodeDB) {
-		delete _unicodeDB;
-		_unicodeDB = NULL;
-	}
-}
-
-//+---------------------------------------------------------------------------
-//
 // SetupLanguageProfile
 //
 // Setup language profile for Composition Processor Engine.
@@ -219,16 +205,24 @@ void CSampleIME::SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClie
     }
 
     TF_PRESERVEDKEY preservedKeyCompose;
-    preservedKeyCompose.uVKey = 0x55;
-    preservedKeyCompose.uModifiers = TF_MOD_CONTROL | TF_MOD_SHIFT;
+    //preservedKeyCompose.uVKey = 0x55;
+    //preservedKeyCompose.uModifiers = TF_MOD_CONTROL | TF_MOD_SHIFT;
+	
+    preservedKeyCompose.uVKey = VK_SPACE;
+    preservedKeyCompose.uModifiers = TF_MOD_SHIFT;
 
 	if (StringCchLength(Global::ImeComposeDescription, STRSAFE_MAX_CCH, &lenOfDesc) != S_OK) {
         return;
     }
 
-	pKeystrokeMgr->PreserveKey(tfClientId, Global::SampleIMEGuidComposePreservedKey, &preservedKeyCompose, Global::ImeComposeDescription, lenOfDesc);
+	pKeystrokeMgr->PreserveKey(
+		tfClientId,
+		Global::SampleIMEGuidComposePreservedKey,
+		&preservedKeyCompose,
+		Global::ImeComposeDescription,
+		lenOfDesc);
 	pKeystrokeMgr->Release();
-	this->_preservedKeys.push_back(preservedKeyCompose);
+	this->_preservedKeys.push_back( pair<CLSID, TF_PRESERVEDKEY>(Global::SampleIMEGuidComposePreservedKey,preservedKeyCompose) );
 
     return;
 }
@@ -236,23 +230,21 @@ void CSampleIME::SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClie
 void CSampleIME::TeardownPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId)
 {
     ITfKeystrokeMgr* pKeystrokeMgr = nullptr;
-	CLSID Guid = Global::SampleIMEGuidComposePreservedKey;
-
-    if (IsEqualGUID(Guid, GUID_NULL)) {
-        return;
-    }
 
     if (FAILED(pThreadMgr->QueryInterface(IID_ITfKeystrokeMgr, (void **)&pKeystrokeMgr))) {
         return;
     }
 
-    for (UINT i = 0; i < _preservedKeys.size(); i++)
-    {
-        TF_PRESERVEDKEY pPreservedKey = _preservedKeys[i];
-        pPreservedKey.uModifiers &= 0xffff;
+    for (auto it = _preservedKeys.begin(); it != _preservedKeys.end(); ++it)
+    {		
+		if (IsEqualGUID(it->first, GUID_NULL)) {
+			continue;
+		}
 
-        pKeystrokeMgr->UnpreserveKey(Guid, &pPreservedKey);
+        TF_PRESERVEDKEY pPreservedKey = it->second;
+        pKeystrokeMgr->UnpreserveKey(it->first, &pPreservedKey);
 	}
+	_preservedKeys.clear();
 	pKeystrokeMgr->Release();
 }
 //+---------------------------------------------------------------------------
@@ -287,7 +279,7 @@ void CSampleIME::SetupLanguageBar(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfCl
     InitLanguageBar(_pLanguageBar_IMEMode, pThreadMgr, tfClientId, GUID_COMPARTMENT_KEYBOARD_OPENCLOSE);
     InitLanguageBar(_pLanguageBar_DoubleSingleByte, pThreadMgr, tfClientId, Global::SampleIMEGuidCompartmentDoubleSingleByte);
     InitLanguageBar(_pLanguageBar_Punctuation, pThreadMgr, tfClientId, Global::SampleIMEGuidCompartmentPunctuation);
-
+	/*
     if (_pCompartmentKeyboardOpenEventSink)
     {
         _pCompartmentKeyboardOpenEventSink->_Advise(pThreadMgr, GUID_COMPARTMENT_KEYBOARD_OPENCLOSE);
@@ -415,6 +407,10 @@ void CSampleIME::ConversionModeCompartmentUpdated(_In_ ITfThreadMgr *pThreadMgr)
         }
     }*/
 }
+void CSampleIME::PrivateCompartmentsUpdated(_In_ ITfThreadMgr *pThreadMgr) {
+}
+void CSampleIME::KeyboardOpenCompartmentUpdated(_In_ ITfThreadMgr *pThreadMgr) {
+}
 //+---------------------------------------------------------------------------
 //
 // CompartmentCallback
@@ -486,3 +482,17 @@ void CSampleIME::SetDefaultCandidateTextFont()
     }
 }
 
+void CSampleIME::ActivateProcessorPart() {
+
+}
+
+void CSampleIME::DeactivateProcessorPart() {
+	/* Remove the preserved keys... */
+	this->TeardownPreserved(this->_GetThreadMgr(), this->_GetClientId());
+    _langid = 0xffff;
+    _guidProfile = GUID_NULL;
+
+	/* If you have compartment event sinks, you need to tear them down too */
+
+	/* If you have buttons on the language bar you need to tear them down too */
+}

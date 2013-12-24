@@ -212,6 +212,7 @@ public:
 
     // key event handlers for composition/candidate/phrase common objects.
     HRESULT _HandleComplete(TfEditCookie ec, _In_ ITfContext *pContext);
+	HRESULT _HandleInputCancel(TfEditCookie ec, _In_ ITfContext *pContext);
     HRESULT _HandleCancel(TfEditCookie ec, _In_ ITfContext *pContext);
 
     // key event handlers for composition object.
@@ -272,10 +273,13 @@ public:
 
     inline UINT GetCandidateWindowWidth() { return _candidateWndWidth; }
 
+	void ActivateProcessorPart();
+	void DeactivateProcessorPart();
+
 private:
     // functions for the composition object.
-    HRESULT _HandleCompositionInputWorker(_In_ CCompositionProcessorEngine *pCompositionProcessorEngine, TfEditCookie ec, _In_ ITfContext *pContext);
-    HRESULT _CreateAndStartCandidate(_In_ CCompositionProcessorEngine *pCompositionProcessorEngine, TfEditCookie ec, _In_ ITfContext *pContext);
+    HRESULT _HandleCompositionInputWorker(TfEditCookie ec, _In_ ITfContext *pContext);
+    HRESULT _CreateAndStartCandidate(TfEditCookie ec, _In_ ITfContext *pContext);
     HRESULT _HandleCandidateWorker(TfEditCookie ec, _In_ ITfContext *pContext);
 
     void _StartComposition(_In_ ITfContext *pContext);
@@ -358,7 +362,7 @@ private:
 	/**** From CompositionProcessorEngine ****/
     LANGID _langid;
     GUID _guidProfile;
-	std::vector<TF_PRESERVEDKEY> _preservedKeys;
+	std::vector< std::pair<CLSID, TF_PRESERVEDKEY> > _preservedKeys;
 
     UINT _candidateWndWidth;
 

@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleIME", "SampleIME\SampleIME.vcxproj", "{0C8FE010-5146-44D8-AF99-82702C15FEA5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A6838396-D2D6-4C3A-839C-74E499714D14} = {A6838396-D2D6-4C3A-839C-74E499714D14}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testime", "testime\testime.vcxproj", "{BF5B73DC-BB8F-44B9-8A1E-2D944A3A74C1}"
 	ProjectSection(ProjectDependencies) = postProject

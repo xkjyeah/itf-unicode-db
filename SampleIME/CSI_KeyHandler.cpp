@@ -10,7 +10,6 @@
 #include "EditSession.h"
 #include "SampleIME.h"
 #include "CandidateListUIPresenter.h"
-#include "CompositionProcessorEngine.h"
 
 #include <stdint.h>
 
@@ -57,9 +56,7 @@ VOID CSampleIME::_DeleteCandidateList(BOOL isForce, _In_opt_ ITfContext *pContex
 {
     isForce;pContext;
 
-    CCompositionProcessorEngine* pCompositionProcessorEngine = nullptr;
-    pCompositionProcessorEngine = _pCompositionProcessorEngine;
-    pCompositionProcessorEngine->PurgeVirtualKey();
+	this->_keystrokeBuffer.clear();
 
     if (_pCandidateListUIPresenter)
     {
@@ -84,6 +81,12 @@ HRESULT CSampleIME::_HandleComplete(TfEditCookie ec, _In_ ITfContext *pContext)
     _TerminateComposition(ec, pContext);
 
     return S_OK;
+}
+
+HRESULT CSampleIME::_HandleInputCancel(TfEditCookie ec, _In_ ITfContext *pContext) {
+	HRESULT hr = _HandleCancel(ec, pContext);
+	this->_inputState = STATE_NORMAL;
+	return hr;
 }
 
 //+---------------------------------------------------------------------------
@@ -113,7 +116,7 @@ bool CSampleIME::_ResetDecor(TfEditCookie ec, _In_ ITfContext *pContext) {
 	// destroys any previous candidate list?
 	// maybe replace with _HandleCancel(ec, pContext);
 	// but watch out because _HandleCancel resets the ...
-	if ((_pCandidateListUIPresenter != nullptr) && (_candidateMode != CANDIDATE_INCREMENTAL))
+	if ((_pCandidateListUIPresenter != nullptr))
     {
         _HandleCompositionFinalize(ec, pContext, FALSE);
     }
@@ -121,6 +124,11 @@ bool CSampleIME::_ResetDecor(TfEditCookie ec, _In_ ITfContext *pContext) {
     if (!_IsComposing())
     {
         _StartComposition(pContext);
+    }
+    // first, test where a keystroke would go in the document if we did an insert
+    if (pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &tfSelection, &fetched) != S_OK || fetched != 1)
+    {
+        return S_FALSE;
     }
     // is the insertion point covered by a composition?
     if (SUCCEEDED(_pComposition->GetRange(&pRangeComposition)))
@@ -264,13 +272,10 @@ HRESULT CSampleIME::_HandleSearchInput(TfEditCookie ec, _In_ ITfContext *pContex
 {
 	HRESULT hr;
 
-    CCompositionProcessorEngine* pCompositionProcessorEngine = nullptr;
-    pCompositionProcessorEngine = _pCompositionProcessorEngine;
-	
 	if (this->_ResetDecor(ec, pContext)) {
 		// Add virtual key to composition processor engine
 		this->_keystrokeBuffer.append(&wch, 1);
-		hr = _HandleCompositionInputWorker(pCompositionProcessorEngine, ec, pContext);
+		hr = _HandleCompositionInputWorker(ec, pContext);
 	}
 	return hr;
 }
@@ -283,10 +288,9 @@ HRESULT CSampleIME::_HandleSearchInput(TfEditCookie ec, _In_ ITfContext *pContex
 //
 //----------------------------------------------------------------------------
 
-HRESULT CSampleIME::_HandleCompositionInputWorker(_In_ CCompositionProcessorEngine *pCompositionProcessorEngine, TfEditCookie ec, _In_ ITfContext *pContext)
+HRESULT CSampleIME::_HandleCompositionInputWorker(TfEditCookie ec, _In_ ITfContext *pContext)
 {
     HRESULT hr = S_OK;
-    CStringRange *keystrokeBuffer;
     BOOL isWildcardIncluded = TRUE;
 	
 	/* Handle text application side: add the new keystroke to the candidate string */
@@ -295,10 +299,10 @@ HRESULT CSampleIME::_HandleCompositionInputWorker(_In_ CCompositionProcessorEngi
     /* Handle the candidate list */
     std::vector<CCandidateListItem> candidateList;
 
-	pCompositionProcessorEngine->GetCandidateList(this->_keystrokeBuffer, &candidateList);
+	this->GetCandidateList(this->_keystrokeBuffer, candidateList);
 
 	/* (Re)initialize the candidate list */
-    hr = _CreateAndStartCandidate(pCompositionProcessorEngine, ec, pContext);
+    hr = _CreateAndStartCandidate(ec, pContext);
     if (SUCCEEDED(hr))
     {
         _pCandidateListUIPresenter->_ClearList();
@@ -354,7 +358,7 @@ HRESULT CSampleIME::_CreateAndStartCandidate(TfEditCookie ec, _In_ ITfContext *p
             ITfRange* pRange = nullptr;
             if (SUCCEEDED(_pComposition->GetRange(&pRange)))
             {
-                hr = _pCandidateListUIPresenter->_StartCandidateList(_tfClientId, pDocumentMgr, pContext, ec, pRange, pCompositionProcessorEngine->GetCandidateWindowWidth());
+                hr = _pCandidateListUIPresenter->_StartCandidateList(_tfClientId, pDocumentMgr, pContext, ec, pRange, this->GetCandidateWindowWidth());
                 pRange->Release();
             }
             pDocumentMgr->Release();
@@ -496,7 +500,7 @@ HRESULT CSampleIME::_HandleHexConvert(TfEditCookie ec, _In_ ITfContext *pContext
 
 	if (unicode_char <= 0xD7FF || (unicode_char >= 0xE000 && unicode_char <= 0xFFFF) ) {
 		// No surrogate pair needed
-		finalString.append( (wchar_t) &unicode_char, 1 );
+		finalString.append( (wchar_t*) &unicode_char, 1 );
 	}
 	else if (unicode_char >= 0x010000 && unicode_char <= 0x10FFFF) {
 		// Surrogate pair needed
@@ -522,6 +526,8 @@ HRESULT CSampleIME::_HandleHexConvert(TfEditCookie ec, _In_ ITfContext *pContext
 	// WARNING: we obviously don't verify the validity of the string.
 	// might be a dangerous feature.
 	this->_FinalizeText(ec, pContext, finalString);
+
+	return S_OK;
 }
 
 //+---------------------------------------------------------------------------

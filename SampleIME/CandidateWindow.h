@@ -63,6 +63,10 @@ public:
     BOOL _MovePage(_In_ int offSet, _In_ BOOL isNotify);
     BOOL _SetSelectionInPage(int nPos);
 
+	// Called by UIPresenter from interface method GetPageIndex
+	HRESULT _GetPageIndex(UINT *pIndex, UINT uSize, UINT *puPageCnt);
+	HRESULT _GetCurrentPage(UINT *puPage);
+
 private:
     void _HandleMouseMsg(_In_ UINT mouseMsg, _In_ POINT point);
     void _DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT *prc);
@@ -75,7 +79,6 @@ private:
 
     BOOL _CreateMainWindow(ATOM atom, _In_opt_ HWND parentWndHandle);
     BOOL _CreateBackGroundShadowWindow();
-    BOOL _CreateVScrollWindow();
 
     HRESULT _AdjustPageIndex(_Inout_ UINT & currentPage, _Inout_ UINT & currentPageIndex);
 

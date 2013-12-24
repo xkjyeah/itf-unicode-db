@@ -7,3 +7,5 @@
 
 #pragma once
 #include <windows.h>
+
+#define _INTSAFE_H_INCLUDED_

@@ -76,12 +76,6 @@ BOOL CCandidateWindow::_Create(ATOM atom, _In_ UINT wndWidth, _In_opt_ HWND pare
         goto Exit;
     }
 
-    ret = _CreateVScrollWindow();
-    if (FALSE == ret)
-    {
-        goto Exit;
-    }
-
     _ResizeWindow();
 
 Exit:
@@ -924,4 +918,31 @@ void CCandidateWindow::_DeleteShadowWnd()
         delete _pShadowWnd;
         _pShadowWnd = nullptr;
     }
+}
+
+
+HRESULT CCandidateWindow::_GetPageIndex(UINT *pIndex, UINT uSize, UINT *puPageCnt) {
+	HRESULT hr = S_OK;
+
+	if (uSize > _PageCount()) {
+		uSize = _PageCount();
+	}
+	else {
+		hr = S_FALSE;
+	}
+
+	if (pIndex) {
+		for (UINT i = 0; i < uSize; i++) {
+			*pIndex = _PageNumberToCandidateIndex(i);
+			pIndex++;
+		}
+	}
+
+	*puPageCnt = _PageCount();
+
+	return hr;
+}
+HRESULT CCandidateWindow::_GetCurrentPage(UINT *puPage) {
+	*puPage = _CandidateIndexToPageNumber(_currentSelection);
+	return S_OK;
 }

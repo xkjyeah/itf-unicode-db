@@ -9,7 +9,6 @@
 #include "SampleIME.h"
 #include "CandidateWindow.h"
 #include "CandidateListUIPresenter.h"
-#include "CompositionProcessorEngine.h"
 #include "SampleIMEBaseStructure.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -342,6 +341,7 @@ STDAPI CCandidateListUIPresenter::GetPageIndex(UINT *pIndex, UINT uSize, UINT *p
 //+---------------------------------------------------------------------------
 //
 // ITfCandidateListUIElement::SetPageIndex
+// TODO: Allow application to set page index
 //
 //----------------------------------------------------------------------------
 
@@ -351,7 +351,8 @@ STDAPI CCandidateListUIPresenter::SetPageIndex(UINT *pIndex, UINT uPageCnt)
     {
         return E_FAIL;
     }
-    return _pCandidateWnd->_SetPageIndex(pIndex, uPageCnt);
+	return E_FAIL;
+    //return _pCandidateWnd->_SetPageIndex(pIndex, uPageCnt);
 }
 
 //+---------------------------------------------------------------------------
@@ -574,7 +575,7 @@ void CCandidateListUIPresenter::SetPageIndexWithScrollInfo(_In_ std::vector<CCan
             puPageIndex[i] = i * candCntInPage;
         }
 
-        _pCandidateWnd->_SetPageIndex(puPageIndex, bufferSize);
+        //_pCandidateWnd->_SetPageIndex(puPageIndex, bufferSize);
         delete [] puPageIndex;
     }
     _pCandidateWnd->_SetScrollInfo(pCandidateList.size(), candCntInPage);  // nMax:range of max, nPage:number of items in page
@@ -872,21 +873,6 @@ HRESULT CCandidateListUIPresenter::OnKillThreadFocus()
     return S_OK;
 }
 
-void CCandidateListUIPresenter::RemoveSpecificCandidateFromList(_In_ LCID Locale, _Inout_ std::vector<CCandidateListItem> &candidateList, _In_ std::wstring &candidateString)
-{
-    for (UINT index = 0; index < candidateList.size();)
-    {
-        CCandidateListItem &pLI = candidateList[index];
-
-        if (&candidateString == &pLI._ItemString)
-        {
-            candidateList.erase( candidateList.begin() + index );
-            continue;
-        }
-
-        index++;
-    }
-}
 
 void CCandidateListUIPresenter::AdviseUIChangedByArrowKey(_In_ KEYSTROKE_FUNCTION arrowKey)
 {
@@ -982,7 +968,7 @@ HRESULT CCandidateListUIPresenter::MakeCandidateWindow(_In_ ITfContext *pContext
         return hr;
     }
 
-    _pCandidateWnd = new (std::nothrow) CCandidateWindow(_CandWndCallback, this, _pIndexRange, _pTextService->_IsStoreAppMode());
+    _pCandidateWnd = new (std::nothrow) CCandidateWindow(_CandWndCallback, this, CandidatesPerPage(), _pTextService->_IsStoreAppMode());
     if (_pCandidateWnd == nullptr)
     {
         hr = E_OUTOFMEMORY;

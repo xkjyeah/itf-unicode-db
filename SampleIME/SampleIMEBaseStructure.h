@@ -8,10 +8,12 @@
 #pragma once
 
 #include "stdafx.h"
-#include <cstdint>
 #include <vector>
 #include "assert.h"
 #include <iostream>
+
+#define _INTSAFE_H_INCLUDED_
+#include <cstdint>
 
 using std::cout;
 using std::endl;

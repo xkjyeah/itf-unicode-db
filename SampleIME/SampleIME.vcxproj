@@ -52,8 +52,6 @@
     <ClInclude Include="DisplayAttributeInfo.h" />
     <ClInclude Include="EditSession.h" />
     <ClInclude Include="EnumDisplayAttributeInfo.h" />
-    <ClInclude Include="File.h" />
-    <ClInclude Include="FileMapping.h" />
     <ClInclude Include="GetTextExtentEditSession.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="KeyHandlerEditSession.h" />
@@ -89,8 +87,6 @@
     <ClCompile Include="EditSession.cpp" />
     <ClCompile Include="CSI_EndComposition.cpp" />
     <ClCompile Include="EnumDisplayAttributeInfo.cpp" />
-    <ClCompile Include="File.cpp" />
-    <ClCompile Include="FileMapping.cpp" />
     <ClCompile Include="FunctionProviderSink.cpp" />
     <ClCompile Include="GetTextExtentEditSession.cpp" />
     <ClCompile Include="Globals.cpp" />
@@ -114,6 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SampleIME.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnicodeDB\UnicodeDB.vcxproj">
+      <Project>{a6838396-d2d6-4c3a-839c-74e499714d14}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0C8FE010-5146-44D8-AF99-82702C15FEA5}</ProjectGuid>
@@ -215,13 +216,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SampleIME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Windows Kits\8.0\Include\um;$(MSBuildProgramFiles32)\Windows Kits\8.0\Include\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Windows Kits\8.0\Include\um;$(MSBuildProgramFiles32)\Windows Kits\8.0\Include\shared;C:\Users\Daniel\Documents\Visual Studio 2010\Projects\ime_sample\C++\SampleIME\x64\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(MSBuildProgramFiles32)\Windows Kits\8.0\Lib\win8\um\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MSBuildProgramFiles32)\Windows Kits\8.0\Lib\win8\um\x64;C:\Users\Daniel\Documents\Visual Studio 2010\Projects\ime_sample\C++\SampleIME\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>SampleIME.def</ModuleDefinitionFile>
     </Link>

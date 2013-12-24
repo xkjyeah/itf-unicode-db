@@ -10,7 +10,6 @@
 #include "SampleIME.h"
 #include "EditSession.h"
 #include "CandidateListUIPresenter.h"
-#include "CompositionProcessorEngine.h"
 #include "KeyHandlerEditSession.h"
 #include "Compartment.h"
 
@@ -98,7 +97,7 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 		4. search state
 			eats all keys
 		*/
-    if (_IsComposing() && _inputState != STATE_NORMAL) {
+    if (_inputState != STATE_NORMAL) {
 		if (_inputState == STATE_AMBIGUOUS) { /* When I only have my initial 'u' */
 			switch (*pCodeOut)
 			{
@@ -118,6 +117,10 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				if (pKeyState) {
 					pKeyState->Function = FUNCTION_INPUT;
 				}
+				return TRUE;
+			}
+			if ( wch == '\'') {
+				pKeyState->Function = FUNCTION_SEARCH_MODE;
 				return TRUE;
 			}
 
@@ -287,16 +290,14 @@ STDAPI CSampleIME::OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam,
     *pIsEaten = _IsKeyEaten(pContext, (UINT)wParam, &code, &wch, &KeystrokeState);
 	/* KeystrokeState is now updated */
 
-    if (*pIsEaten)
-    {
+    if (*pIsEaten) {
 		// The original _InvokeKeyHandler
 		CKeyHandlerEditSession* pEditSession = nullptr;
 		HRESULT hr = E_FAIL;
 
 		// do something instead of this keystroke
 		pEditSession = new (std::nothrow) CKeyHandlerEditSession(this, pContext, code, wch, KeystrokeState);
-		if (pEditSession == nullptr)
-		{
+		if (pEditSession == nullptr) {
 			goto Exit;
 		}
 
@@ -308,8 +309,8 @@ STDAPI CSampleIME::OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam,
 		hr = pContext->RequestEditSession(_tfClientId, pEditSession, TF_ES_ASYNCDONTCARE | TF_ES_READWRITE, &hr);
 
 		pEditSession->Release();
-
-		Exit:
+Exit:
+		;
     }
 
     return S_OK;
@@ -393,6 +394,7 @@ STDAPI CSampleIME::OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pIs
 
 			pEditSession->Release();
 Exit:
+			;
 		}
 		else {
 			*pIsEaten = FALSE;

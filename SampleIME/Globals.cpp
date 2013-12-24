@@ -45,7 +45,7 @@ extern const GUID SampleIMEGuidProfile = {
 // PreserveKey GUID
 //---------------------------------------------------------------------
 // {4B62B54B-F828-43B5-9095-A96DF9CBDF38}
-extern const GUID SampleIMEGuidImeModePreserveKey = {
+extern const GUID SampleIMEGuidComposePreservedKey = {
     0x4b62b54b, 
     0xf828, 
     0x43b5, 
@@ -160,6 +160,8 @@ extern const WCHAR StringDelimiter  = L'\"';
 // defined item in setting file table [PreservedKey] section
 //---------------------------------------------------------------------
 extern const WCHAR ImeComposeDescription[] = L"Activate Unicode Compose";
+extern const int ImeComposeOnIcoIndex = IME_MODE_ON_ICON_INDEX;
+extern const int ImeComposeOffIcoIndex = IME_MODE_OFF_ICON_INDEX;
 
 //---------------------------------------------------------------------
 // windows class / titile / atom
@@ -170,9 +172,6 @@ ATOM AtomCandidateWindow;
 extern const WCHAR ShadowClassName[] = L"SampleIME.ShadowWindow";
 ATOM AtomShadowWindow;
 
-extern const WCHAR ScrollBarClassName[] = L"SampleIME.ScrollBarWindow";
-ATOM AtomScrollBarWindow;
-
 BOOL RegisterWindowClass()
 {
     if (!CBaseWindow::_InitWindowClass(CandidateClassName, &AtomCandidateWindow))
@@ -180,10 +179,6 @@ BOOL RegisterWindowClass()
         return FALSE;
     }
     if (!CBaseWindow::_InitWindowClass(ShadowClassName, &AtomShadowWindow))
-    {
-        return FALSE;
-    }
-    if (!CBaseWindow::_InitWindowClass(ScrollBarClassName, &AtomScrollBarWindow))
     {
         return FALSE;
     }
