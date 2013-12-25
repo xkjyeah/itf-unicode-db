@@ -363,7 +363,7 @@ void CCandidateWindow::_OnPaint(_In_ HDC dcHandle, _In_ PAINTSTRUCT *pPaintStruc
     UINT currentPageIndex = 0;
     UINT currentPage = _CandidateIndexToPageNumber(_currentSelection);
 
-    _DrawList(dcHandle, currentPageIndex, &pPaintStruct->rcPaint);
+    _DrawList(dcHandle, _PageNumberToCandidateIndex(currentPage), &pPaintStruct->rcPaint);
 
     SelectObject(dcHandle, hFontOld);
 }
@@ -490,6 +490,13 @@ void CCandidateWindow::_OnVScroll(DWORD dwSB, _In_ DWORD nPos)
 
 void CCandidateWindow::_DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT *prc)
 {
+	// for debug purpose
+	if (iIndex != 0 || _currentSelection != 0) {
+		int a;
+		a=2+2;
+	}
+
+
     int pageOffset = 0;
 
     int cxLine = _TextMetric.tmAveCharWidth;
@@ -542,7 +549,9 @@ void CCandidateWindow::_DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT 
         }
 
 		sDescription.append( _candidateList[iIndex].GetChar() );
-		sDescription.append( L" -- " );
+		sDescription.append( L" - (" );
+		sDescription.append( _candidateList[iIndex]._CharUnicodeHex );
+		sDescription.append( L") - " );
 		sDescription.append( _candidateList[iIndex]._CharDescription );
 
         ExtTextOut(
@@ -712,7 +721,7 @@ BOOL CCandidateWindow::_SetSelectionInPage(int nPos)
         return FALSE;
     }
 
-    int currentPage = 0;
+    int currentPage = _CandidateIndexToPageNumber(_currentSelection);
 
     _currentSelection = _PageNumberToCandidateIndex(currentPage) + nPos;
 

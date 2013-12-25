@@ -113,13 +113,6 @@ bool CSampleIME::_ResetDecor(TfEditCookie ec, _In_ ITfContext *pContext) {
     BOOL isCovered = TRUE;
 	bool ready = true;
 	
-	// destroys any previous candidate list?
-	// maybe replace with _HandleCancel(ec, pContext);
-	// but watch out because _HandleCancel resets the ...
-	if ((_pCandidateListUIPresenter != nullptr))
-    {
-        _HandleCompositionFinalize(ec, pContext, FALSE);
-    }
     // Start the new (std::nothrow) compositon if there is no composition.
     if (!_IsComposing())
     {
@@ -249,6 +242,20 @@ HRESULT CSampleIME::_HandleSearchBackspace(TfEditCookie ec, _In_ ITfContext *pCo
 
 			hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
 
+			/* Handle the candidate list */
+			std::vector<CCandidateListItem> candidateList;
+
+			this->GetCandidateList(this->_keystrokeBuffer.c_str() + CSampleIME::LENGTH_SEARCH_PREFIX, candidateList);
+
+			/* (Re)initialize the candidate list */
+			hr = _CreateAndStartCandidate(ec, pContext);
+			if (SUCCEEDED(hr))
+			{
+				_pCandidateListUIPresenter->_ClearList();
+				/* Add the list to the UI */
+				_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
+			}
+
 			this->_inputState = STATE_SEARCH;
 		}
 		else {
@@ -270,48 +277,33 @@ HRESULT CSampleIME::_HandleSearchBackspace(TfEditCookie ec, _In_ ITfContext *pCo
 
 HRESULT CSampleIME::_HandleSearchInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
 {
-	HRESULT hr;
+	HRESULT hr = S_OK;
 
 	if (this->_ResetDecor(ec, pContext)) {
 		// Add virtual key to composition processor engine
 		this->_keystrokeBuffer.append(&wch, 1);
-		hr = _HandleCompositionInputWorker(ec, pContext);
+		
+		/* Handle text application side: add the new keystroke to the candidate string */
+		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+
+		/* Handle the candidate list */
+		std::vector<CCandidateListItem> candidateList;
+
+		this->GetCandidateList(this->_keystrokeBuffer.c_str() + CSampleIME::LENGTH_SEARCH_PREFIX, candidateList);
+
+		/* (Re)initialize the candidate list */
+		hr = _CreateAndStartCandidate(ec, pContext);
+		if (SUCCEEDED(hr))
+		{
+			_pCandidateListUIPresenter->_ClearList();
+			/* Add the list to the UI */
+			_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
+		}
+
 	}
 	return hr;
 }
 
-//+---------------------------------------------------------------------------
-//
-// _HandleCompositionInputWorker
-//
-// If the keystroke happens within a composition, eat the key and return S_OK.
-//
-//----------------------------------------------------------------------------
-
-HRESULT CSampleIME::_HandleCompositionInputWorker(TfEditCookie ec, _In_ ITfContext *pContext)
-{
-    HRESULT hr = S_OK;
-    BOOL isWildcardIncluded = TRUE;
-	
-	/* Handle text application side: add the new keystroke to the candidate string */
-    hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
-
-    /* Handle the candidate list */
-    std::vector<CCandidateListItem> candidateList;
-
-	this->GetCandidateList(this->_keystrokeBuffer, candidateList);
-
-	/* (Re)initialize the candidate list */
-    hr = _CreateAndStartCandidate(ec, pContext);
-    if (SUCCEEDED(hr))
-    {
-        _pCandidateListUIPresenter->_ClearList();
-		/* Add the list to the UI */
-        _pCandidateListUIPresenter->_SetText(candidateList, TRUE);
-    }
-
-    return hr;
-}
 //+---------------------------------------------------------------------------
 //
 // _CreateAndStartCandidate
@@ -446,12 +438,13 @@ HRESULT CSampleIME::_HandleSearchSelectByNumber(TfEditCookie ec, _In_ ITfContext
 			std::wstring candidateString;
 
 			candidateLen = _pCandidateListUIPresenter->_GetSelectedCandidateString(&pCandidateString);
+
+			if (pCandidateString == 0) return E_FAIL;
+
 			candidateString = pCandidateString;
 
 			// Add composing character
-			hr = this->_UpdateCandidateString(ec, pContext, candidateString);
-
-			return _HandleComplete(ec, pContext);
+			this->_FinalizeText(ec, pContext, candidateString);
         }
     }
 

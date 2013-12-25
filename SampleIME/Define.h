@@ -9,7 +9,7 @@
 #include "resource.h"
 
 #define TEXTSERVICE_MODEL        L"Apartment"
-#define TEXTSERVICE_LANGID       MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED)
+#define TEXTSERVICE_LANGID       MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US)
 #define TEXTSERVICE_ICON_INDEX   -IDIS_SAMPLEIME
 #define TEXTSERVICE_DESCRIPTION_DB	L"UnicodeData.txt"
 #define TEXTSERVICE_INDEX_FILE		L"index"
@@ -41,7 +41,7 @@
 #define _TF_MOD_ON_KEYUP_CONTROL_ONLY  (0x00020000 | TF_MOD_ON_KEYUP)
 #define _TF_MOD_ON_KEYUP_ALT_ONLY      (0x00040000 | TF_MOD_ON_KEYUP)
 
-#define CAND_WIDTH     (13)      // * tmMaxCharWidth
+#define CAND_WIDTH     (20)      // * tmMaxCharWidth
 
 //---------------------------------------------------------------------
 // string length of CLSID

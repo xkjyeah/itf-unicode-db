@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testime", "testime\testime.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnicodeDB", "UnicodeDB\UnicodeDB.vcxproj", "{A6838396-D2D6-4C3A-839C-74E499714D14}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "UnicodeDbImeSetup", "UnicodeDbImeSetup\UnicodeDbImeSetup.vdproj", "{07CED2F5-A997-4242-B668-7EE187C7B524}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Mixed Platforms = CD_ROM|Mixed Platforms
@@ -154,6 +156,30 @@ Global
 		{A6838396-D2D6-4C3A-839C-74E499714D14}.test|Win32.Build.0 = Release|Win32
 		{A6838396-D2D6-4C3A-839C-74E499714D14}.test|x64.ActiveCfg = Release|Win32
 		{A6838396-D2D6-4C3A-839C-74E499714D14}.test|x86.ActiveCfg = Release|Win32
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.CD_ROM|Mixed Platforms.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.CD_ROM|Win32.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.CD_ROM|x64.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.CD_ROM|x86.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Debug|Win32.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Debug|x64.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Debug|x86.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.DVD-5|Mixed Platforms.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.DVD-5|Win32.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.DVD-5|x64.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.DVD-5|x86.ActiveCfg = Debug
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Release|Mixed Platforms.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Release|Win32.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Release|x64.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.Release|x86.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.SingleImage|Mixed Platforms.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.SingleImage|Win32.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.SingleImage|x64.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.SingleImage|x86.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|Mixed Platforms.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|Win32.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|x64.ActiveCfg = Release
+		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

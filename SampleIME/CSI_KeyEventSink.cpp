@@ -168,6 +168,10 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 
 			case VK_ESCAPE: if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
 			case VK_BACK:   if (pKeyState) { pKeyState->Function = FUNCTION_BACKSPACE; } return TRUE;
+			case VK_PRIOR:
+				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_UP; } return TRUE;
+			case VK_NEXT:
+				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			}
 			/* Eat everything, including spaces */
 			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||
@@ -184,6 +188,7 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				}
 			}
 			return TRUE; // eat but do nothing
+
 		}
 		return TRUE;
     }

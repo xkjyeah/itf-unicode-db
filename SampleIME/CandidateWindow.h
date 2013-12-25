@@ -91,7 +91,7 @@ private:
 		return this->_numCandidatesPerPage * iPage;
 	}
 	inline int _CandidateIndexToPageNumber( int iIndex ) {
-		return iIndex % this->_numCandidatesPerPage;
+		return iIndex / this->_numCandidatesPerPage;
 	}
 	inline int _PageCount() {
 		return

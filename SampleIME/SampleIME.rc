@@ -45,13 +45,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "MSFT"
-            VALUE "FileDescription", "The Sample code of Windows 8 IME"
+            VALUE "CompanyName", "xkjyeah"
+            VALUE "FileDescription", "Unicode Database IME"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "SampleIM.dll"
+            VALUE "InternalName", "UnicodeIM.dll"
             VALUE "LegalCopyright", "Copyright (C)"
-            VALUE "OriginalFilename", "SampleIM.dll"
-            VALUE "ProductName", "SampleIME"
+            VALUE "OriginalFilename", "UnicodeIM.dll"
+            VALUE "ProductName", "UnicodeDbIME"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -95,7 +95,7 @@ END
 STRINGTABLE
 BEGIN
     IDIS_UNICODEDB          "Unicode Database Input"
-    IDS_DEFAULT_FONT        "Microsoft YaHei UI"
+    IDS_DEFAULT_FONT        "Tahoma"
 END
 
 STRINGTABLE

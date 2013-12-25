@@ -113,11 +113,12 @@ Do the necessary MBS-WCS conversions here.
 */
 HRESULT CSampleIME::_ConvertToCandidateListItem(CCandidateListItem &clitem, const UNICODE_T &unicode_item) {
 	const int BUF_SIZE = 12;
-	wchar_t buffer[BUF_SIZE]; // if this isn't enough, tell it to go to hell
+	wchar_t buffer[BUF_SIZE+1]; // if this isn't enough, tell it to go to hell
 	wchar_t *description;
 	size_t rv;
 
 	rv = MultiByteToWideChar(CP_UTF8, 0, unicode_item.data, -1, buffer, BUF_SIZE);
+	buffer[BUF_SIZE] = 0;
 
 	if (rv == (size_t)-1) {
 		return S_FALSE;
@@ -145,6 +146,8 @@ void CSampleIME::GetCandidateList(const std::wstring &keystrokeBuffer, _Inout_ v
 	char *buffer = NULL;
 	std::set<UNICODE_T> list, fuzzy_list;
 	CCandidateListItem clitem;
+
+	if (!keystrokeBuffer.length()) return;
 	
     if (! _unicodeDB) return;
 	
@@ -153,10 +156,15 @@ void CSampleIME::GetCandidateList(const std::wstring &keystrokeBuffer, _Inout_ v
 		int required_size = WideCharToMultiByte(CP_UTF8, 0, keystrokeBuffer.c_str(), keystrokeBuffer.length(), buffer, 0, NULL, NULL);
 		if (!required_size) return;
 
-		buffer = new char[required_size];
+		buffer = new char[required_size + 1];
 		if (!buffer) return;
 
 		WideCharToMultiByte(CP_UTF8, 0, keystrokeBuffer.c_str(), keystrokeBuffer.length(), buffer, required_size, NULL, NULL);
+		buffer[required_size] = 0;
+
+		for (int i=0; buffer[i]; i++) {
+			buffer[i] = toupper(buffer[i]);
+		}
 	}
 
 	// tokenize the keystroke buffer into a list of words
@@ -186,7 +194,7 @@ void CSampleIME::GetCandidateList(const std::wstring &keystrokeBuffer, _Inout_ v
 			pCandidateList.push_back(clitem);
 	}
 	
-	delete buffer;
+	delete [] buffer;
 }
 
 //+---------------------------------------------------------------------------
@@ -205,12 +213,9 @@ void CSampleIME::SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClie
     }
 
     TF_PRESERVEDKEY preservedKeyCompose;
-    //preservedKeyCompose.uVKey = 0x55;
-    //preservedKeyCompose.uModifiers = TF_MOD_CONTROL | TF_MOD_SHIFT;
+    preservedKeyCompose.uVKey = 0x55;
+    preservedKeyCompose.uModifiers = TF_MOD_CONTROL | TF_MOD_SHIFT;
 	
-    preservedKeyCompose.uVKey = VK_SPACE;
-    preservedKeyCompose.uModifiers = TF_MOD_SHIFT;
-
 	if (StringCchLength(Global::ImeComposeDescription, STRSAFE_MAX_CCH, &lenOfDesc) != S_OK) {
         return;
     }

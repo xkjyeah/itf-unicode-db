@@ -278,9 +278,7 @@ public:
 
 private:
     // functions for the composition object.
-    HRESULT _HandleCompositionInputWorker(TfEditCookie ec, _In_ ITfContext *pContext);
     HRESULT _CreateAndStartCandidate(TfEditCookie ec, _In_ ITfContext *pContext);
-    HRESULT _HandleCandidateWorker(TfEditCookie ec, _In_ ITfContext *pContext);
 
     void _StartComposition(_In_ ITfContext *pContext);
     void _EndComposition(_In_opt_ ITfContext *pContext);
