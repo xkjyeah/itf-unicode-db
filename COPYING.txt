@@ -1,0 +1,6 @@
+The source code in this repository are licensed under two different
+licences. Please refer to the respective licence files:
+
+Microsoft Limited Public Licence -- COPYING.mslpl
+GNU General Public Licence v2 -- COPYING.gplv2.txt
+
