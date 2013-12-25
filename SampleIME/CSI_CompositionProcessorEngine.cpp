@@ -437,7 +437,7 @@ HRESULT CSampleIME::CompartmentCallback(_In_ void *pv, REFGUID guidCompartment)
     {
         return E_FAIL;
     }
-
+/*
     if (IsEqualGUID(guidCompartment, Global::SampleIMEGuidCompartmentDoubleSingleByte) ||
         IsEqualGUID(guidCompartment, Global::SampleIMEGuidCompartmentPunctuation))
     {
@@ -452,7 +452,7 @@ HRESULT CSampleIME::CompartmentCallback(_In_ void *pv, REFGUID guidCompartment)
     {
         fakeThis->KeyboardOpenCompartmentUpdated(pThreadMgr);
     }
-
+	*/
     pThreadMgr->Release();
     pThreadMgr = nullptr;
 

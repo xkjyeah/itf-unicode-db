@@ -123,15 +123,15 @@ extern BOOL IsShiftKeyDownOnly;
 extern BOOL IsControlKeyDownOnly;
 extern BOOL IsAltKeyDownOnly;
 
-extern const GUID SampleIMEGuidCompartmentDoubleSingleByte;
-extern const GUID SampleIMEGuidCompartmentPunctuation;
+//extern const GUID SampleIMEGuidCompartmentDoubleSingleByte;
+//extern const GUID SampleIMEGuidCompartmentPunctuation;
 
 extern const WCHAR FullWidthCharTable[];
 extern const struct _PUNCTUATION PunctuationTable[14];
 
-extern const GUID SampleIMEGuidLangBarIMEMode;
-extern const GUID SampleIMEGuidLangBarDoubleSingleByte;
-extern const GUID SampleIMEGuidLangBarPunctuation;
+//extern const GUID SampleIMEGuidLangBarIMEMode;
+//extern const GUID SampleIMEGuidLangBarDoubleSingleByte;
+//extern const GUID SampleIMEGuidLangBarPunctuation;
 
 extern const GUID SampleIMEGuidDisplayAttributeInput;
 extern const GUID SampleIMEGuidDisplayAttributeConverted;

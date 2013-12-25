@@ -19,103 +19,74 @@ LONG dllRefCount = -1;
 CRITICAL_SECTION CS;
 HFONT defaultlFontHandle;				// Global font object we use everywhere
 
+// guidgenerator.com
+/*
+c4ee1d5f-cda3-4ec6-a15b-adbf40b7f7ad
+2930f17f-aaaf-4725-8780-0452ff07f4e2
+59fe8982-e85e-4481-a525-4806a991e233
+a704c2f8-3897-422a-a677-f332ac811875
+fe45b969-2fe7-4751-9061-edfb706894bf
+b183f62c-8595-4a98-b04e-9edd32d5ac9f
+1727cff7-4de5-4858-b67b-bdf89a9e66b9
+937b4709-f4d8-4e8c-ad1b-760147de1f84
+be8cc414-eaec-4e73-86ea-a257a1f0d7a0
+61caf3e3-6c88-47f3-b964-27637301639d
+
+*/
+
+
 //---------------------------------------------------------------------
 // SampleIME CLSID
 //---------------------------------------------------------------------
-// {D2291A80-84D8-4641-9AB2-BDD1472C846B}
+// {c4ee1d5f-cda3-4ec6-a15b-adbf40b7f7ad}
 extern const CLSID SampleIMECLSID = { 
-    0xd2291a80,
-    0x84d8,
-    0x4641,
-    { 0x9a, 0xb2, 0xbd, 0xd1, 0x47, 0x2c, 0x84, 0x6b }
+    0xc4ee1d5f,
+    0xcda3,
+    0x4ec6,
+    { 0xa1, 0x5b, 0xad, 0xbf, 0x40, 0xb7, 0xf7, 0xad }
 };
 
 //---------------------------------------------------------------------
 // Profile GUID
 //---------------------------------------------------------------------
 // {83955C0E-2C09-47a5-BCF3-F2B98E11EE8B}
+// 2930f17f-aaaf-4725-8780-0452ff07f4e2
 extern const GUID SampleIMEGuidProfile = { 
-    0x83955c0e,
-    0x2c09,
-    0x47a5,
-    { 0xbc, 0xf3, 0xf2, 0xb9, 0x8e, 0x11, 0xee, 0x8b }
+    0x2930f17f,
+    0xaaaf,
+    0x4725,
+    { 0x87, 0x80, 0x04, 0x52, 0xff, 0x07, 0xf4, 0xe2 }
 };
 
 //---------------------------------------------------------------------
 // PreserveKey GUID
 //---------------------------------------------------------------------
 // {4B62B54B-F828-43B5-9095-A96DF9CBDF38}
+// 59fe8982-e85e-4481-a525-4806a991e233
 extern const GUID SampleIMEGuidComposePreservedKey = {
-    0x4b62b54b, 
-    0xf828, 
-    0x43b5, 
-    { 0x90, 0x95, 0xa9, 0x6d, 0xf9, 0xcb, 0xdf, 0x38 } 
-};
-
-// {5A08D6C4-4563-4E46-8DDB-65E75C4E73A3}
-extern const GUID SampleIMEGuidDoubleSingleBytePreserveKey = {
-    0x5a08d6c4, 
-    0x4563, 
-    0x4e46, 
-    { 0x8d, 0xdb, 0x65, 0xe7, 0x5c, 0x4e, 0x73, 0xa3 } 
-};
-
-// {175F062E-B961-4AED-A3DF-59F78A02862D}
-extern const GUID SampleIMEGuidPunctuationPreserveKey = {
-    0x175f062e, 
-    0xb961, 
-    0x4aed, 
-    { 0xa3, 0xdf, 0x59, 0xf7, 0x8a, 0x2, 0x86, 0x2d } 
-};
-
-//---------------------------------------------------------------------
-// Compartments
-//---------------------------------------------------------------------
-// {101011C5-CF72-4F0C-A515-153019593F10}
-extern const GUID SampleIMEGuidCompartmentDoubleSingleByte = {
-    0x101011c5,
-    0xcf72,
-    0x4f0c,
-    { 0xa5, 0x15, 0x15, 0x30, 0x19, 0x59, 0x3f, 0x10 }
-};
-
-// {DD321BCC-A7F8-4561-9B61-9B3508C9BA97}
-extern const GUID SampleIMEGuidCompartmentPunctuation = {
-    0xdd321bcc,
-    0xa7f8,
-    0x4561,
-    { 0x9b, 0x61, 0x9b, 0x35, 0x8, 0xc9, 0xba, 0x97 }
+    0x59fe8982, 
+    0xe85e, 
+    0x4481, 
+    { 0xa5, 0x25, 0x48, 0x06, 0xa9, 0x91, 0xe2, 0x23 } 
 };
 
 
 //---------------------------------------------------------------------
-// LanguageBars
+// UI element
 //---------------------------------------------------------------------
 
-// {89BE500C-9462-4070-9DB0-B467BB051327}
-extern const GUID SampleIMEGuidLangBarIMEMode = {
-    0x89be500c,
-    0x9462,
-    0x4070,
-    { 0x9d, 0xb0, 0xb4, 0x67, 0xbb, 0x5, 0x13, 0x27 }
+// {84B0749F-8DE7-4732-907A-3BCB150A01A8}
+// a704c2f8-3897-422a-a677-f332ac811875
+extern const GUID SampleIMEGuidCandUIElement = {
+    0xa704c2f8,
+    0x3897,
+    0x422a,
+    { 0xA6, 0x77, 0xf3, 0x32, 0xac, 0x81, 0x18, 0x75 }
 };
 
-// {6A11D9DE-46DB-455B-A257-2EB615746BF4}
-extern const GUID SampleIMEGuidLangBarDoubleSingleByte = {
-    0x6a11d9de,
-    0x46db,
-    0x455b,
-    { 0xa2, 0x57, 0x2e, 0xb6, 0x15, 0x74, 0x6b, 0xf4 }
-};
-
-// {F29C731A-A51E-49FB-8A3C-EE51752912E2}
-extern const GUID SampleIMEGuidLangBarPunctuation = {
-    0xf29c731a,
-    0xa51e,
-    0x49fb,
-    { 0x8a, 0x3c, 0xee, 0x51, 0x75, 0x29, 0x12, 0xe2 }
-};
-
+//---------------------------------------------------------------------
+// Display Attribute
+//---------------------------------------------------------------------
 // {4C802E2C-8140-4436-A5E5-F7C544EBC9CD}
 extern const GUID SampleIMEGuidDisplayAttributeInput = {
     0x4c802e2c,
@@ -132,18 +103,6 @@ extern const GUID SampleIMEGuidDisplayAttributeConverted = {
     { 0x9c, 0x6e, 0x2d, 0xa6, 0x9a, 0x5c, 0xd4, 0x74 }
 };
 
-
-//---------------------------------------------------------------------
-// UI element
-//---------------------------------------------------------------------
-
-// {84B0749F-8DE7-4732-907A-3BCB150A01A8}
-extern const GUID SampleIMEGuidCandUIElement = {
-    0x84b0749f,
-    0x8de7,
-    0x4732,
-    { 0x90, 0x7a, 0x3b, 0xcb, 0x15, 0xa, 0x1, 0xa8 }
-};
 
 //---------------------------------------------------------------------
 // Unicode byte order mark
@@ -166,10 +125,10 @@ extern const int ImeComposeOffIcoIndex = IME_MODE_OFF_ICON_INDEX;
 //---------------------------------------------------------------------
 // windows class / titile / atom
 //---------------------------------------------------------------------
-extern const WCHAR CandidateClassName[] = L"SampleIME.CandidateWindow";
+extern const WCHAR CandidateClassName[] = L"UnicodeDbIME.CandidateWindow";
 ATOM AtomCandidateWindow;
 
-extern const WCHAR ShadowClassName[] = L"SampleIME.ShadowWindow";
+extern const WCHAR ShadowClassName[] = L"UnicodeDbIME.ShadowWindow";
 ATOM AtomShadowWindow;
 
 BOOL RegisterWindowClass()
