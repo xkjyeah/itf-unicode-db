@@ -1,4 +1,9 @@
 #pragma once
+
+#ifndef UNICODE
+	#define UNICODE
+#endif
+
 #include <Windows.h>
 #include <vector>
 #include <string>
@@ -41,7 +46,7 @@ private:
 
 	
 public:
-	UnicodeDB(LPCTSTR indexPath, LPCTSTR dataPath);
+	UnicodeDB(const wchar_t*  indexPath, const wchar_t*  dataPath);
 	virtual ~UnicodeDB(void);
 
 	int findCandidates( const vector<char *> &wordlist, set<UNICODE_T> &list, set<UNICODE_T> &fuzzy_list );

@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SampleIME.def">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="Dictionary\SampleIMESimplifiedQuanPin.txt">
       <Filter>Dictionary</Filter>
     </None>
@@ -49,6 +46,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="deleted features.txt" />
+    <None Include="UnicodeDbIME.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseWindow.h">

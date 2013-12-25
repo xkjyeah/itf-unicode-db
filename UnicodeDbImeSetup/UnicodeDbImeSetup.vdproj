@@ -15,13 +15,55 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_1DEC48AA283C464AB25DBA27C0870CB8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5828FB1DA633472FB2D833B7947DADA7"
+        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5828FB1DA633472FB2D833B7947DADA7"
+        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_583DEE8915584834A131A1AB6F1D8200"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_69564D68B0AA460B91AFF5AC03A6C070"
+        "MsmKey" = "8:_596D18C0357949DF8389B7F549F30525"
+        "OwnerKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_596D18C0357949DF8389B7F549F30525"
+        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_84D6CE29E924497CAF30245442778108"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,20 +75,50 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DCCB5DBDCCE045E88834B3145FB64448"
+        "MsmKey" = "8:_90573C22D62D88F67FEC7C819B650B3D"
+        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_90573C22D62D88F67FEC7C819B650B3D"
+        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AF5B88E0350344F3BFEA07A8DFCF4791"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_69564D68B0AA460B91AFF5AC03A6C070"
+        "OwnerKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DCCB5DBDCCE045E88834B3145FB64448"
+        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -154,12 +226,32 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1DEC48AA283C464AB25DBA27C0870CB8"
+            {
+            "SourcePath" = "8:D:\\cygwin64\\home\\Daniel\\ibus-unicode-db\\data\\UnicodeData.txt"
+            "TargetName" = "8:UnicodeData.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_583DEE8915584834A131A1AB6F1D8200"
             {
             "SourcePath" = "8:..\\x64\\Debug\\index"
             "TargetName" = "8:index"
             "Tag" = "8:"
-            "Folder" = "8:_871B42C292F541DF8A466292A95C2EF9"
+            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -179,7 +271,47 @@
             "SourcePath" = "8:..\\x64\\Debug\\UnicodeData.txt"
             "TargetName" = "8:UnicodeData.txt"
             "Tag" = "8:"
-            "Folder" = "8:_871B42C292F541DF8A466292A95C2EF9"
+            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_90573C22D62D88F67FEC7C819B650B3D"
+            {
+            "SourcePath" = "8:UnicodeDb.dll"
+            "TargetName" = "8:UnicodeDb.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF5B88E0350344F3BFEA07A8DFCF4791"
+            {
+            "SourcePath" = "8:D:\\cygwin64\\home\\Daniel\\ibus-unicode-db\\data\\index"
+            "TargetName" = "8:index"
+            "Tag" = "8:"
+            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -223,6 +355,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_9C5670E2407F4290A116472E5095818E"
+            {
+            "Name" = "8:#1914"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:SystemFolder"
+                "Folders"
+                {
+                }
+            }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_CA6D3D2667934DD9A2144D34AFE99B13"
+            {
+            "Name" = "8:#1936"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:System64Folder"
+                "Folders"
+                {
+                }
+            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_DE6DE6A8D52C4CD4B2675582F8F21A23"
             {
             "Name" = "8:#1916"
@@ -251,7 +405,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:UnicodeDbIME"
         "ProductCode" = "8:{DBC59DCA-73DD-43ED-AD85-9782AD65448E}"
-        "PackageCode" = "8:{E4FADC81-05EC-48E0-A6E2-A6286CE47E95}"
+        "PackageCode" = "8:{E7DC42CD-AD37-47F6-9611-5802F606AB79}"
         "UpgradeCode" = "8:{053219AD-E9B9-421C-A5AE-1568FB1E9BB9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -767,15 +921,43 @@
         }
         "MergeModule"
         {
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_5828FB1DA633472FB2D833B7947DADA7"
+            {
+            "UseDynamicProperties" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x86.msm"
+                "Properties"
+                {
+                }
+            "LanguageId" = "3:0"
+            "Exclude" = "11:FALSE"
+            "Folder" = "8:"
+            "Feature" = "8:"
+            "IsolateTo" = "8:"
+            }
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_596D18C0357949DF8389B7F549F30525"
+            {
+            "UseDynamicProperties" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x64.msm"
+                "Properties"
+                {
+                }
+            "LanguageId" = "3:0"
+            "Exclude" = "11:FALSE"
+            "Folder" = "8:"
+            "Feature" = "8:"
+            "IsolateTo" = "8:"
+            }
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_23E7371F56E84E7DB32C931171DA83AC"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3A3F31166432437FB73C252AF11CDBBF"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\x64\\Debug\\UnicodeDB.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_871B42C292F541DF8A466292A95C2EF9"
+            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -790,20 +972,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:ContentFiles"
-            "OutputProjectGuid" = "8:{0C8FE010-5146-44D8-AF99-82702C15FEA5}"
+            "OutputConfiguration" = "8:Debug|x64"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{A6838396-D2D6-4C3A-839C-74E499714D14}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_69564D68B0AA460B91AFF5AC03A6C070"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6607BC081A254B7CAC6AE593507BDE0F"
             {
             "SourcePath" = "8:..\\x64\\Debug\\UnicodeDbIME.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_871B42C292F541DF8A466292A95C2EF9"
+            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -818,7 +1000,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:4"
-            "OutputConfiguration" = "8:"
+            "OutputConfiguration" = "8:Debug|x64"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{0C8FE010-5146-44D8-AF99-82702C15FEA5}"
             "ShowKeyOutput" = "11:TRUE"
@@ -826,12 +1008,40 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DCCB5DBDCCE045E88834B3145FB64448"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_84D6CE29E924497CAF30245442778108"
             {
-            "SourcePath" = "8:..\\x64\\Debug\\UnicodeDB.dll"
+            "SourcePath" = "8:..\\Debug\\UnicodeDbIME.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_871B42C292F541DF8A466292A95C2EF9"
+            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:4"
+            "OutputConfiguration" = "8:Debug|Win32"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{0C8FE010-5146-44D8-AF99-82702C15FEA5}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BB02E9B7C0094E19A345719235C92E24"
+            {
+            "SourcePath" = "8:..\\Debug\\UnicodeDB.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -846,7 +1056,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
+            "OutputConfiguration" = "8:Debug|Win32"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{A6838396-D2D6-4C3A-839C-74E499714D14}"
             "ShowKeyOutput" = "11:TRUE"

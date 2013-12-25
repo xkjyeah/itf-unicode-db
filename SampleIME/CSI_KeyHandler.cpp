@@ -260,7 +260,8 @@ HRESULT CSampleIME::_HandleSearchBackspace(TfEditCookie ec, _In_ ITfContext *pCo
 		}
 		else {
 			this->_inputState = STATE_AMBIGUOUS;
-			this->_keystrokeBuffer.clear();
+			this->_keystrokeBuffer.erase( this->_keystrokeBuffer.length() - 1, 1 );
+			hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
 		}
 	}
 

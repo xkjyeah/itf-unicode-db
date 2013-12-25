@@ -373,8 +373,7 @@ WCHAR * UnicodeDB::findDescription
 	}
 }
 
-UnicodeDB::UnicodeDB
-(LPCTSTR indexPath, LPCTSTR dataPath)
+UnicodeDB::UnicodeDB (const wchar_t* indexPath, const wchar_t* dataPath)
 {
 	// 1. open files
 	// 2. create file mappings
@@ -409,7 +408,7 @@ UnicodeDB::UnicodeDB
 		this->indexHandle,
 		NULL,
 		PAGE_READONLY,
-		0, 0, _T("UnicodeDB Index")
+		0, 0, L"UnicodeDB Index"
 		);
 
 	if (this->indexMap == NULL)
@@ -419,7 +418,7 @@ UnicodeDB::UnicodeDB
 		this->dataHandle,
 		NULL,
 		PAGE_READONLY,
-		0, 0, _T("UnicodeDB Data")
+		0, 0, L"UnicodeDB Data"
 		);
 
 	if (this->dataMap == NULL)

@@ -31,5 +31,8 @@
     <None Include="D:\cygwin64\home\Daniel\ibus-unicode-db\data\UnicodeData.txt">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="UnicodeDB.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
