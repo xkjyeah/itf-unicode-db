@@ -108,11 +108,13 @@ void UnregisterProfiles()
         goto Exit;
     }
 
-    hr = pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID, TEXTSERVICE_LANGID, Global::SampleIMEGuidProfile, 0);
-    if (FAILED(hr))
-    {
-        goto Exit;
-    }
+	
+	for (auto ww = Global::TextServiceLangIds; *ww; ++ww ) {
+		pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
+			*ww,
+			Global::SampleIMEGuidProfile,
+			0);
+	}
 
 Exit:
     if (pITfInputProcessorProfileMgr)

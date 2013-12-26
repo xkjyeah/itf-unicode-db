@@ -48,7 +48,7 @@ struct __declspec(dllexport) UNICODE_T {
 typedef int32_t	ssize_t;
 
 
-class __declspec(dllexport) UnicodeDB
+public class __declspec(dllexport) UnicodeDB
 {
 
 private:

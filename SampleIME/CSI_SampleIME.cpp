@@ -176,11 +176,17 @@ STDAPI CSampleIME::QueryInterface(REFIID riid, _Outptr_ void **ppvObj)
     }
     else if (IsEqualIID(riid, IID_ITfFunction))
     {
-        *ppvObj = (ITfFunction *)this;
+		// TODO: check if this is necessary. at. all...
+		// "instances of this interface are not obtained directly"
+        *ppvObj = (ITfFunction *)(ITfFnGetPreferredTouchKeyboardLayout*) this;
     }
     else if (IsEqualIID(riid, IID_ITfFnGetPreferredTouchKeyboardLayout))
     {
         *ppvObj = (ITfFnGetPreferredTouchKeyboardLayout *)this;
+    }
+    else if (IsEqualIID(riid, IID_ITfFnConfigure))
+    {
+        *ppvObj = (ITfFnConfigure *)this;
     }
 
     if (*ppvObj)

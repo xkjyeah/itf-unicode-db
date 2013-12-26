@@ -135,8 +135,8 @@
     <ClInclude Include="KeyStateCategory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigurationForm.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SettingsForm.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,7 +257,7 @@
     <ClCompile Include="FnConfigure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConfigurationForm.cpp">
+    <ClCompile Include="SettingsForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

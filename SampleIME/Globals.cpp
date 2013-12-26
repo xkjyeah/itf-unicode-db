@@ -138,6 +138,7 @@ ATOM AtomCandidateWindow;
 extern const WCHAR ShadowClassName[] = L"UnicodeDbIME.ShadowWindow";
 ATOM AtomShadowWindow;
 
+#pragma unmanaged
 BOOL RegisterWindowClass()
 {
     if (!CBaseWindow::_InitWindowClass(CandidateClassName, &AtomCandidateWindow))
@@ -150,6 +151,8 @@ BOOL RegisterWindowClass()
     }
     return TRUE;
 }
+
+#pragma managed
 
 //---------------------------------------------------------------------
 // defined full width characters for Double/Single byte conversion
