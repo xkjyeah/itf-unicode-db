@@ -103,6 +103,13 @@ extern const GUID SampleIMEGuidDisplayAttributeConverted = {
     { 0x9c, 0x6e, 0x2d, 0xa6, 0x9a, 0x5c, 0xd4, 0x74 }
 };
 
+// Supported languages
+extern const WORD TextServiceLangIds[] = {
+	MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED),
+	MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
+	MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_SINGAPORE),
+	0,
+};
 
 //---------------------------------------------------------------------
 // Unicode byte order mark

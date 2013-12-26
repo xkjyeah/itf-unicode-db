@@ -54,20 +54,24 @@ BOOL RegisterProfiles()
     {
         goto Exit;
     }
-    hr = pITfInputProcessorProfileMgr->RegisterProfile(Global::SampleIMECLSID,
-        TEXTSERVICE_LANGID,
-        Global::SampleIMEGuidProfile,
-        TEXTSERVICE_DESC,
-        static_cast<ULONG>(lenOfDesc),
-        achIconFile,
-        cchA,
-        (UINT)TEXTSERVICE_ICON_INDEX, NULL, 0, TRUE, 0);
 
-    if (FAILED(hr))
-    {
-        goto Exit;
-    }
-
+	const WORD *w;
+	for (w = Global::TextServiceLangIds; *w; ++w ) {
+		hr = pITfInputProcessorProfileMgr->RegisterProfile(Global::SampleIMECLSID,
+			*w,
+			Global::SampleIMEGuidProfile,
+			TEXTSERVICE_DESC,
+			static_cast<ULONG>(lenOfDesc),
+			achIconFile,
+			cchA,
+			(UINT)TEXTSERVICE_ICON_INDEX, NULL, 0, TRUE, 0);
+		
+		if (FAILED(hr))
+		{
+			goto ExitCleanupRegistration;
+		}
+	}
+	
 Exit:
     if (pITfInputProcessorProfileMgr)
     {
@@ -75,6 +79,15 @@ Exit:
     }
 
     return (hr == S_OK);
+
+ExitCleanupRegistration:
+	for (auto ww = Global::TextServiceLangIds; *ww != *w; ++ww ) {
+		pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
+			*ww,
+			Global::SampleIMEGuidProfile,
+			0);
+	}
+	goto Exit;
 }
 
 //+---------------------------------------------------------------------------

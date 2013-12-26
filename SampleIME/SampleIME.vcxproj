@@ -44,6 +44,9 @@
     <ClInclude Include="CandidateListUIPresenter.h" />
     <ClInclude Include="CandidateWindow.h" />
     <ClInclude Include="Compartment.h" />
+    <ClInclude Include="ConfigurationForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="define.h" />
     <ClInclude Include="EnumTfCandidates.h" />
     <ClInclude Include="KeyStateCategory.h" />
@@ -69,6 +72,22 @@
     <ClInclude Include="TipCandidateString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConfigurationForm.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <MinimalRebuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</MinimalRebuild>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</BasicRuntimeChecks>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Async</ExceptionHandling>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <MinimalRebuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</MinimalRebuild>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</BasicRuntimeChecks>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Async</ExceptionHandling>
+    </ClCompile>
     <ClCompile Include="CSI_ActiveLanguageProfileNotifySink.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="ButtonWindow.cpp" />
@@ -78,6 +97,7 @@
     <ClCompile Include="CSI_Composition.cpp" />
     <ClCompile Include="CSI_CompositionProcessorEngine.cpp" />
     <ClCompile Include="EnumTfCandidates.cpp" />
+    <ClCompile Include="FnConfigure.cpp" />
     <ClCompile Include="SampleIMEBaseStructure.cpp" />
     <ClCompile Include="SearchCandidateProvider.cpp" />
     <ClCompile Include="DisplayAttribute.cpp" />
@@ -120,6 +140,13 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0C8FE010-5146-44D8-AF99-82702C15FEA5}</ProjectGuid>
@@ -204,6 +231,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SampleIME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Windows Kits\8.0\Include\um;$(MSBuildProgramFiles32)\Windows Kits\8.0\Include\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

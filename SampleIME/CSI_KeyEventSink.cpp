@@ -110,6 +110,11 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			case VK_ESCAPE: if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
 			case VK_SPACE:  if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
 			case VK_BACK:   if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
+			case VK_PRIOR:
+			case VK_NEXT:
+			case VK_HOME:
+			case VK_END:
+				if (pKeyState) { pKeyState->Function = FUNCTION_NONE; } return TRUE;
 			}
 			/* If alphanumeric, we would want to add it to the keyboard buffer */
 			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||
@@ -122,6 +127,10 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			if ( wch == '\'') {
 				pKeyState->Function = FUNCTION_SEARCH_MODE;
 				return TRUE;
+			}
+
+			if ( wch == 0 ) { // No associated character -- probably control/navigation key
+				return FALSE;
 			}
 
 			return TRUE; // eat but do nothing
@@ -141,6 +150,11 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			case VK_SPACE:  if (pKeyState) { pKeyState->Function = FUNCTION_CONVERT; } return TRUE;
 
 			case VK_BACK:   if (pKeyState) { pKeyState->Function = FUNCTION_BACKSPACE; } return TRUE;
+			case VK_PRIOR:
+			case VK_NEXT:
+			case VK_HOME:
+			case VK_END:
+				if (pKeyState) { pKeyState->Function = FUNCTION_NONE; } return TRUE;
 			}
 			/* If alphanumeric, we would want to add it to the keyboard buffer.
 				Otherwise we eat it and don't care.
@@ -152,6 +166,10 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 					pKeyState->Function = FUNCTION_INPUT;
 				}
 				return TRUE;
+			}
+			
+			if ( wch == 0 ) { // No associated character -- probably control/navigation key
+				return FALSE;
 			}
 
 			return TRUE; // eat but do nothing
@@ -174,6 +192,9 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			case VK_RETURN: /* Give option 1 */
 				if (pKeyState) { pKeyState->Function = FUNCTION_SELECT_BY_NUMBER; *pCodeOut = CCandidateListUIPresenter::ArrayIndexToKey(0); } return TRUE;
+			case VK_HOME:
+			case VK_END:
+				if (pKeyState) { pKeyState->Function = FUNCTION_NONE; } return TRUE;
 			}
 			/* Eat everything, including spaces */
 			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||

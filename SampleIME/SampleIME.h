@@ -27,7 +27,8 @@ class CSampleIME : public ITfTextInputProcessorEx,
     public ITfActiveLanguageProfileNotifySink,
     public ITfThreadFocusSink,
     public ITfFunctionProvider,
-    public ITfFnGetPreferredTouchKeyboardLayout
+    public ITfFnGetPreferredTouchKeyboardLayout,
+	public ITfFnConfigure
 {
 public:
     CSampleIME();
@@ -197,6 +198,9 @@ public:
 		Traditional Chinese
 		*/
     STDMETHODIMP GetLayout(_Out_ TKBLayoutType *ptkblayoutType, _Out_ WORD *pwPreferredLayoutId);
+
+	// ITfFnConfigure -- opens up the properties page
+	STDMETHODIMP Show(_In_ HWND hwndParent, _In_ LANGID langid, _In_ REFGUID rguidProfile);
 
     // CClassFactory factory callback
     static HRESULT CreateInstance(_In_ IUnknown *pUnkOuter, REFIID riid, _Outptr_ void **ppvObj);

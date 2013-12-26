@@ -135,6 +135,9 @@
     <ClInclude Include="KeyStateCategory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConfigurationForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseWindow.cpp">
@@ -249,6 +252,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CSI_SampleIME.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FnConfigure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigurationForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

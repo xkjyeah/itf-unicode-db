@@ -143,4 +143,6 @@ extern const WCHAR KeywordDelimiter;
 extern const WCHAR StringDelimiter;
 
 extern const WCHAR ImeComposeDescription[];
+
+extern const WORD TextServiceLangIds[];
 }
