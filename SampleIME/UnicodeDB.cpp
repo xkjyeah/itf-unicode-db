@@ -425,7 +425,7 @@ UnicodeDB::UnicodeDB (const wchar_t* indexPath, const wchar_t* dataPath)
 		this->indexHandle,
 		NULL,
 		PAGE_READONLY,
-		0, 0, L"UnicodeDB Index"
+		0, 0, NULL /* Need NULL label to overcome Internet Explorer protection */
 		);
 
 	if (this->indexMap == NULL)
@@ -435,7 +435,7 @@ UnicodeDB::UnicodeDB (const wchar_t* indexPath, const wchar_t* dataPath)
 		this->dataHandle,
 		NULL,
 		PAGE_READONLY,
-		0, 0, L"UnicodeDB Data"
+		0, 0, NULL /* Need NULL label to overcome Internet Explorer protection */
 		);
 
 	if (this->dataMap == NULL)
@@ -480,6 +480,7 @@ _FailDataMap:
 	CloseHandle(this->indexMap);
 
 _FailIndexMap:
+	DWORD error_code = GetLastError();
 	CloseHandle(this->dataHandle);
 
 _FailDataHandle:
