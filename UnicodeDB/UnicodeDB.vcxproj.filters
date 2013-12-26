@@ -25,14 +25,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="D:\cygwin64\home\Daniel\ibus-unicode-db\data\index">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="D:\cygwin64\home\Daniel\ibus-unicode-db\data\UnicodeData.txt">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="UnicodeDB.def">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\data\index">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\data\UnicodeData.txt">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>

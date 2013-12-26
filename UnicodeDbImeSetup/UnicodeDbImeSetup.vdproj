@@ -15,43 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1DEC48AA283C464AB25DBA27C0870CB8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5828FB1DA633472FB2D833B7947DADA7"
-        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5828FB1DA633472FB2D833B7947DADA7"
-        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_583DEE8915584834A131A1AB6F1D8200"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_596D18C0357949DF8389B7F549F30525"
+        "MsmKey" = "8:_64D09720A2C84C579FD2A9CF2C8E0482"
         "OwnerKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_596D18C0357949DF8389B7F549F30525"
+        "MsmKey" = "8:_64D09720A2C84C579FD2A9CF2C8E0482"
         "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,37 +39,49 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_71F1F7991E8A4607A87EC46A1F2263D1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_84D6CE29E924497CAF30245442778108"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8608C132571545F09F49FBE16C2F26F0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_90573C22D62D88F67FEC7C819B650B3D"
-        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_90573C22D62D88F67FEC7C819B650B3D"
+        "MsmKey" = "8:_86C39C567CFD4E2BA405EF93E304F988"
         "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_AF5B88E0350344F3BFEA07A8DFCF4791"
+        "MsmKey" = "8:_86C39C567CFD4E2BA405EF93E304F988"
+        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A36B1458929B4C949AE4F25BB3D6AAB9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A4D2829BB0CD4F55B2EDA810BFA50B45"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DB2C51199B89435D8865A162AF514F4D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -106,13 +94,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
+        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
+        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -226,12 +214,12 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1DEC48AA283C464AB25DBA27C0870CB8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_71F1F7991E8A4607A87EC46A1F2263D1"
             {
-            "SourcePath" = "8:D:\\cygwin64\\home\\Daniel\\ibus-unicode-db\\data\\UnicodeData.txt"
+            "SourcePath" = "8:..\\data\\UnicodeData.txt"
             "TargetName" = "8:UnicodeData.txt"
             "Tag" = "8:"
-            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
+            "Folder" = "8:_42D62547FE71416B81CB08CB18597040"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -246,12 +234,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_583DEE8915584834A131A1AB6F1D8200"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A36B1458929B4C949AE4F25BB3D6AAB9"
             {
-            "SourcePath" = "8:..\\x64\\Debug\\index"
-            "TargetName" = "8:index"
+            "SourcePath" = "8:..\\data\\UnicodeDataIndex.txt"
+            "TargetName" = "8:UnicodeDataIndex.txt"
             "Tag" = "8:"
-            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
+            "Folder" = "8:_42D62547FE71416B81CB08CB18597040"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -266,52 +254,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8608C132571545F09F49FBE16C2F26F0"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A4D2829BB0CD4F55B2EDA810BFA50B45"
             {
-            "SourcePath" = "8:..\\x64\\Debug\\UnicodeData.txt"
+            "SourcePath" = "8:..\\data\\UnicodeDataIndex.txt"
+            "TargetName" = "8:UnicodeDataIndex.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_4D03122408674307B6C2531137263DE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DB2C51199B89435D8865A162AF514F4D"
+            {
+            "SourcePath" = "8:..\\data\\UnicodeData.txt"
             "TargetName" = "8:UnicodeData.txt"
             "Tag" = "8:"
-            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_90573C22D62D88F67FEC7C819B650B3D"
-            {
-            "SourcePath" = "8:UnicodeDb.dll"
-            "TargetName" = "8:UnicodeDb.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF5B88E0350344F3BFEA07A8DFCF4791"
-            {
-            "SourcePath" = "8:D:\\cygwin64\\home\\Daniel\\ibus-unicode-db\\data\\index"
-            "TargetName" = "8:index"
-            "Tag" = "8:"
-            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
+            "Folder" = "8:_4D03122408674307B6C2531137263DE8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -345,7 +313,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_871B42C292F541DF8A466292A95C2EF9"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -353,6 +321,28 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_42D62547FE71416B81CB08CB18597040"
+                    {
+                    "Name" = "8:x86"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_D7C01E7AEFF2495D87034957EA120FDC"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_4D03122408674307B6C2531137263DE8"
+                    {
+                    "Name" = "8:x64"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_EDE119B50F21457BB24266F5B6397D58"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_9C5670E2407F4290A116472E5095818E"
@@ -405,12 +395,12 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:UnicodeDbIME"
         "ProductCode" = "8:{DBC59DCA-73DD-43ED-AD85-9782AD65448E}"
-        "PackageCode" = "8:{E7DC42CD-AD37-47F6-9611-5802F606AB79}"
+        "PackageCode" = "8:{ED8C559B-36E6-4886-A688-B787C1A65B7D}"
         "UpgradeCode" = "8:{053219AD-E9B9-421C-A5AE-1568FB1E9BB9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:xkjyeah"
@@ -921,11 +911,11 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_5828FB1DA633472FB2D833B7947DADA7"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_64D09720A2C84C579FD2A9CF2C8E0482"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x86.msm"
+            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x64.msm"
                 "Properties"
                 {
                 }
@@ -935,11 +925,11 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_596D18C0357949DF8389B7F549F30525"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_86C39C567CFD4E2BA405EF93E304F988"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x64.msm"
+            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x86.msm"
                 "Properties"
                 {
                 }
@@ -957,7 +947,7 @@
             "SourcePath" = "8:..\\x64\\Debug\\UnicodeDB.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
+            "Folder" = "8:_4D03122408674307B6C2531137263DE8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -985,7 +975,7 @@
             "SourcePath" = "8:..\\x64\\Debug\\UnicodeDbIME.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_CA6D3D2667934DD9A2144D34AFE99B13"
+            "Folder" = "8:_4D03122408674307B6C2531137263DE8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1013,7 +1003,7 @@
             "SourcePath" = "8:..\\Debug\\UnicodeDbIME.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
+            "Folder" = "8:_42D62547FE71416B81CB08CB18597040"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1041,7 +1031,7 @@
             "SourcePath" = "8:..\\Debug\\UnicodeDB.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_9C5670E2407F4290A116472E5095818E"
+            "Folder" = "8:_42D62547FE71416B81CB08CB18597040"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

@@ -117,8 +117,8 @@
     <ClInclude Include="..\SampleIME\UnicodeDB.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="D:\cygwin64\home\Daniel\ibus-unicode-db\data\index" />
-    <None Include="D:\cygwin64\home\Daniel\ibus-unicode-db\data\UnicodeData.txt" />
+    <None Include="..\data\index" />
+    <None Include="..\data\UnicodeData.txt" />
     <None Include="UnicodeDB.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

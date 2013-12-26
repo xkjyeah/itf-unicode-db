@@ -172,6 +172,8 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_UP; } return TRUE;
 			case VK_NEXT:
 				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
+			case VK_RETURN: /* Give option 1 */
+				if (pKeyState) { pKeyState->Function = FUNCTION_SELECT_BY_NUMBER; *pCodeOut = CCandidateListUIPresenter::ArrayIndexToKey(0); } return TRUE;
 			}
 			/* Eat everything, including spaces */
 			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||
@@ -182,17 +184,19 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				}
 				return TRUE; // eat but do nothing
 			}
-			else {
+			else if (wch) {
 				if (pKeyState) {
 					pKeyState->Function = FUNCTION_INPUT;
 				}
+				return TRUE; // eat but do nothing
 			}
-			return TRUE; // eat but do nothing
-
+			else {
+				return FALSE;
+			}
 		}
 		return TRUE;
     }
-	else {
+	else { /* STATE_NORMAL */
 		return FALSE;
 	}
 }
