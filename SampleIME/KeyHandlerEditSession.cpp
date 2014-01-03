@@ -56,6 +56,8 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 		case FUNCTION_CANCEL:
 			hResult = this->_pTextService->_HandleInputCancel(dto.ec, dto.pContext);
 			break;
+		case FUNCTION_SHOW_STRING:
+			hResult = this->_pTextService->_HandleRefresh(dto.ec, dto.pContext);
 		default:
 			break;
 		}
@@ -79,6 +81,8 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 		case FUNCTION_CONVERT:
 			hResult = this->_pTextService->_HandleHexConvert(dto.ec, dto.pContext);
 			break;
+		case FUNCTION_SHOW_STRING:
+			hResult = this->_pTextService->_HandleRefresh(dto.ec, dto.pContext);
 		default:
 			break;
 		}
@@ -111,6 +115,8 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 		case FUNCTION_MOVE_PAGE_BOTTOM:		// End
 			hResult = this->_pTextService->_HandleSearchArrowKey(dto.ec, dto.pContext, dto.arrowKey);
 			break;
+		case FUNCTION_SHOW_STRING:
+			hResult = this->_pTextService->_HandleRefresh(dto.ec, dto.pContext);
 		default:
 			break;
 		}

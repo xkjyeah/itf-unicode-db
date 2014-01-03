@@ -135,9 +135,6 @@
     <ClInclude Include="KeyStateCategory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SettingsForm.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseWindow.cpp">
@@ -257,13 +254,15 @@
     <ClCompile Include="FnConfigure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SettingsForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SampleIME.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

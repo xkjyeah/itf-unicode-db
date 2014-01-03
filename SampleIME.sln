@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnicodeDB", "UnicodeDB\Unic
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "UnicodeDbImeSetup", "UnicodeDbImeSetup\UnicodeDbImeSetup.vdproj", "{07CED2F5-A997-4242-B668-7EE187C7B524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicodeDbIMESettings", "UnicodeDbIMESettings\UnicodeDbIMESettings.csproj", "{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Mixed Platforms = CD_ROM|Mixed Platforms
@@ -184,6 +186,42 @@ Global
 		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|Win32.ActiveCfg = Release
 		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|x64.ActiveCfg = Release
 		{07CED2F5-A997-4242-B668-7EE187C7B524}.test|x86.ActiveCfg = Release
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.CD_ROM|Mixed Platforms.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.CD_ROM|Mixed Platforms.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.CD_ROM|Win32.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.CD_ROM|x64.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.CD_ROM|x86.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.CD_ROM|x86.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Debug|Win32.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Debug|x64.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Debug|x86.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Debug|x86.Build.0 = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.DVD-5|Mixed Platforms.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.DVD-5|Mixed Platforms.Build.0 = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.DVD-5|Win32.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.DVD-5|x64.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.DVD-5|x86.ActiveCfg = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.DVD-5|x86.Build.0 = Debug|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Release|Mixed Platforms.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Release|Win32.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Release|x64.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Release|x86.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.Release|x86.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.SingleImage|Mixed Platforms.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.SingleImage|Mixed Platforms.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.SingleImage|Win32.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.SingleImage|x64.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.SingleImage|x86.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.SingleImage|x86.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.test|Mixed Platforms.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.test|Mixed Platforms.Build.0 = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.test|Win32.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.test|x64.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.test|x86.ActiveCfg = Release|x86
+		{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}.test|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

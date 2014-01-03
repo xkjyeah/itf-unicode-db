@@ -231,6 +231,8 @@ public:
 	HRESULT _HandleHexConvert(TfEditCookie ec, _In_ ITfContext *pContext);
 	HRESULT _HandleHexBackspace(TfEditCookie ec, _In_ ITfContext *pContext);
 
+	HRESULT _HandleRefresh(TfEditCookie ec, _In_ ITfContext *pContext);
+
 	/* Used to reset the candidate list, selection range etc. at the start of each _HandleXX */
 	bool	_ResetDecor(TfEditCookie ec, _In_ ITfContext *pContext);
 	/* Used to 'finalize'? */
@@ -326,6 +328,7 @@ private:
 
     BOOL _IsRangeCovered(TfEditCookie ec, _In_ ITfRange *pRangeTest, _In_ ITfRange *pRangeCover);
     VOID _DeleteCandidateList(BOOL fForce, _In_opt_ ITfContext *pContext);
+	VOID _ResetNormalState() { this->_keystrokeBuffer.clear(); this->_inputState = STATE_NORMAL; }
 
     WCHAR ConvertVKey(UINT code);
 

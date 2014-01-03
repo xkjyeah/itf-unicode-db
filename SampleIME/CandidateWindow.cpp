@@ -531,22 +531,15 @@ void CCandidateWindow::_DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT 
         SetBkColor(dcHandle, GetSysColor(COLOR_3DHIGHLIGHT));
 
         StringCchPrintf(pageCountString, ARRAYSIZE(pageCountString), L"%d", CCandidateListUIPresenter::ArrayIndexToKey(pageOffset) );
-        ExtTextOut(dcHandle, PageCountPosition * cxLine, pageOffset * cyLine + cyOffset, ETO_OPAQUE, &rc, pageCountString, lenOfPageCount, NULL);
+        ExtTextOut(dcHandle, PageCountPosition * cxLine, pageOffset * cyLine + cyOffset, ETO_OPAQUE, &rc, pageCountString, wcslen(pageCountString), NULL);
 
         rc.left = prc->left + StringPosition * cxLine;
         rc.right = prc->right;
 
         // Candidate Font Color And BK
-        if (_currentSelection != iIndex)
-        {
-            SetTextColor(dcHandle, _crTextColor);
-            SetBkColor(dcHandle, GetSysColor(COLOR_3DHIGHLIGHT));
-        }
-        else
-        {
-            SetTextColor(dcHandle, CANDWND_SELECTED_ITEM_COLOR);
-            SetBkColor(dcHandle, CANDWND_SELECTED_BK_COLOR);
-        }
+		// We don't support selections
+        SetTextColor(dcHandle, _crTextColor);
+        SetBkColor(dcHandle, GetSysColor(COLOR_3DHIGHLIGHT));
 
 		sDescription.append( _candidateList[iIndex].GetChar() );
 		sDescription.append( L" - (" );

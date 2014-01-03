@@ -132,8 +132,6 @@ HRESULT CSampleIME::_FinalizeText(TfEditCookie ec, _In_ ITfContext *pContext, _I
 
 	hr = _HandleComplete(ec, pContext);
 
-	this->_inputState = STATE_NORMAL;
-
 	return hr;
 	/*
     ULONG fetched = 0;

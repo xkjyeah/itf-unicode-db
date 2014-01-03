@@ -37,6 +37,7 @@ enum KEYSTROKE_FUNCTION
 	FUNCTION_SEARCH_MODE,			// When the apostrophe is selected, when the buffer is empty
 	FUNCTION_HEX_MODE,
     FUNCTION_CANCEL,				// Escape
+	FUNCTION_SHOW_STRING,			// Refresh and re-show the candidate string
 
 	// Functions for hex mode
 	FUNCTION_CONVERT,

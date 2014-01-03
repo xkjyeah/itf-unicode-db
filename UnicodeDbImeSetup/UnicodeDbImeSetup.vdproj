@@ -21,14 +21,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_64D09720A2C84C579FD2A9CF2C8E0482"
-        "OwnerKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_64D09720A2C84C579FD2A9CF2C8E0482"
-        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
+        "MsmKey" = "8:_53374D376157423885BB7953230E69A4"
+        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -51,18 +45,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_86C39C567CFD4E2BA405EF93E304F988"
-        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_86C39C567CFD4E2BA405EF93E304F988"
-        "OwnerKey" = "8:_BB02E9B7C0094E19A345719235C92E24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A36B1458929B4C949AE4F25BB3D6AAB9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -81,6 +63,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D986682D96D046F59143CD5D98DE185E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_DB2C51199B89435D8865A162AF514F4D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -89,6 +77,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3A3F31166432437FB73C252AF11CDBBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D986682D96D046F59143CD5D98DE185E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -395,7 +389,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:UnicodeDbIME"
         "ProductCode" = "8:{DBC59DCA-73DD-43ED-AD85-9782AD65448E}"
-        "PackageCode" = "8:{ED8C559B-36E6-4886-A688-B787C1A65B7D}"
+        "PackageCode" = "8:{AAFBF3C0-7373-4CBC-82AF-3423E361F348}"
         "UpgradeCode" = "8:{053219AD-E9B9-421C-A5AE-1568FB1E9BB9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -911,21 +905,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_64D09720A2C84C579FD2A9CF2C8E0482"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:Microsoft_VC100_DebugCRT_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_86C39C567CFD4E2BA405EF93E304F988"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_53374D376157423885BB7953230E69A4"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -944,7 +924,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3A3F31166432437FB73C252AF11CDBBF"
             {
-            "SourcePath" = "8:..\\x64\\Debug\\UnicodeDB.dll"
+            "SourcePath" = "8:..\\x64\\Debug\\UnicodeDB.lib"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4D03122408674307B6C2531137263DE8"
@@ -1028,7 +1008,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BB02E9B7C0094E19A345719235C92E24"
             {
-            "SourcePath" = "8:..\\Debug\\UnicodeDB.dll"
+            "SourcePath" = "8:..\\Debug\\UnicodeDB.lib"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_42D62547FE71416B81CB08CB18597040"
@@ -1049,6 +1029,34 @@
             "OutputConfiguration" = "8:Debug|Win32"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{A6838396-D2D6-4C3A-839C-74E499714D14}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D986682D96D046F59143CD5D98DE185E"
+            {
+            "SourcePath" = "8:..\\UnicodeDbIMESettings\\obj\\x86\\Debug\\UnicodeDbIMESettings.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_871B42C292F541DF8A466292A95C2EF9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:Debug|x86"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{DF5E3B71-C49A-42B7-8B61-44349C54C1CB}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

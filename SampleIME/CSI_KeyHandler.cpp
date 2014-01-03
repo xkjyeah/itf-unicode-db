@@ -56,8 +56,6 @@ VOID CSampleIME::_DeleteCandidateList(BOOL isForce, _In_opt_ ITfContext *pContex
 {
     isForce;pContext;
 
-	this->_keystrokeBuffer.clear();
-
     if (_pCandidateListUIPresenter)
     {
         _pCandidateListUIPresenter->_EndCandidateList();
@@ -76,6 +74,8 @@ VOID CSampleIME::_DeleteCandidateList(BOOL isForce, _In_opt_ ITfContext *pContex
 HRESULT CSampleIME::_HandleComplete(TfEditCookie ec, _In_ ITfContext *pContext)
 {
     _DeleteCandidateList(FALSE, pContext);
+	
+	_ResetNormalState();
 
     // just terminate the composition
     _TerminateComposition(ec, pContext);
@@ -85,7 +85,16 @@ HRESULT CSampleIME::_HandleComplete(TfEditCookie ec, _In_ ITfContext *pContext)
 
 HRESULT CSampleIME::_HandleInputCancel(TfEditCookie ec, _In_ ITfContext *pContext) {
 	HRESULT hr = _HandleCancel(ec, pContext);
-	this->_inputState = STATE_NORMAL;
+
+	return hr;
+}
+
+
+HRESULT CSampleIME::_HandleRefresh(TfEditCookie ec, _In_ ITfContext *pContext) {
+	if (this->_ResetDecor(ec, pContext)) {
+		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+	}
+
 	return hr;
 }
 
@@ -100,6 +109,8 @@ HRESULT CSampleIME::_HandleCancel(TfEditCookie ec, _In_ ITfContext *pContext)
     _RemoveDummyCompositionForComposing(ec, _pComposition);
 
     _DeleteCandidateList(FALSE, pContext);
+	
+	_ResetNormalState();
 
     _TerminateComposition(ec, pContext);
 
@@ -430,11 +441,13 @@ HRESULT CSampleIME::_HandleCompositionFinalize(TfEditCookie ec, _In_ ITfContext 
 HRESULT CSampleIME::_HandleSearchSelectByNumber(TfEditCookie ec, _In_ ITfContext *pContext, _In_ UINT uCode)
 {
 	HRESULT hr;
-	int array_index = CCandidateListUIPresenter::VKeyToArrayIndex(uCode);
 
     if (_pCandidateListUIPresenter)
     {
-        if (_pCandidateListUIPresenter->_SetSelectionInPage(array_index))
+		UINT array_index = uCode ? CCandidateListUIPresenter::VKeyToArrayIndex(uCode) : 0;
+
+		// uCode == 0 ==> we pick the selection (e.g. chosen by mouse click)
+        if (!uCode || _pCandidateListUIPresenter->_SetSelectionInPage(array_index))
         {	
 			const wchar_t *pCandidateString;
 			DWORD_PTR candidateLen;

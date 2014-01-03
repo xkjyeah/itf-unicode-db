@@ -59,23 +59,52 @@ STDAPI CSampleIME::OnSetFocus(_In_ ITfDocumentMgr *pDocMgrFocus, _In_ ITfDocumen
     // We have to hide/unhide candidate list depending on whether they are 
     // associated with pDocMgrFocus.
     //
-    if (_pCandidateListUIPresenter)
+    ITfDocumentMgr* pCandidateListDocumentMgr = nullptr;
+    ITfContext* pTfContext = _pCandidateListUIPresenter->_GetContextDocument();
+    if ((nullptr != pTfContext) && SUCCEEDED(pTfContext->GetDocumentMgr(&pCandidateListDocumentMgr)))
     {
-        ITfDocumentMgr* pCandidateListDocumentMgr = nullptr;
-        ITfContext* pTfContext = _pCandidateListUIPresenter->_GetContextDocument();
-        if ((nullptr != pTfContext) && SUCCEEDED(pTfContext->GetDocumentMgr(&pCandidateListDocumentMgr)))
+        if (pCandidateListDocumentMgr != pDocMgrFocus)
         {
-            if (pCandidateListDocumentMgr != pDocMgrFocus)
-            {
-                _pCandidateListUIPresenter->OnKillThreadFocus();
-            }
-            else 
-            {
-                _pCandidateListUIPresenter->OnSetThreadFocus();
-            }
-
-            pCandidateListDocumentMgr->Release();
+				
+			if (_pCandidateListUIPresenter)
+			{
+				_pCandidateListUIPresenter->OnKillThreadFocus();
+			}
         }
+        else
+        {
+			// if there were a composition string... I can try to restore it...
+			if (this->_inputState != STATE_NORMAL) {
+				CKeyHandlerEditSession* pEditSession = nullptr;
+				HRESULT hr = E_FAIL;		
+				_KEYSTROKE_STATE KeystrokeState;
+
+				KeystrokeState.State = this->_inputState;
+				KeystrokeState.Function = FUNCTION_SHOW_STRING;
+
+				pEditSession = new (std::nothrow) CKeyHandlerEditSession(this, pTfContext, 0, 0, KeystrokeState);
+				if (pEditSession == nullptr) {
+					goto Exit;
+				}
+
+				//
+				// Call CKeyHandlerEditSession::DoEditSession().
+				//
+				// Do not specify TF_ES_SYNC so edit session is not invoked on WinWord
+				//
+				hr = pTfContext->RequestEditSession(_tfClientId, pEditSession, TF_ES_ASYNCDONTCARE | TF_ES_READWRITE, &hr);
+
+Exit:
+				;
+			}
+
+			if (_pCandidateListUIPresenter)
+			{
+				_pCandidateListUIPresenter->OnSetThreadFocus();
+			}
+        }
+
+        pCandidateListDocumentMgr->Release();
     }
 
     if (_pDocMgrLastFocused)

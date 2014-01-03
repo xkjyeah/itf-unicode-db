@@ -47,6 +47,7 @@ STDAPI CSampleIME::OnActivated(_In_ REFCLSID clsid, _In_ REFGUID guidProfile, _I
     else
     {
         _DeleteCandidateList(FALSE, nullptr);
+		_ResetNormalState();
         HideAllLanguageBarIcons();
     }
 

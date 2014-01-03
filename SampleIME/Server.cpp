@@ -9,6 +9,7 @@
 #include "Globals.h"
 #include "SampleIME.h"
 
+
 // from Register.cpp
 BOOL RegisterProfiles();
 void UnregisterProfiles();

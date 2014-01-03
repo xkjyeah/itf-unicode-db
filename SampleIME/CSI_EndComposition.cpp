@@ -65,6 +65,7 @@ void CSampleIME::_TerminateComposition(TfEditCookie ec, _In_ ITfContext *pContex
         {
             // if we fail to EndComposition, then we need to close the reverse reading window.
             _DeleteCandidateList(TRUE, pContext);
+			//_ResetNormalState();
         }
 
         _pComposition->Release();
