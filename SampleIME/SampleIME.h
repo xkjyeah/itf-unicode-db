@@ -346,6 +346,8 @@ private:
 
 	/**** From CompositionProcessorEngine ****/
     BOOL InitLanguageBar(_In_ CLangBarItemButton *pLanguageBar, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId, REFGUID guidCompartment);
+	
+	void CSampleIME::_ReadSettings();
 
 	// SetupLanguageProfile
     void SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
@@ -373,6 +375,10 @@ private:
 
 	UnicodeDB *_unicodeDB;
     static const int OUT_OF_FILE_INDEX = -1;
+
+	UINT	_activationKeyModifiers;
+	UINT	_activationKeyVKey;
+	WCHAR   _searchKey;
 
 	/**** Original CSampleIME ****/
     ITfThreadMgr* _pThreadMgr;

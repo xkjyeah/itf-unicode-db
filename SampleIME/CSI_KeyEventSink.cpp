@@ -124,7 +124,7 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				}
 				return TRUE;
 			}
-			if ( wch == '\'') {
+			if ( wch == this->_searchKey ) {
 				pKeyState->Function = FUNCTION_SEARCH_MODE;
 				return TRUE;
 			}

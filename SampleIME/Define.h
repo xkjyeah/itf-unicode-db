@@ -15,6 +15,12 @@
 #define TEXTSERVICE_DESCRIPTION_DB	L"UnicodeData.txt"
 #define TEXTSERVICE_INDEX_FILE		L"UnicodeDataIndex.txt"
 
+// Important: Must correspond to the same in UnicodeDbImeSettings
+#define IME_REG_SUBKEY				L"Software\\UnicodeDbIME"
+#define IME_REG_ACTIVATION_SEQUENCE_MODIFIERS L"ActivationSequenceModifiers"
+#define IME_REG_ACTIVATION_SEQUENCE_VKEY L"ActivationSequenceVKey"
+#define IME_REG_SEARCH_KEY			L"SearchKey"
+
 #define IME_MODE_ON_ICON_INDEX      IDI_IME_MODE_ON
 #define IME_MODE_OFF_ICON_INDEX     IDI_IME_MODE_OFF
 #define IME_DOUBLE_ON_INDEX         IDI_DOUBLE_SINGLE_BYTE_ON

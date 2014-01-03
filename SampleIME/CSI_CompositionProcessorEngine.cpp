@@ -67,6 +67,65 @@ BOOL CSampleIME::_AddTextProcessorEngine()
     return TRUE;
 }
 
+void CSampleIME::_ReadSettings()
+{
+	/*
+                rkUDBIME = rkHKCU.CreateSubKey(RegistrySubKey);
+                if (rkUDBIME == null)
+                    return;
+
+                rkUDBIME.SetValue("ActivationSequence",
+                    (((int)activationSequence.currentKey & 0xFFFF) + ((int)activationSequence.currentModifiers << 16)),
+                    RegistryValueKind.DWord);
+
+                rkUDBIME.SetValue("SearchKey",
+                    searchKey.Substring(0, 1),
+                    RegistryValueKind.String);*/
+	HKEY hkUDBIME;
+	UINT aseq_mod, aseq_vkey;
+	WCHAR searchkey[] = L"'                         ";
+	LONG res;
+	DWORD bsz;
+
+	res = RegCreateKeyEx(
+		HKEY_CURRENT_USER,
+		IME_REG_SUBKEY,
+		0,
+		NULL,
+		REG_OPTION_NON_VOLATILE,
+		KEY_READ,
+		NULL,
+		&hkUDBIME,
+		NULL);
+
+	if (res != ERROR_SUCCESS)
+		return;
+
+	bsz = sizeof(aseq_mod);
+	res = RegGetValue(hkUDBIME, NULL, IME_REG_ACTIVATION_SEQUENCE_MODIFIERS, RRF_RT_REG_DWORD, NULL, &aseq_mod, &bsz);
+	
+	if (res != ERROR_SUCCESS)
+		return;
+	
+	bsz = sizeof(aseq_vkey);
+	res = RegGetValue(hkUDBIME, NULL, IME_REG_ACTIVATION_SEQUENCE_VKEY, RRF_RT_REG_DWORD, NULL, &aseq_vkey, &bsz);
+
+	if (res != ERROR_SUCCESS)
+		return;
+	
+	bsz = sizeof(searchkey);
+	res |= RegGetValue(hkUDBIME, NULL, IME_REG_SEARCH_KEY, RRF_RT_REG_SZ, NULL, &searchkey, &bsz);
+	
+	if (res != ERROR_SUCCESS)
+		return;
+
+	RegCloseKey(hkUDBIME);
+
+	this->_activationKeyModifiers = aseq_mod;
+	this->_activationKeyVKey = aseq_vkey;
+	this->_searchKey = searchkey[0];
+}
+
 //+---------------------------------------------------------------------------
 //
 // SetupLanguageProfile
@@ -95,6 +154,10 @@ BOOL CSampleIME::SetupLanguageProfile(LANGID langid, REFGUID guidLanguageProfile
     _langid = langid;
     _guidProfile = guidLanguageProfile;
     _tfClientId = tfClientId;
+
+	/* Read the registry for our settings */
+
+	_ReadSettings();
 
     SetupPreserved(pThreadMgr, tfClientId);	
 	InitializeSampleIMECompartment(pThreadMgr, tfClientId);
@@ -213,8 +276,10 @@ void CSampleIME::SetupPreserved(_In_ ITfThreadMgr *pThreadMgr, TfClientId tfClie
     }
 
     TF_PRESERVEDKEY preservedKeyCompose;
-    preservedKeyCompose.uVKey = 0x55;
-    preservedKeyCompose.uModifiers = TF_MOD_CONTROL | TF_MOD_SHIFT;
+    //preservedKeyCompose.uVKey = 0x55;
+    //preservedKeyCompose.uModifiers = TF_MOD_CONTROL | TF_MOD_SHIFT;
+	preservedKeyCompose.uModifiers = this->_activationKeyModifiers;
+	preservedKeyCompose.uVKey = this->_activationKeyVKey;
 	
 	if (StringCchLength(Global::ImeComposeDescription, STRSAFE_MAX_CCH, &lenOfDesc) != S_OK) {
         return;
