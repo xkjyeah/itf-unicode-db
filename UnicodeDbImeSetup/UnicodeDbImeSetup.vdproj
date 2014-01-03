@@ -33,20 +33,26 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7431378EC7284178A1F6578EC62CA761"
+        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_84D6CE29E924497CAF30245442778108"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A36B1458929B4C949AE4F25BB3D6AAB9"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_A0B33D6BF6A847DDA83EFBE755E6D430"
+        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A457CC488EB64D528D02DC3DC41342E0"
-        "OwnerKey" = "8:_84D6CE29E924497CAF30245442778108"
+        "MsmKey" = "8:_A36B1458929B4C949AE4F25BB3D6AAB9"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -71,12 +77,6 @@
         {
         "MsmKey" = "8:_DB2C51199B89435D8865A162AF514F4D"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DBA7D6ED209545329813B5592F88C218"
-        "OwnerKey" = "8:_6607BC081A254B7CAC6AE593507BDE0F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -394,15 +394,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:UnicodeDbIME"
-        "ProductCode" = "8:{ECDB78DD-7114-4394-9A46-2E24D4D56D2B}"
-        "PackageCode" = "8:{9CEDE2A5-8C44-45DA-BB47-47DA459A9F60}"
+        "ProductCode" = "8:{21F68917-C017-43C4-99CC-FC1D084F05AF}"
+        "PackageCode" = "8:{5EC50F54-89E8-4493-B8C5-FEB4F9A0D8EE}"
         "UpgradeCode" = "8:{053219AD-E9B9-421C-A5AE-1568FB1E9BB9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.99.1"
+        "ProductVersion" = "8:0.99.2"
         "Manufacturer" = "8:squidssquids"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -911,7 +911,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_A457CC488EB64D528D02DC3DC41342E0"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_7431378EC7284178A1F6578EC62CA761"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -925,7 +925,7 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_DBA7D6ED209545329813B5592F88C218"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_A0B33D6BF6A847DDA83EFBE755E6D430"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
