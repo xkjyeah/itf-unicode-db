@@ -91,6 +91,8 @@ HRESULT CSampleIME::_HandleInputCancel(TfEditCookie ec, _In_ ITfContext *pContex
 
 
 HRESULT CSampleIME::_HandleRefresh(TfEditCookie ec, _In_ ITfContext *pContext) {
+	HRESULT hr;
+
 	if (this->_ResetDecor(ec, pContext)) {
 		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
 	}

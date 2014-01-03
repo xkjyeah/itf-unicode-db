@@ -234,6 +234,9 @@
       <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>UnicodeDbIME.def</ModuleDefinitionFile>
     </Link>
+    <PreBuildEvent>
+      <Command>echo %TMP%</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
