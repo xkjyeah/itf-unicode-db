@@ -14,6 +14,7 @@
 #define TEXTSERVICE_ICON_INDEX   -IDIS_SAMPLEIME
 #define TEXTSERVICE_DESCRIPTION_DB	L"UnicodeData.txt"
 #define TEXTSERVICE_INDEX_FILE		L"UnicodeDataIndex.txt"
+#define TEXTSERVICE_SETTINGS_APP	L"UnicodeDbIMESettings.exe"
 
 // Important: Must correspond to the same in UnicodeDbImeSettings
 #define IME_REG_SUBKEY				L"Software\\UnicodeDbIME"
