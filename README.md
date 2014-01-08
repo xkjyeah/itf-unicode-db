@@ -1,13 +1,12 @@
 itf-unicode-db
 ==============
 
-Unicode DB IME for Windows.
+Unicode DB IME for Windows
 
-This project will use the method used in ibus-unicode-db (available on GitHub), however it will run on Windows instead. =)
+This is an input method that allows you to type Unicode characters by searching for characters with keywords instead of having to remember the hexadecimal code for each character.
 
-Currently faces two major problems:
-1. I know nuts about Windows programming, let alone Text Services Framework.
+For instance, you can type in the keywords "u diaeresis" to find the "ü" character, instead of having to remember 00FC.
 
-2. Sample IME by Microsoft is very, very verbosely written and hard to follow. I cannot even get it to work reliably on my computer.
+As of version 0.99.3, the input method installs itself under the English (US) Keyboard.
 
-So, I begin this arduous journey with scanty documentation, and a terrible sample code. I'll be commiting changes to the code as I go along.
+For latest versions / bug reports please visit the project home page at http://sourceforge.net/projects/itf-unicode-db/

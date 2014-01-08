@@ -1,0 +1,6 @@
+0.99.3:
+- Set default installation language to English (US).
+
+0.99.2:
+- Included a settings dialog box. You can change the key sequence that activates Unicode input to something other than Ctrl+Shift+U.
+- Bug fixes
