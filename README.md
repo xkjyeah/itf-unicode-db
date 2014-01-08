@@ -11,6 +11,6 @@ Once you switch to the input method on the language bar, you can activate hexade
 
 To switch between input methods and keyboards in Windows 8, you can use Win+Space. On all versions of Windows, the default settings allow you to use Alt+Shift to switch between languages and Ctrl+Shift to switch between input methods / keyboards in the same language.
 
-As of version 0.99.3, the input method installs itself under the English (US) Keyboard. Earlier versions installed themselves under Simplified Chinese (PRC).
+As of version 0.99.3, the input method installs itself under the English (US) locale. Earlier versions installed themselves under Simplified Chinese (PRC).
 
 For latest versions / bug reports please visit the project home page at http://sourceforge.net/projects/itf-unicode-db/
