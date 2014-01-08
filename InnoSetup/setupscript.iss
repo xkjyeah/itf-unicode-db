@@ -28,7 +28,7 @@ SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: "..\README"
+Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "..\Debug\UnicodeDbIME.dll"; DestDir: "{app}\x86"; Flags: ignoreversion regserver 32bit
@@ -38,5 +38,6 @@ Source: "..\data\UnicodeDataIndex.txt"; DestDir: "{app}\x86"; Flags: ignoreversi
 Source: "..\data\UnicodeData.txt"; DestDir: "{app}\x64"; Flags: ignoreversion
 Source: "..\data\UnicodeData.txt"; DestDir: "{app}\x86"; Flags: ignoreversion
 Source: "..\UnicodeDbIMESettings\bin\Debug\UnicodeDbIMESettings.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\README.md"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
