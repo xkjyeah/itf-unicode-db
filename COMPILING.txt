@@ -1,0 +1,3 @@
+This project was compiled using Visual Studio 2010. Before you build the setup package, you need to build under *both* the Win32 and the x64 configurations, otherwise your changes will not be built for the other platform, and then either x86 or x64 programs will not be able to see the changes.
+
+The setup script can be compiled with Inno Setup (http://www.jrsoftware.org/isinfo.php) is located under InnoSetup\setupscript.iss.
