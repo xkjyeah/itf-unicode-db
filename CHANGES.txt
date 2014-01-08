@@ -1,3 +1,6 @@
+0.99.4:
+- Switched to Inno Setup from Visual Studio Setup.
+
 0.99.3:
 - Set default installation language to English (US).
 

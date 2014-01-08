@@ -32,7 +32,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: "..\READM
 
 [Files]
 Source: "..\Debug\UnicodeDbIME.dll"; DestDir: "{app}\x86"; Flags: ignoreversion regserver 32bit
-Source: "..\x64\Debug\UnicodeDbIME.dll"; DestDir: "{app}\x64"; Flags: ignoreversion regserver
+Source: "..\x64\Debug\UnicodeDbIME.dll"; DestDir: "{app}\x64"; Flags: ignoreversion regserver 64bit
 Source: "..\data\UnicodeDataIndex.txt"; DestDir: "{app}\x64"; Flags: ignoreversion
 Source: "..\data\UnicodeDataIndex.txt"; DestDir: "{app}\x86"; Flags: ignoreversion
 Source: "..\data\UnicodeData.txt"; DestDir: "{app}\x64"; Flags: ignoreversion
