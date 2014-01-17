@@ -82,9 +82,10 @@ Exit:
 
 ExitCleanupRegistration:
 	pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
-			0,
-			0,
+			0, // NB this parameter is ignored because of URP_ALLPROFILES
+			Global::SampleIMEGuidProfile, // NB this parameter is ignored, ditto
 			TF_URP_ALLPROFILES);
+
 	goto Exit;
 }
 
@@ -108,7 +109,7 @@ void UnregisterProfiles()
 	
 	pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
 		0,
-		0,
+		Global::SampleIMEGuidProfile, // NB this parameter is ignored
 		TF_URP_ALLPROFILES);
 
 Exit:

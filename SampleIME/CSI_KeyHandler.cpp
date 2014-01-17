@@ -169,7 +169,21 @@ HRESULT CSampleIME::_HandleEnterSearchMode(TfEditCookie ec, _In_ ITfContext *pCo
     return hr;
 }
 
+/** _HandleEnterHexMode:
 
+Called when we enter the ambiguous state. This is never called again thereafter.
+
+Two behaviours:
+
+1. Selection is empty: either hex or search mode, depending on next character
+
+2. Selection has text: display the inspector, and do not show the initial "u",
+because the "u" will be painted over whatever text the user wants to inspect,
+hindering the inspection process.
+
+If user keys in a valid hex/search character, then we revert to behaviour (1) (no more inspector)
+
+*/
 HRESULT CSampleIME::_HandleEnterHexMode(TfEditCookie ec, _In_ ITfContext *pContext) {
 	HRESULT hr = S_OK;
 
@@ -179,10 +193,129 @@ HRESULT CSampleIME::_HandleEnterHexMode(TfEditCookie ec, _In_ ITfContext *pConte
 	this->_keystrokeBuffer.assign(L"u");
 	
 	if (this->_ResetDecor(ec, pContext)) {
-		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
-		this->_inputState = STATE_AMBIGUOUS; // because we have no chars yet
+		bool needInspector = false;
+
+		{
+			HRESULT res;
+			TF_SELECTION selectionData;
+			ULONG numRead;
+			BOOL fIsEmpty;
+
+			res = pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &selectionData, &numRead);
+			if (FAILED(res)) goto ExitA;
+
+			res = selectionData.range->IsEmpty(ec, &fIsEmpty);
+			if (FAILED(res)) goto ExitA;
+			needInspector = !fIsEmpty;
+
+ExitA:
+			;
+		}
+
+		if (!needInspector) {
+			hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+			this->_inputState = STATE_AMBIGUOUS; // because we have no chars yet
+		}
+
+		// If some string is selected, show the candidate list, up to a fixed limit of characters
+		if (needInspector) {
+			HRESULT res;
+			TF_SELECTION selectionData;
+			ULONG numRead;
+			WCHAR buf[CSampleIME::MAX_INSPECTION_CHARS + 1];	// HACK: Becomes only half the length when
+										// conjugate pairs are inspected
+			std::vector<CCandidateListItem> candidateList;
+
+			res = pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &selectionData, &numRead);
+			if (FAILED(res)) goto Exit;
+
+			res = selectionData.range->GetText(ec, 0, buf, CSampleIME::MAX_INSPECTION_CHARS, &numRead);
+			if (FAILED(res)) goto Exit;
+
+			if (numRead == 0) goto Exit; /* Don't need to create inspection list */
+
+			buf[numRead] = 0;
+
+			// Now build the candidate list
+			GetInspectionList(buf, candidateList);
+
+			/* (Re)initialize the candidate list */
+			hr = _CreateAndStartCandidate(ec, pContext);
+			if (SUCCEEDED(hr))
+			{
+				_pCandidateListUIPresenter->_ClearList();
+				_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
+			}
+Exit:
+			;
+
+		}
+
 	}
     return hr;
+}
+HRESULT CSampleIME::_HandleInspectorArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction)
+{
+    // For incremental candidate list
+    if (_pCandidateListUIPresenter)
+    {
+        _pCandidateListUIPresenter->AdviseUIChangedByArrowKey(keyFunction);
+    }
+
+    return S_OK;
+}
+
+void CSampleIME::GetInspectionList
+	(const WCHAR *inspectionList, _Inout_ vector<CCandidateListItem> &pCandidateList)
+{	
+	const WCHAR *bufptr = inspectionList;
+	HRESULT res;
+
+	while (*bufptr) {
+		CCandidateListItem citem;
+		uint32_t unicode_char = *bufptr;
+		WCHAR whexstring[10 + 1];
+
+		++bufptr;
+
+		wcscpy(whexstring, L"??");
+
+		// Check for surrogate pairs		
+		const uint16_t LEAD_OFFSET = 0xD800 - (0x10000 >> 10);
+		const uint16_t TRAIL_OFFSET = 0xDC00;
+				
+		if (IS_LOW_SURROGATE(unicode_char)) {
+			res = StringCchPrintf(whexstring, 10, L"%04X", unicode_char);
+			if (SUCCEEDED(res)) 
+				citem._CharUnicodeHex = whexstring;
+			citem._CharDescription = L"Unmatched low surrogate character";
+			pCandidateList.push_back(citem);
+			continue;
+		}
+
+		if (IS_HIGH_SURROGATE(unicode_char)) {
+			if (!*bufptr || ! IS_LOW_SURROGATE(*bufptr) ) {
+				res = StringCchPrintf(whexstring, 10, L"%04X", unicode_char);
+				if (SUCCEEDED(res)) 
+					citem._CharUnicodeHex = whexstring;
+				citem._CharDescription = L"Unmatched high surrogate character";
+				pCandidateList.push_back(citem);
+
+				continue;
+			}
+			// Convert surrogate pair to unicode code point
+			unicode_char = (unicode_char - LEAD_OFFSET) << 10;
+			unicode_char += (*bufptr - TRAIL_OFFSET);
+
+			++bufptr;
+		}
+						
+		res = StringCchPrintf(whexstring, 10, L"%04X", unicode_char);
+		if (SUCCEEDED(res))
+			citem._CharUnicodeHex = whexstring;
+		citem._CharDescription = this->_unicodeDB->findDescription(unicode_char);
+		pCandidateList.push_back(citem);
+	}
 }
 
 HRESULT CSampleIME::_HandleHexInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
@@ -439,7 +572,6 @@ HRESULT CSampleIME::_HandleCompositionFinalize(TfEditCookie ec, _In_ ITfContext 
     return S_OK;
 }
 
-// TODO:
 HRESULT CSampleIME::_HandleSearchSelectByNumber(TfEditCookie ec, _In_ ITfContext *pContext, _In_ UINT uCode)
 {
 	HRESULT hr;
@@ -521,10 +653,11 @@ HRESULT CSampleIME::_HandleHexConvert(TfEditCookie ec, _In_ ITfContext *pContext
 		// calculations from http://www.unicode.org/faq/utf_bom.html
 
 		const uint16_t LEAD_OFFSET = 0xD800 - (0x10000 >> 10);
+		const uint16_t TRAIL_OFFSET = 0xDC00;
 
 		// computations
-		uint16_t lead = LEAD_OFFSET + (unicode_char >> 10);
-		uint16_t trail = 0xDC00 + (unicode_char & 0x3FF);
+		uint16_t lead = (uint16_t) (LEAD_OFFSET + (unicode_char >> 10));
+		uint16_t trail = (uint16_t) (TRAIL_OFFSET + (unicode_char & 0x3FF));
 
 		finalString.append( (wchar_t*) &lead, 1 );
 		finalString.append( (wchar_t*) &trail, 1 );
@@ -575,6 +708,7 @@ HRESULT CSampleIME::_HandleSearchArrowKey(TfEditCookie ec, _In_ ITfContext *pCon
         _pCandidateListUIPresenter->AdviseUIChangedByArrowKey(keyFunction);
     }
 
+	// TODO: replace with the selected character?
     pContext->SetSelection(ec, 1, &tfSelection);
 
     pRangeComposition->Release();

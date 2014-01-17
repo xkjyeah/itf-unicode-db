@@ -102,7 +102,10 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			switch (*pCodeOut)
 			{
 			case VK_LEFT:
+				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_UP; } return TRUE;
 			case VK_RIGHT:
+				/* This keys can be used to navigate about the inspector */
+				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			case VK_UP:
 			case VK_DOWN:
 							if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;

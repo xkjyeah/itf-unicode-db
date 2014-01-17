@@ -227,6 +227,7 @@ public:
 
 	HRESULT _HandleEnterSearchMode(TfEditCookie ec, _In_ ITfContext *pContext);
 	HRESULT _HandleEnterHexMode(TfEditCookie ec, _In_ ITfContext *pContext);
+	HRESULT _HandleInspectorArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction);
 	HRESULT _HandleHexInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch);
 	HRESULT _HandleHexConvert(TfEditCookie ec, _In_ ITfContext *pContext);
 	HRESULT _HandleHexBackspace(TfEditCookie ec, _In_ ITfContext *pContext);
@@ -266,6 +267,7 @@ public:
         return MAKELCID(_langid, SORT_DEFAULT);
     }
 	void GetCandidateList(const std::wstring &keystrokeBuffer, _Inout_ vector<CCandidateListItem> &pCandidateList);
+	void GetInspectionList(const WCHAR *inspectionList, _Inout_ vector<CCandidateListItem> &pCandidateList);
     // Preserved key handler
     void OnPreservedKey(REFGUID rguid, _Out_ BOOL *pIsEaten, _In_ ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
 
@@ -431,4 +433,5 @@ private:
 	std::wstring	_keystrokeBuffer;
 	static const size_t LENGTH_HEX_PREFIX = 1;		// length of "u"
 	static const size_t LENGTH_SEARCH_PREFIX = 2;	// length of "u'"
+	static const size_t MAX_INSPECTION_CHARS = 100;
 };

@@ -73,6 +73,7 @@ public:
 
 	int findCandidates( const vector<char *> &wordlist, set<UNICODE_T> &list, set<UNICODE_T> &fuzzy_list );
 	WCHAR * findDescription( UNICODE_T code, ssize_t lower, ssize_t upper );
+	WCHAR * findDescription( uint32_t codepoint );
 
 	
 };
