@@ -41,3 +41,5 @@ Source: "..\UnicodeDbIMESettings\bin\Debug\UnicodeDbIMESettings.exe"; DestDir: "
 Source: "..\README.md"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
+[Icons]
+Name: "{group}\Unicode DB IME Settings"; Filename: "{app}\UnicodeDbIMESettings.exe"

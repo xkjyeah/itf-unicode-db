@@ -81,12 +81,10 @@ Exit:
     return (hr == S_OK);
 
 ExitCleanupRegistration:
-	for (auto ww = Global::TextServiceLangIds; *ww != *w; ++ww ) {
-		pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
-			*ww,
-			Global::SampleIMEGuidProfile,
-			0);
-	}
+	pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
+			0,
+			0,
+			TF_URP_ALLPROFILES);
 	goto Exit;
 }
 
@@ -107,14 +105,11 @@ void UnregisterProfiles()
     {
         goto Exit;
     }
-
 	
-	for (auto ww = Global::TextServiceLangIds; *ww; ++ww ) {
-		pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
-			*ww,
-			Global::SampleIMEGuidProfile,
-			0);
-	}
+	pITfInputProcessorProfileMgr->UnregisterProfile(Global::SampleIMECLSID,
+		0,
+		0,
+		TF_URP_ALLPROFILES);
 
 Exit:
     if (pITfInputProcessorProfileMgr)
