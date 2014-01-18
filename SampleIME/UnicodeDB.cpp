@@ -309,15 +309,6 @@ int UnicodeDB::findCandidates
 	return 0;
 }
 
-/* Convenience function */
-WCHAR * UnicodeDB::findDescription
-( uint32_t codepoint ) {
-	UNICODE_T uni;
-
-	sprintf(uni.data, "%04X", codepoint);
-	return this->findDescription(uni, 0, -1);
-}
-
 /* Given a code, returns the description of the code. Return value needs to be freed */
 WCHAR * UnicodeDB::findDescription
 ( UNICODE_T code, ssize_t lower, ssize_t upper ) {

@@ -53,10 +53,6 @@ enum KEYSTROKE_FUNCTION
     FUNCTION_MOVE_PAGE_DOWN,		// Page down
     FUNCTION_MOVE_PAGE_TOP,			// Home
     FUNCTION_MOVE_PAGE_BOTTOM,		// End
-
-	// Function for the inspector (ambiguous) mode
-	FUNCTION_INSPECTOR_LEFT,
-	FUNCTION_INSPECTOR_RIGHT,
 };
 
 //---------------------------------------------------------------------

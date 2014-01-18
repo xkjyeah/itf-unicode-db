@@ -58,10 +58,6 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 			break;
 		case FUNCTION_SHOW_STRING:
 			hResult = this->_pTextService->_HandleRefresh(dto.ec, dto.pContext);
-		case FUNCTION_MOVE_PAGE_UP:
-		case FUNCTION_MOVE_PAGE_DOWN:
-			/* Used only by the inspector */
-			hResult = this->_pTextService->_HandleInspectorArrowKey(dto.ec, dto.pContext, dto.arrowKey);
 		default:
 			break;
 		}
@@ -99,6 +95,9 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 			break;
 		case FUNCTION_BACKSPACE:
 			hResult = this->_pTextService->_HandleSearchBackspace(dto.ec, dto.pContext);
+			break;
+		case FUNCTION_HEX_MODE:
+			hResult = this->_pTextService->_HandleEnterHexMode(dto.ec, dto.pContext);
 			break;
 		case FUNCTION_CANCEL:
 			hResult = this->_pTextService->_HandleInputCancel(dto.ec, dto.pContext);
