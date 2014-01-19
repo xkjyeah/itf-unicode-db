@@ -7,7 +7,7 @@ This is an input method that allows you to type Unicode characters by searching 
 
 For instance, you can type in the keywords "u diaeresis" to find the "ü" character, instead of having to remember 00FC.
 
-Once you switch to the input method on the language bar, you can activate hexadecimal Unicode input using Ctrl+Shift+U. You can activate character description search by typing apostrophe (') after Ctrl+Shift+U. You can change these keys any time through the Control Panel.
+Once you switch to the input method on the language bar, you can activate hexadecimal Unicode input using Ctrl+Shift+U. You can activate character description search by typing apostrophe (') after Ctrl+Shift+U. If there is text on the clipboard, clipboard inspection can be activated by typing 'v' after Ctrl+Shift+U. You can change these keys any time through the Control Panel.
 
 To switch between input methods and keyboards in Windows 8, you can use Win+Space. On all versions of Windows, the default settings allow you to use Alt+Shift to switch between languages and Ctrl+Shift to switch between input methods / keyboards in the same language.
 

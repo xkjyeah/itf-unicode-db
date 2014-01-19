@@ -566,12 +566,6 @@ HRESULT CSampleIME::_HandleSearchArrowKey(TfEditCookie ec, _In_ ITfContext *pCon
         return S_OK;
     }
 
-    // get the composition range
-    if (FAILED(_pComposition->GetRange(&pRangeComposition)))
-    {
-        goto Exit;
-    }
-
     // For incremental candidate list
     if (_pCandidateListUIPresenter)
     {
@@ -579,8 +573,6 @@ HRESULT CSampleIME::_HandleSearchArrowKey(TfEditCookie ec, _In_ ITfContext *pCon
     }
 
     pContext->SetSelection(ec, 1, &tfSelection);
-
-    pRangeComposition->Release();
 
 Exit:
     tfSelection.range->Release();

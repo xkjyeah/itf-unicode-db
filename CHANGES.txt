@@ -1,5 +1,7 @@
 0.99.4:
 - Switched to Inno Setup from Visual Studio Setup.
+- New Feature: Clipboard inspector. Allows one to inspect Unicode text in the clipboard. Can be used to inspect 'invisible' characters (e.g. left-to-right overrides, soft-hyphens), or combined characters (e.g. <n> + <combining tilde>), or text with mixed directionality (e.g. Arabic and English)
+- A brief help text at the bottom of the candidate list
 
 0.99.3:
 - Set default installation language to English (US).

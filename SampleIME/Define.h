@@ -21,10 +21,11 @@
 #define IME_REG_ACTIVATION_SEQUENCE_MODIFIERS L"ActivationSequenceModifiers"
 #define IME_REG_ACTIVATION_SEQUENCE_VKEY L"ActivationSequenceVKey"
 #define IME_REG_SEARCH_KEY			L"SearchKey"
+#define IME_REG_CLIPBOARD_KEY		L"ClipboardKey"
 
 // Help texts
-#define IME_HELP_TEXT_SEARCH		L"Search: 0-9 select, ⎗⎘←→-= switch pages" //, F1 online info
-#define IME_HELP_TEXT_CLIPBOARD		L"Clipboard Inspector: 0-9 select, ⏎ confirm, ⎗⎘←→-= switch pages" //, F1 online info
+#define IME_HELP_TEXT_SEARCH		L"Search: 0-9 select, ⎗⎘←→ switch pages" //, F1 online info
+#define IME_HELP_TEXT_CLIPBOARD		L"Clipboard Inspector: 0-9 select, ⏎ confirm, ⎗⎘←→ switch pages" //, F1 online info
 
 #define IME_MODE_ON_ICON_INDEX      IDI_IME_MODE_ON
 #define IME_MODE_OFF_ICON_INDEX     IDI_IME_MODE_OFF

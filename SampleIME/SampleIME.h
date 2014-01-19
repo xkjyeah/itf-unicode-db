@@ -387,6 +387,7 @@ private:
 	UINT	_activationKeyModifiers;
 	UINT	_activationKeyVKey;
 	WCHAR   _searchKey;
+	WCHAR   _clipboardKey;
 
 	/**** Original CSampleIME ****/
     ITfThreadMgr* _pThreadMgr;

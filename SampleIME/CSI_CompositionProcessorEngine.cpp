@@ -84,6 +84,7 @@ void CSampleIME::_ReadSettings()
 	HKEY hkUDBIME;
 	UINT aseq_mod, aseq_vkey;
 	WCHAR searchkey[] = L"'                         ";
+	WCHAR clipboardkey[] = L"'                         ";
 	LONG res;
 	DWORD bsz;
 
@@ -119,11 +120,19 @@ void CSampleIME::_ReadSettings()
 	if (res != ERROR_SUCCESS)
 		return;
 
+	bsz = sizeof(clipboardkey);
+	res |= RegGetValue(hkUDBIME, NULL, IME_REG_CLIPBOARD_KEY, RRF_RT_REG_SZ, NULL, &clipboardkey, &bsz);
+	
+	if (res != ERROR_SUCCESS)
+		return;
+
+
 	RegCloseKey(hkUDBIME);
 
 	this->_activationKeyModifiers = aseq_mod;
 	this->_activationKeyVKey = aseq_vkey;
-	this->_searchKey = searchkey[0];
+	if (searchkey[0])    this->_searchKey = searchkey[0];
+	if (clipboardkey[0]) this->_clipboardKey = clipboardkey[0];
 }
 
 //+---------------------------------------------------------------------------

@@ -55,7 +55,7 @@ HRESULT CSampleIME::CreateInstance(_In_ IUnknown *pUnkOuter, REFIID riid, _Outpt
 //----------------------------------------------------------------------------
 
 CSampleIME::CSampleIME()
-	: _unicodeDB(NULL), _activationKeyVKey( 0x55 ), _searchKey(L'\''),
+	: _unicodeDB(NULL), _activationKeyVKey( 0x55 ), _searchKey(L'\''), _clipboardKey(L'v'),
 	_activationKeyModifiers( TF_MOD_CONTROL | TF_MOD_SHIFT )
 {
     DllAddRef();

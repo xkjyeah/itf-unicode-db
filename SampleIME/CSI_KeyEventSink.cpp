@@ -118,7 +118,7 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			}
 
 			/* Special modes -- clipboard mode and search mode */
-			if ( wch == L'v' || wch == L'V' ) {
+			if ( wch == this->_clipboardKey ) {
 				if (pKeyState) pKeyState->Function = FUNCTION_CLIPBOARD_MODE;
 				return TRUE;
 			}
@@ -188,11 +188,9 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			case VK_BACK:   if (pKeyState) { pKeyState->Function = FUNCTION_BACKSPACE; } return TRUE;
 			case VK_PRIOR:
 			case VK_LEFT:		// For Mac-friendliness
-			case VK_OEM_MINUS:	// For compatibility with Chinese IMEs. TODO: Will this affect some European keyboards?
 				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_UP; } return TRUE;
 			case VK_NEXT:
 			case VK_RIGHT:		// For Mac-friendliness
-			case VK_OEM_PLUS:	// For compatibility with Chinese IMEs
 				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			case VK_RETURN: /* Give option 1 */
 				if (pKeyState) { pKeyState->Function = FUNCTION_SELECT_BY_NUMBER; *pCodeOut = CCandidateListUIPresenter::ArrayIndexToKey(0); } return TRUE;
