@@ -73,6 +73,7 @@ public:
     void _EndCandidateList();
 
     void _SetText(_In_ std::vector<CCandidateListItem> &pCandidateList, BOOL isAddFindKeyCode);
+	void _SetHelpText(_In_ const WCHAR *helptext);
     void _ClearList();
     VOID _SetTextColor(COLORREF crColor, COLORREF crBkColor);
     VOID _SetFillColor(HBRUSH hBrush);

@@ -31,6 +31,7 @@ CCandidateWindow::CCandidateWindow(_In_ CANDWNDCALLBACK pfnCallback, _In_ void *
     _pShadowWnd = nullptr;
 
     _cyRow = CANDWND_ROW_WIDTH;
+	_cyHelpText = CANDWND_ROW_WIDTH;
     _cxTitle = 0;
 
     _wndWidth = 0;
@@ -122,7 +123,7 @@ void CCandidateWindow::_ResizeWindow()
 
     _cxTitle = max(_cxTitle, size.cx + 2 * GetSystemMetrics(SM_CXFRAME));
 
-    CBaseWindow::_Resize(0, 0, _cxTitle, _cyRow * this->_numCandidatesPerPage);
+    CBaseWindow::_Resize(0, 0, _cxTitle, _cyRow * this->_numCandidatesPerPage + _cyHelpText );
 
     RECT rcCandRect = {0, 0, 0, 0};
     _GetClientRect(&rcCandRect);
@@ -566,6 +567,23 @@ void CCandidateWindow::_DrawList(_In_ HDC dcHandle, _In_ UINT iIndex, _In_ RECT 
 
         FillRect(dcHandle, &rc, (HBRUSH)(COLOR_3DHIGHLIGHT+1));
     }
+
+	/* Now paint the help text */
+	// Color: same as candidate
+    SetTextColor(dcHandle, _crTextColor);
+    SetBkColor(dcHandle, GetSysColor(COLOR_3DHIGHLIGHT));
+	// Rectangle
+    rc.top    = prc->top + _numCandidatesPerPage * cyLine;
+    rc.bottom = rc.top + cyLine;
+
+    rc.left   = prc->left + PageCountPosition * cxLine;
+    rc.right  = prc->right;
+
+	// Text:
+	ExtTextOut(
+		dcHandle, PageCountPosition * cxLine, _numCandidatesPerPage * cyLine + cyOffset,
+		ETO_OPAQUE, &rc, _helpText.c_str(), _helpText.length(), NULL);
+
 }
 
 //+---------------------------------------------------------------------------

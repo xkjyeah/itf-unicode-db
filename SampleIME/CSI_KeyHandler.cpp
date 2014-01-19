@@ -270,6 +270,7 @@ HRESULT CSampleIME::_HandleSearchBackspace(TfEditCookie ec, _In_ ITfContext *pCo
 			{
 				_pCandidateListUIPresenter->_ClearList();
 				/* Add the list to the UI */
+				_pCandidateListUIPresenter->_SetHelpText(IME_HELP_TEXT_SEARCH);
 				_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
 			}
 
@@ -316,6 +317,7 @@ HRESULT CSampleIME::_HandleSearchInput(TfEditCookie ec, _In_ ITfContext *pContex
 		{
 			_pCandidateListUIPresenter->_ClearList();
 			/* Add the list to the UI */
+			_pCandidateListUIPresenter->_SetHelpText(IME_HELP_TEXT_SEARCH);
 			_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
 		}
 	}
@@ -685,6 +687,7 @@ HRESULT CSampleIME::_HandleClipInput(TfEditCookie ec, _In_ ITfContext *pContext,
 		if (SUCCEEDED(hr))
 		{
 			_pCandidateListUIPresenter->_ClearList();
+			_pCandidateListUIPresenter->_SetHelpText(IME_HELP_TEXT_CLIPBOARD);
 			_pCandidateListUIPresenter->_SetText(_clipCandidateList, TRUE);
 		}
 	}
@@ -790,6 +793,7 @@ HRESULT CSampleIME::_HandleEnterClipMode(TfEditCookie ec, _In_ ITfContext *pCont
 		if (SUCCEEDED(hr))
 		{
 			_pCandidateListUIPresenter->_ClearList();
+			_pCandidateListUIPresenter->_SetHelpText(IME_HELP_TEXT_CLIPBOARD);
 			/* Add the list to the UI */
 			_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
 		}

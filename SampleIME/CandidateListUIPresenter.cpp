@@ -528,6 +528,11 @@ void CCandidateListUIPresenter::_EndCandidateList()
     _EndLayout();
 }
 
+
+void CCandidateListUIPresenter::_SetHelpText(_In_ const WCHAR *helptext)
+{
+	_pCandidateWnd->_SetHelpText(helptext);
+}
 //+---------------------------------------------------------------------------
 //
 // _SetText

@@ -41,7 +41,10 @@ public:
     void _OnLButtonUp(POINT pt);
     void _OnMouseMove(POINT pt);
     void _OnVScroll(DWORD dwSB, _In_ DWORD nPos);
-
+	
+	inline void _SetHelpText(const WCHAR *text) {
+		_helpText = text;
+	}
     void _AddString(_Inout_ const CCandidateListItem &pCandidateItem);
     void _ClearList();
     UINT _GetCount()
@@ -102,6 +105,7 @@ private:
 private:
     UINT _currentSelection;
     std::vector<CCandidateListItem> _candidateList;
+	std::wstring _helpText;
 	int _numCandidatesPerPage;
 
     COLORREF _crTextColor;
@@ -110,6 +114,7 @@ private:
 
     TEXTMETRIC _TextMetric;
     int _cyRow;
+	int _cyHelpText;
     int _cxTitle;
     UINT _wndWidth;
 
