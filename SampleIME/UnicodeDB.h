@@ -35,18 +35,14 @@ THE SOFTWARE.
 
 using namespace std;
 
-#define CODE_LENGTH_MAX 12
 
 struct __declspec(dllexport) UNICODE_T {
+
+	static const int CODE_LENGTH_MAX = 12;
 	char data[CODE_LENGTH_MAX];
 
-	UNICODE_T(const char *l) {
-		strncpy(data, l, CODE_LENGTH_MAX);
-	}
-	UNICODE_T() {
-		data[0] = 0;
-	}
-
+	UNICODE_T(const char *l);
+	UNICODE_T();
 	UNICODE_T &operator=(const UNICODE_T &l);
 
 };
@@ -73,8 +69,8 @@ public:
 
 	int findCandidates( const vector<char *> &wordlist, set<UNICODE_T> &list, set<UNICODE_T> &fuzzy_list );
 	WCHAR * findDescription( UNICODE_T code, ssize_t lower, ssize_t upper );
+	WCHAR * findDescription( uint32_t codepoint );
 
-	
 };
 
 bool operator<(const UNICODE_T &l, const UNICODE_T &r);

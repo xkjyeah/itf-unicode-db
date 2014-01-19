@@ -91,7 +91,7 @@ HRESULT CSampleIME::_HandleInputCancel(TfEditCookie ec, _In_ ITfContext *pContex
 
 
 HRESULT CSampleIME::_HandleRefresh(TfEditCookie ec, _In_ ITfContext *pContext) {
-	HRESULT hr;
+	HRESULT hr = S_OK;
 
 	if (this->_ResetDecor(ec, pContext)) {
 		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
@@ -111,6 +111,8 @@ HRESULT CSampleIME::_HandleCancel(TfEditCookie ec, _In_ ITfContext *pContext)
     _RemoveDummyCompositionForComposing(ec, _pComposition);
 
     _DeleteCandidateList(FALSE, pContext);
+
+	this->_clipCandidateList.clear();
 	
 	_ResetNormalState();
 
@@ -131,11 +133,13 @@ bool CSampleIME::_ResetDecor(TfEditCookie ec, _In_ ITfContext *pContext) {
     {
         _StartComposition(pContext);
     }
+
     // first, test where a keystroke would go in the document if we did an insert
     if (pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &tfSelection, &fetched) != S_OK || fetched != 1)
     {
         return S_FALSE;
     }
+
     // is the insertion point covered by a composition?
     if (SUCCEEDED(_pComposition->GetRange(&pRangeComposition)))
     {
@@ -169,21 +173,7 @@ HRESULT CSampleIME::_HandleEnterSearchMode(TfEditCookie ec, _In_ ITfContext *pCo
     return hr;
 }
 
-/** _HandleEnterHexMode:
 
-Called when we enter the ambiguous state. This is never called again thereafter.
-
-Two behaviours:
-
-1. Selection is empty: either hex or search mode, depending on next character
-
-2. Selection has text: display the inspector, and do not show the initial "u",
-because the "u" will be painted over whatever text the user wants to inspect,
-hindering the inspection process.
-
-If user keys in a valid hex/search character, then we revert to behaviour (1) (no more inspector)
-
-*/
 HRESULT CSampleIME::_HandleEnterHexMode(TfEditCookie ec, _In_ ITfContext *pContext) {
 	HRESULT hr = S_OK;
 
@@ -193,129 +183,10 @@ HRESULT CSampleIME::_HandleEnterHexMode(TfEditCookie ec, _In_ ITfContext *pConte
 	this->_keystrokeBuffer.assign(L"u");
 	
 	if (this->_ResetDecor(ec, pContext)) {
-		bool needInspector = false;
-
-		{
-			HRESULT res;
-			TF_SELECTION selectionData;
-			ULONG numRead;
-			BOOL fIsEmpty;
-
-			res = pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &selectionData, &numRead);
-			if (FAILED(res)) goto ExitA;
-
-			res = selectionData.range->IsEmpty(ec, &fIsEmpty);
-			if (FAILED(res)) goto ExitA;
-			needInspector = !fIsEmpty;
-
-ExitA:
-			;
-		}
-
-		if (!needInspector) {
-			hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
-			this->_inputState = STATE_AMBIGUOUS; // because we have no chars yet
-		}
-
-		// If some string is selected, show the candidate list, up to a fixed limit of characters
-		if (needInspector) {
-			HRESULT res;
-			TF_SELECTION selectionData;
-			ULONG numRead;
-			WCHAR buf[CSampleIME::MAX_INSPECTION_CHARS + 1];	// HACK: Becomes only half the length when
-										// conjugate pairs are inspected
-			std::vector<CCandidateListItem> candidateList;
-
-			res = pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &selectionData, &numRead);
-			if (FAILED(res)) goto Exit;
-
-			res = selectionData.range->GetText(ec, 0, buf, CSampleIME::MAX_INSPECTION_CHARS, &numRead);
-			if (FAILED(res)) goto Exit;
-
-			if (numRead == 0) goto Exit; /* Don't need to create inspection list */
-
-			buf[numRead] = 0;
-
-			// Now build the candidate list
-			GetInspectionList(buf, candidateList);
-
-			/* (Re)initialize the candidate list */
-			hr = _CreateAndStartCandidate(ec, pContext);
-			if (SUCCEEDED(hr))
-			{
-				_pCandidateListUIPresenter->_ClearList();
-				_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
-			}
-Exit:
-			;
-
-		}
-
+		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+		this->_inputState = STATE_AMBIGUOUS; // because we have no chars yet
 	}
     return hr;
-}
-HRESULT CSampleIME::_HandleInspectorArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction)
-{
-    // For incremental candidate list
-    if (_pCandidateListUIPresenter)
-    {
-        _pCandidateListUIPresenter->AdviseUIChangedByArrowKey(keyFunction);
-    }
-
-    return S_OK;
-}
-
-void CSampleIME::GetInspectionList
-	(const WCHAR *inspectionList, _Inout_ vector<CCandidateListItem> &pCandidateList)
-{	
-	const WCHAR *bufptr = inspectionList;
-	HRESULT res;
-
-	while (*bufptr) {
-		CCandidateListItem citem;
-		uint32_t unicode_char = *bufptr;
-		WCHAR whexstring[10 + 1];
-
-		++bufptr;
-
-		wcscpy(whexstring, L"??");
-
-		// Check for surrogate pairs		
-		const uint16_t LEAD_OFFSET = 0xD800 - (0x10000 >> 10);
-		const uint16_t TRAIL_OFFSET = 0xDC00;
-				
-		if (IS_LOW_SURROGATE(unicode_char)) {
-			res = StringCchPrintf(whexstring, 10, L"%04X", unicode_char);
-			if (SUCCEEDED(res)) 
-				citem._CharUnicodeHex = whexstring;
-			citem._CharDescription = L"Unmatched low surrogate character";
-			pCandidateList.push_back(citem);
-			continue;
-		}
-
-		if (IS_HIGH_SURROGATE(unicode_char)) {
-			if (!*bufptr || ! IS_LOW_SURROGATE(*bufptr) ) {
-				res = StringCchPrintf(whexstring, 10, L"%04X", unicode_char);
-				if (SUCCEEDED(res)) 
-					citem._CharUnicodeHex = whexstring;
-				citem._CharDescription = L"Unmatched high surrogate character";
-				pCandidateList.push_back(citem);
-
-				continue;
-			}
-			// Convert surrogate pair to unicode code point
-			unicode_char = (unicode_char - LEAD_OFFSET) << 10;
-			unicode_char += (*bufptr - TRAIL_OFFSET);
-
-			++bufptr;
-		}
-						
-		res = StringCchPrintf(whexstring, 10, L"%04X", unicode_char);
-		if (SUCCEEDED(res))
-			citem._CharUnicodeHex = whexstring;
-		citem._CharDescription = this->_unicodeDB->findDescription(unicode_char);
-		pCandidateList.push_back(citem);
-	}
 }
 
 HRESULT CSampleIME::_HandleHexInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
@@ -405,8 +276,7 @@ HRESULT CSampleIME::_HandleSearchBackspace(TfEditCookie ec, _In_ ITfContext *pCo
 			this->_inputState = STATE_SEARCH;
 		}
 		else {
-			if (_pCandidateListUIPresenter)
-				_pCandidateListUIPresenter->_EndCandidateList();
+			this->_DeleteCandidateList(FALSE, pContext);
 			this->_inputState = STATE_AMBIGUOUS;
 			this->_keystrokeBuffer.erase( this->_keystrokeBuffer.length() - 1, 1 );
 			hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
@@ -448,7 +318,6 @@ HRESULT CSampleIME::_HandleSearchInput(TfEditCookie ec, _In_ ITfContext *pContex
 			/* Add the list to the UI */
 			_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
 		}
-
 	}
 	return hr;
 }
@@ -468,8 +337,7 @@ HRESULT CSampleIME::_CreateAndStartCandidate(TfEditCookie ec, _In_ ITfContext *p
 {
     HRESULT hr = S_OK;
 
-    if (((_candidateMode == CANDIDATE_PHRASE) && (_pCandidateListUIPresenter))
-        || ((_candidateMode == CANDIDATE_NONE) && (_pCandidateListUIPresenter)))
+    if (_pCandidateListUIPresenter)
     {
         // Recreate candidate list
         _pCandidateListUIPresenter->_EndCandidateList();
@@ -708,7 +576,6 @@ HRESULT CSampleIME::_HandleSearchArrowKey(TfEditCookie ec, _In_ ITfContext *pCon
         _pCandidateListUIPresenter->AdviseUIChangedByArrowKey(keyFunction);
     }
 
-	// TODO: replace with the selected character?
     pContext->SetSelection(ec, 1, &tfSelection);
 
     pRangeComposition->Release();
@@ -718,3 +585,214 @@ Exit:
     return S_OK;
 }
 
+HRESULT CSampleIME::_HandleClipSelectByNumber(TfEditCookie ec, _In_ ITfContext *pContext, _In_ UINT uCode)
+{
+	HRESULT hr;
+
+    if (_pCandidateListUIPresenter)
+    {
+		UINT array_index = uCode ? CCandidateListUIPresenter::VKeyToArrayIndex(uCode) : 0;
+
+		// uCode == 0 ==> we pick the selection (e.g. chosen by mouse click)
+        if (!uCode || _pCandidateListUIPresenter->_SetSelectionInPage(array_index))
+        {	
+			const wchar_t *pCandidateString;
+			DWORD_PTR candidateLen;
+			std::wstring candidateString;
+
+			candidateLen = _pCandidateListUIPresenter->_GetSelectedCandidateString(&pCandidateString);
+
+			if (pCandidateString == 0) return E_FAIL;
+
+			candidateString = pCandidateString;
+
+			this->_keystrokeBuffer.append(pCandidateString);
+			this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+        }
+    }
+
+    return S_FALSE;
+}
+HRESULT CSampleIME::_HandleClipArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction)
+{
+    TF_SELECTION tfSelection;
+    ULONG fetched = 0;
+
+    // get the selection
+    if (FAILED(pContext->GetSelection(ec, TF_DEFAULT_SELECTION, 1, &tfSelection, &fetched))
+        || fetched != 1)
+    {
+        // no selection, eat the keystroke
+        return S_OK;
+    }
+
+    // For incremental candidate list
+    if (_pCandidateListUIPresenter)
+    {
+        _pCandidateListUIPresenter->AdviseUIChangedByArrowKey(keyFunction);
+    }
+
+    pContext->SetSelection(ec, 1, &tfSelection);
+
+Exit:
+    tfSelection.range->Release();
+    return S_OK;
+}
+HRESULT CSampleIME::_HandleClipBackspace(TfEditCookie ec, _In_ ITfContext *pContext)
+{	
+	HRESULT hr = S_OK;
+	
+	if (this->_ResetDecor(ec, pContext)) {
+
+		// Delete the last character
+		// Check the length and cancel if necessary.
+		if (this->_keystrokeBuffer.length() > 0)
+		{
+			this->_keystrokeBuffer.erase( this->_keystrokeBuffer.length() - 1, 1 );
+			
+			/* check high/low surrogate */
+			while (this->_keystrokeBuffer.length() &&
+				IS_HIGH_SURROGATE(this->_keystrokeBuffer.at( this->_keystrokeBuffer.length() - 1 ))
+				) {
+				this->_keystrokeBuffer.erase( this->_keystrokeBuffer.length() - 1, 1 );
+			}
+
+			hr = this->_UpdateCandidateString(
+				ec,
+				pContext,
+				(this->_keystrokeBuffer.length() ? this->_keystrokeBuffer : L".") );
+			// this->_inputState = STATE_CLIPBOARD;
+		}
+		else {
+			this->_DeleteCandidateList(FALSE, pContext);
+			this->_inputState = STATE_AMBIGUOUS;
+			this->_keystrokeBuffer = L"u";
+			hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+		}
+	}
+
+    return hr;
+}
+HRESULT CSampleIME::_HandleClipInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch)
+{
+	HRESULT hr = S_FALSE;
+	if (this->_ResetDecor(ec, pContext)) {
+		this->_keystrokeBuffer.append(&wch, 1);
+		hr = this->_UpdateCandidateString(ec, pContext, this->_keystrokeBuffer);
+		
+		/* (Re)initialize the candidate list */
+		hr = _CreateAndStartCandidate(ec, pContext);
+		if (SUCCEEDED(hr))
+		{
+			_pCandidateListUIPresenter->_ClearList();
+			_pCandidateListUIPresenter->_SetText(_clipCandidateList, TRUE);
+		}
+	}
+	return hr;
+}
+
+HRESULT CSampleIME::_HandleClipFinalize(TfEditCookie ec, _In_ ITfContext *pContext)
+{
+	HRESULT hr = S_FALSE;
+	if (this->_ResetDecor(ec, pContext)) {
+		std::wstring finalString = this->_keystrokeBuffer.c_str();
+
+		hr = this->_FinalizeText(ec, pContext, finalString);
+	}
+
+	return hr;
+}
+
+HRESULT CSampleIME::_HandleEnterClipMode(TfEditCookie ec, _In_ ITfContext *pContext)
+{
+	HRESULT hr = S_FALSE;
+
+	if (this->_ResetDecor(ec, pContext)) {
+		vector<CCandidateListItem> &candidateList = this->_clipCandidateList;
+
+		candidateList.clear();
+
+		// Clear the keystroke buffer, so search engines can read while we type
+		this->_keystrokeBuffer = L"";
+		this->_UpdateCandidateString(ec, pContext, L"."); /* Show the dot because if candidate string is empty candidate UI is not displayed */
+		this->_inputState = STATE_CLIPBOARD;
+
+		// Read the clipboard
+		if (OpenClipboard(NULL)) {
+			WCHAR data[101];
+			WCHAR *pdata = data;
+			HANDLE clipboardData;
+
+			clipboardData = GetClipboardData(CF_UNICODETEXT);
+			if (clipboardData) {
+				WCHAR *clipboardText = (WCHAR*)GlobalLock(clipboardData);
+
+				StringCchCopy(data, 100, clipboardText);  /* only up to 100 characters */
+
+				GlobalUnlock(clipboardData);
+			}
+
+			CloseClipboard();
+
+			while (*pdata) {
+				WCHAR &ch = *pdata;
+				uint32_t codepoint = ch;
+				CCandidateListItem candidate;
+
+				++pdata;
+
+				if (IS_HIGH_SURROGATE(ch)) {
+					WCHAR &ch2 = *pdata;
+
+					if (! IS_LOW_SURROGATE(ch2) ) {
+						candidate.SetCodePoint(ch);
+						candidate._CharDescription = L"Unmatched high surrogate ";
+						candidate._CharDescription.append(candidate._CharUnicodeHex);
+						
+						candidate.SetCodePoint(L'?');
+						continue;
+					}
+					else {
+						++pdata;
+
+						const uint16_t LEAD_OFFSET = 0xD800 - (0x10000 >> 10);
+						const uint16_t TRAIL_OFFSET = 0xDC00;
+
+						codepoint = (ch - LEAD_OFFSET) << 10;
+						codepoint += (ch2 & 0x3FF);
+					}
+				}
+				if (IS_LOW_SURROGATE(ch)) {
+					candidate.SetCodePoint(ch);
+					candidate._CharDescription = L"Unmatched low surrogate ";
+					candidate._CharDescription.append(candidate._CharUnicodeHex);
+						
+					candidate.SetCodePoint(L'?');
+					continue;
+				}
+
+				candidate.SetCodePoint(codepoint);
+				WCHAR *desc = this->_unicodeDB->findDescription(codepoint);
+				if (desc)
+					candidate._CharDescription = desc;
+				else {
+					candidate._CharDescription = L"Unicode character ";
+					candidate._CharDescription.append(candidate._CharUnicodeHex);
+				}
+
+				candidateList.push_back(candidate);
+			} /* while *pdata */
+			
+		} /* If (OpenClipboard) */
+
+		/* (Re)initialize the candidate list */
+		hr = _CreateAndStartCandidate(ec, pContext);
+		if (SUCCEEDED(hr))
+		{
+			_pCandidateListUIPresenter->_ClearList();
+			/* Add the list to the UI */
+			_pCandidateListUIPresenter->_SetText(candidateList, TRUE);
+		}
+	}
+	return hr;
+}

@@ -18,6 +18,9 @@
     <ClCompile Include="..\SampleIME\UnicodeDB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\SampleIME\UnicodeDBUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SampleIME\UnicodeDB.h">

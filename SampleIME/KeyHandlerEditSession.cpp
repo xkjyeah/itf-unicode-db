@@ -50,6 +50,9 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 		case FUNCTION_SEARCH_MODE:
 			hResult = this->_pTextService->_HandleEnterSearchMode(dto.ec, dto.pContext);
 			break;
+		case FUNCTION_CLIPBOARD_MODE:
+			hResult = this->_pTextService->_HandleEnterClipMode(dto.ec, dto.pContext);
+			break;
 		case FUNCTION_BACKSPACE:
 			hResult = this->_pTextService->_HandleHexBackspace(dto.ec, dto.pContext);
 			break;
@@ -121,6 +124,31 @@ STDAPI CKeyHandlerEditSession::DoEditSession(TfEditCookie ec)
 			break;
 		}
 
+		break;
+	case STATE_CLIPBOARD:
+		switch (this->_KeyState.Function) {
+		case FUNCTION_CANCEL:
+			hResult = this->_pTextService->_HandleInputCancel(dto.ec, dto.pContext);
+			break;
+		case FUNCTION_INPUT:
+			hResult = this->_pTextService->_HandleClipInput(dto.ec, dto.pContext, dto.wch);
+			break;
+		case FUNCTION_BACKSPACE:
+			hResult = this->_pTextService->_HandleClipBackspace(dto.ec, dto.pContext);
+			break;
+		case FUNCTION_CONVERT:
+			hResult = this->_pTextService->_HandleClipFinalize(dto.ec, dto.pContext);
+			break;
+		case FUNCTION_MOVE_PAGE_UP:
+		case FUNCTION_MOVE_PAGE_DOWN:
+			hResult = this->_pTextService->_HandleClipArrowKey(dto.ec, dto.pContext, dto.arrowKey);
+			break;
+		case FUNCTION_SELECT_BY_NUMBER:
+			hResult = this->_pTextService->_HandleClipSelectByNumber(dto.ec, dto.pContext, dto.code);
+			break;
+		default:
+			break;
+		}
 		break;
     default:
         break;

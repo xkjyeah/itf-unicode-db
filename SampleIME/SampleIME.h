@@ -225,6 +225,14 @@ public:
     HRESULT _HandleSearchSelectByNumber(TfEditCookie ec, _In_ ITfContext *pContext, _In_ UINT uCode);
     HRESULT _HandleSearchArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction);
 
+	// key event handlers for the clipboard inspector
+	HRESULT _HandleClipSelectByNumber(TfEditCookie ec, _In_ ITfContext *pContext, _In_ UINT uCode);
+	HRESULT _HandleClipArrowKey(TfEditCookie ec, _In_ ITfContext *pContext, KEYSTROKE_FUNCTION keyFunction);
+	HRESULT _HandleClipBackspace(TfEditCookie ec, _In_ ITfContext *pContext);
+	HRESULT _HandleClipInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch);
+	HRESULT _HandleClipFinalize(TfEditCookie ec, _In_ ITfContext *pContext);
+	
+	HRESULT _HandleEnterClipMode(TfEditCookie ec, _In_ ITfContext *pContext);
 	HRESULT _HandleEnterSearchMode(TfEditCookie ec, _In_ ITfContext *pContext);
 	HRESULT _HandleEnterHexMode(TfEditCookie ec, _In_ ITfContext *pContext);
 	HRESULT _HandleHexInput(TfEditCookie ec, _In_ ITfContext *pContext, WCHAR wch);
@@ -291,12 +299,12 @@ private:
     BOOL _IsComposing();
     BOOL _IsKeyboardDisabled();
 
-    HRESULT _UpdateCandidateString(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring &pstrAddString);
+    HRESULT _UpdateCandidateString(TfEditCookie ec, _In_ ITfContext *pContext, _In_ const std::wstring &pstrAddString);
     HRESULT _FinalizeText(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring &pstrAddString);
 
     BOOL _FindComposingRange(TfEditCookie ec, _In_ ITfContext *pContext, _In_ ITfRange *pSelection, _Outptr_result_maybenull_ ITfRange **ppRange);
-    HRESULT _SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, _Out_opt_ ITfRange *pRange, _In_ std::wstring &pstrAddString, BOOL exist_composing);
-    HRESULT _InsertAtSelection(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring &pstrAddString, _Outptr_ ITfRange **ppCompRange);
+    HRESULT _SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, _Out_opt_ ITfRange *pRange, _In_ const std::wstring &pstrAddString, BOOL exist_composing);
+    HRESULT _InsertAtSelection(TfEditCookie ec, _In_ ITfContext *pContext, _In_ const std::wstring &pstrAddString, _Outptr_ ITfRange **ppCompRange);
 
     HRESULT _RemoveDummyCompositionForComposing(TfEditCookie ec, _In_ ITfComposition *pComposition);
 
@@ -429,6 +437,7 @@ private:
 	InputStates		_inputState;
 
 	std::wstring	_keystrokeBuffer;
+	std::vector<CCandidateListItem> _clipCandidateList;
 	static const size_t LENGTH_HEX_PREFIX = 1;		// length of "u"
 	static const size_t LENGTH_SEARCH_PREFIX = 2;	// length of "u'"
 };

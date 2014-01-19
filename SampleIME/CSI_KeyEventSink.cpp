@@ -102,10 +102,7 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			switch (*pCodeOut)
 			{
 			case VK_LEFT:
-				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_UP; } return TRUE;
 			case VK_RIGHT:
-				/* This keys can be used to navigate about the inspector */
-				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			case VK_UP:
 			case VK_DOWN:
 							if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
@@ -119,16 +116,23 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 			case VK_END:
 				if (pKeyState) { pKeyState->Function = FUNCTION_NONE; } return TRUE;
 			}
+
+			/* Special modes -- clipboard mode and search mode */
+			if ( wch == L'v' || wch == L'V' ) {
+				if (pKeyState) pKeyState->Function = FUNCTION_CLIPBOARD_MODE;
+				return TRUE;
+			}
+			if ( wch == this->_searchKey ) {
+				if (pKeyState) pKeyState->Function = FUNCTION_SEARCH_MODE;
+				return TRUE;
+			}
+
 			/* If alphanumeric, we would want to add it to the keyboard buffer */
 			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||
 				(*pCodeOut >= 0x41 && *pCodeOut <= 0x5A) ) {
 				if (pKeyState) {
 					pKeyState->Function = FUNCTION_INPUT;
 				}
-				return TRUE;
-			}
-			if ( wch == this->_searchKey ) {
-				pKeyState->Function = FUNCTION_SEARCH_MODE;
 				return TRUE;
 			}
 
@@ -180,10 +184,6 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 		else if (_inputState == STATE_SEARCH) {
 			switch (*pCodeOut)
 			{
-			case VK_UP:
-			case VK_DOWN:
-				if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
-
 			case VK_ESCAPE: if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
 			case VK_BACK:   if (pKeyState) { pKeyState->Function = FUNCTION_BACKSPACE; } return TRUE;
 			case VK_PRIOR:
@@ -196,9 +196,62 @@ BOOL CSampleIME::_IsKeyEaten(_In_ ITfContext *pContext, UINT codeIn, _Out_ UINT 
 				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			case VK_RETURN: /* Give option 1 */
 				if (pKeyState) { pKeyState->Function = FUNCTION_SELECT_BY_NUMBER; *pCodeOut = CCandidateListUIPresenter::ArrayIndexToKey(0); } return TRUE;
+				
+			case VK_UP:
+			case VK_DOWN:
 			case VK_HOME:
 			case VK_END:
 				if (pKeyState) { pKeyState->Function = FUNCTION_NONE; } return TRUE;
+			}
+			/* Eat everything, including spaces */
+			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||
+				(*pCodeOut >= VK_NUMPAD0 && *pCodeOut <= VK_NUMPAD9 )
+				) {
+				if (pKeyState) {
+					pKeyState->Function = FUNCTION_SELECT_BY_NUMBER;
+				}
+				return TRUE; // eat but do nothing
+			}
+			else if (wch) {
+				if (pKeyState) {
+					pKeyState->Function = FUNCTION_INPUT;
+				}
+				return TRUE; // eat but do nothing
+			}
+			else {
+				return FALSE;
+			}
+		}
+		else if (_inputState == STATE_CLIPBOARD) {
+			/**
+			In this state, a number is used to select items from the list.
+			RETURN is used to convert the candidate string.
+			
+			Anything else can be used as input, which is appended to the candidate string
+			**/
+
+			switch (*pCodeOut)
+			{
+			case VK_ESCAPE: if (pKeyState) { pKeyState->Function = FUNCTION_CANCEL; } return TRUE;
+			case VK_BACK:   if (pKeyState) { pKeyState->Function = FUNCTION_BACKSPACE; } return TRUE;
+			case VK_RETURN: if (pKeyState) { pKeyState->Function = FUNCTION_CONVERT; } return TRUE;
+
+			/* Home/End, arrows */
+			case VK_UP:
+			case VK_DOWN:
+			case VK_HOME:
+			case VK_END:
+				if (pKeyState) { pKeyState->Function = FUNCTION_NONE; } return TRUE;
+
+			/* Page navigation */
+			case VK_PRIOR:
+			case VK_LEFT:		// For Mac-friendliness
+			case VK_OEM_MINUS:	// For compatibility with Chinese IMEs. TODO: Will this affect some European keyboards?
+				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_UP; } return TRUE;
+			case VK_NEXT:
+			case VK_RIGHT:		// For Mac-friendliness
+			case VK_OEM_PLUS:	// For compatibility with Chinese IMEs
+				if (pKeyState) { pKeyState->Function = FUNCTION_MOVE_PAGE_DOWN; } return TRUE;
 			}
 			/* Eat everything, including spaces */
 			if ( (*pCodeOut >= 0x30 && *pCodeOut <= 0x39) ||

@@ -71,7 +71,7 @@ void CSampleIME::_SetComposition(_In_ ITfComposition *pComposition)
 //
 //----------------------------------------------------------------------------
 
-HRESULT CSampleIME::_UpdateCandidateString(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring &pstrAddString)
+HRESULT CSampleIME::_UpdateCandidateString(TfEditCookie ec, _In_ ITfContext *pContext, _In_ const std::wstring &pstrAddString)
 {
     HRESULT hr = S_OK;
 
@@ -228,7 +228,7 @@ BOOL CSampleIME::_FindComposingRange(TfEditCookie ec, _In_ ITfContext *pContext,
 //
 //----------------------------------------------------------------------------
 
-HRESULT CSampleIME::_SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, _Out_opt_ ITfRange *pRange, _In_ std::wstring &pstrAddString, BOOL exist_composing)
+HRESULT CSampleIME::_SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, _Out_opt_ ITfRange *pRange, _In_ const std::wstring &pstrAddString, BOOL exist_composing)
 {
     ITfRange* pRangeInsert = nullptr;
     if (!exist_composing)
@@ -281,7 +281,7 @@ HRESULT CSampleIME::_SetInputString(TfEditCookie ec, _In_ ITfContext *pContext, 
 //
 //----------------------------------------------------------------------------
 
-HRESULT CSampleIME::_InsertAtSelection(TfEditCookie ec, _In_ ITfContext *pContext, _In_ std::wstring &pstrAddString, _Outptr_ ITfRange **ppCompRange)
+HRESULT CSampleIME::_InsertAtSelection(TfEditCookie ec, _In_ ITfContext *pContext, _In_ const std::wstring &pstrAddString, _Outptr_ ITfRange **ppCompRange)
 {
     ITfRange* rangeInsert = nullptr;
     ITfInsertAtSelection* pias = nullptr;

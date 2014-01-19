@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <iterator>
 #include <tchar.h>
+#include <strsafe.h>
 
 static void copy_matches
 	(set<UNICODE_T> &out, unsigned char *buf, ssize_t length) {
@@ -34,7 +35,7 @@ static void copy_matches
 
 	for (i = 0; i <= length; i++) {
 		if (buf[i] == ' ' || i == length) {
-			int code_length = min(CODE_LENGTH_MAX - 1, i - offset);
+			int code_length = min(UNICODE_T::CODE_LENGTH_MAX - 1, i - offset);
 
 			if (code_length) {
 				strncpy(item.data, (char*)buf + offset, code_length);
@@ -49,15 +50,7 @@ static void copy_matches
 
 
 bool operator<(const UNICODE_T &l, const UNICODE_T &r) {
-	return strncmp(l.data, r.data, CODE_LENGTH_MAX) < 0;
-}
-
-UNICODE_T &UNICODE_T::operator=(const UNICODE_T &l) {
-	if (this == &l) {
-		return *this;
-	}
-	strncpy(this->data, l.data, CODE_LENGTH_MAX);
-	return *this;
+	return strncmp(l.data, r.data, UNICODE_T::CODE_LENGTH_MAX) < 0;
 }
 
 int UnicodeDB::findCodes 
@@ -307,6 +300,16 @@ int UnicodeDB::findCandidates
 		swap(tmpset, fuzzy_list);
 	}
 	return 0;
+}
+
+WCHAR * UnicodeDB::findDescription( uint32_t codepoint ) {
+	char hexstr[12];
+
+	StringCchPrintfA(hexstr, 11, "%04X", codepoint);
+
+	UNICODE_T uni(hexstr);
+
+	return this->findDescription(hexstr, 0, -1);
 }
 
 /* Given a code, returns the description of the code. Return value needs to be freed */

@@ -13,7 +13,6 @@
 // DllMain
 //
 //----------------------------------------------------------------------------
-#pragma unmanaged
 
 BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID pvReserved)
 {
