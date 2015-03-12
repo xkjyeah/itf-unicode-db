@@ -22,8 +22,7 @@ int main(array<System::String ^> ^args)
 	Application::SetCompatibleTextRenderingDefault(false); 
 
 	// Create the main window and run it
-	Application::Run(gcnew Form1());
-
+	Application::Run(gcnew SettingsForm());
 	
 	CoUninitialize();
 	return 0;

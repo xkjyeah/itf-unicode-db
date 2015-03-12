@@ -20,10 +20,10 @@ namespace UnicodeDbIMESettings2 {
 	/// <summary>
 	/// Summary for Form1
 	/// </summary>
-	public ref class Form1 : public System::Windows::Forms::Form
+	public ref class SettingsForm : public System::Windows::Forms::Form
 	{
 	public:
-		Form1(void)
+		SettingsForm(void)
 		{
 			InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace UnicodeDbIMESettings2 {
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~Form1()
+		~SettingsForm()
 		{
 			if (components)
 			{
@@ -55,15 +55,8 @@ namespace UnicodeDbIMESettings2 {
 	private: System::Windows::Forms::Button^  btnCapture;
 	private: System::Windows::Forms::TextBox^  txtActivationSequence;
 	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::GroupBox^  groupBox1;
-	private: System::Windows::Forms::ListBox^  listBox1;
-	private: System::Windows::Forms::Label^  label6;
-	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel2;
-	private: System::Windows::Forms::Label^  label4;
-	private: System::Windows::Forms::ComboBox^  cboLocale;
-	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::Button^  button1;
+
+
 	private: System::Windows::Forms::Button^  btnCancel;
 	private: System::Windows::Forms::Button^  btnOK;
 
@@ -89,21 +82,10 @@ namespace UnicodeDbIMESettings2 {
 			this->btnCapture = (gcnew System::Windows::Forms::Button());
 			this->txtActivationSequence = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->cboLocale = (gcnew System::Windows::Forms::ComboBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnOK = (gcnew System::Windows::Forms::Button());
 			this->groupBox2->SuspendLayout();
 			this->tableLayoutPanel1->SuspendLayout();
-			this->groupBox1->SuspendLayout();
-			this->tableLayoutPanel2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// groupBox2
@@ -124,7 +106,7 @@ namespace UnicodeDbIMESettings2 {
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 
 				56.40327F)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				143)));
+				145)));
 			this->tableLayoutPanel1->Controls->Add(this->txtClipboard, 1, 2);
 			this->tableLayoutPanel1->Controls->Add(this->label3, 0, 2);
 			this->tableLayoutPanel1->Controls->Add(this->txtSearchKey, 1, 1);
@@ -148,7 +130,7 @@ namespace UnicodeDbIMESettings2 {
 			this->txtClipboard->Name = L"txtClipboard";
 			this->txtClipboard->Size = System::Drawing::Size(146, 20);
 			this->txtClipboard->TabIndex = 16;
-			this->txtClipboard->TextChanged += gcnew System::EventHandler(this, &Form1::txtClipboard_TextChanged);
+			this->txtClipboard->TextChanged += gcnew System::EventHandler(this, &SettingsForm::txtClipboard_TextChanged);
 			// 
 			// label3
 			// 
@@ -166,7 +148,7 @@ namespace UnicodeDbIMESettings2 {
 			this->txtSearchKey->Name = L"txtSearchKey";
 			this->txtSearchKey->Size = System::Drawing::Size(146, 20);
 			this->txtSearchKey->TabIndex = 14;
-			this->txtSearchKey->TextChanged += gcnew System::EventHandler(this, &Form1::txtSearchKey_TextChanged);
+			this->txtSearchKey->TextChanged += gcnew System::EventHandler(this, &SettingsForm::txtSearchKey_TextChanged);
 			// 
 			// lblSearchCharacter
 			// 
@@ -179,14 +161,13 @@ namespace UnicodeDbIMESettings2 {
 			// 
 			// btnCapture
 			// 
-			this->btnCapture->Location = System::Drawing::Point(369, 3);
+			this->btnCapture->Location = System::Drawing::Point(367, 3);
 			this->btnCapture->Name = L"btnCapture";
 			this->btnCapture->Size = System::Drawing::Size(129, 31);
 			this->btnCapture->TabIndex = 12;
 			this->btnCapture->Text = L"C&apture...";
 			this->btnCapture->UseVisualStyleBackColor = true;
-			this->btnCapture->TextChanged += gcnew System::EventHandler(this, &Form1::btnCapture_TextChanged);
-			this->btnCapture->Click += gcnew System::EventHandler(this, &Form1::btnCapture_Click);
+			this->btnCapture->Click += gcnew System::EventHandler(this, &SettingsForm::btnCapture_Click);
 			// 
 			// txtActivationSequence
 			// 
@@ -196,11 +177,11 @@ namespace UnicodeDbIMESettings2 {
 			this->txtActivationSequence->Name = L"txtActivationSequence";
 			this->txtActivationSequence->Size = System::Drawing::Size(146, 20);
 			this->txtActivationSequence->TabIndex = 11;
-			this->txtActivationSequence->TextChanged += gcnew System::EventHandler(this, &Form1::txtActivationSequence_TextChanged);
-			this->txtActivationSequence->Enter += gcnew System::EventHandler(this, &Form1::txtActivationSequence_Enter);
-			this->txtActivationSequence->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::txtActivationSequence_KeyDown);
-			this->txtActivationSequence->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::txtActivationSequence_KeyUp);
-			this->txtActivationSequence->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &Form1::txtActivationSequence_PreviewKeyDown);
+			this->txtActivationSequence->TextChanged += gcnew System::EventHandler(this, &SettingsForm::txtActivationSequence_TextChanged);
+			this->txtActivationSequence->Enter += gcnew System::EventHandler(this, &SettingsForm::txtActivationSequence_Enter);
+			this->txtActivationSequence->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &SettingsForm::txtActivationSequence_KeyDown);
+			this->txtActivationSequence->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &SettingsForm::txtActivationSequence_KeyUp);
+			this->txtActivationSequence->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &SettingsForm::txtActivationSequence_PreviewKeyDown);
 			// 
 			// label1
 			// 
@@ -211,141 +192,41 @@ namespace UnicodeDbIMESettings2 {
 			this->label1->TabIndex = 10;
 			this->label1->Text = L"Unicode input activation sequence";
 			// 
-			// groupBox1
-			// 
-			this->groupBox1->Controls->Add(this->listBox1);
-			this->groupBox1->Controls->Add(this->label6);
-			this->groupBox1->Controls->Add(this->tableLayoutPanel2);
-			this->groupBox1->Controls->Add(this->label2);
-			this->groupBox1->Controls->Add(this->button2);
-			this->groupBox1->Controls->Add(this->button1);
-			this->groupBox1->Location = System::Drawing::Point(7, 135);
-			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(522, 302);
-			this->groupBox1->TabIndex = 22;
-			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"Installed Locales";
-			// 
-			// listBox1
-			// 
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->Location = System::Drawing::Point(15, 116);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(366, 173);
-			this->listBox1->TabIndex = 5;
-			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::listBox1_SelectedIndexChanged);
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(12, 100);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(132, 13);
-			this->label6->TabIndex = 4;
-			this->label6->Text = L"IME is already installed for:";
-			// 
-			// tableLayoutPanel2
-			// 
-			this->tableLayoutPanel2->ColumnCount = 2;
-			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 
-				38.31522F)));
-			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 
-				61.68478F)));
-			this->tableLayoutPanel2->Controls->Add(this->label4, 0, 0);
-			this->tableLayoutPanel2->Controls->Add(this->cboLocale, 1, 0);
-			this->tableLayoutPanel2->Location = System::Drawing::Point(9, 48);
-			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
-			this->tableLayoutPanel2->RowCount = 2;
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 16.99346F)));
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(368, 30);
-			this->tableLayoutPanel2->TabIndex = 3;
-			// 
-			// label4
-			// 
-			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(3, 0);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(39, 13);
-			this->label4->TabIndex = 0;
-			this->label4->Text = L"Locale";
-			// 
-			// cboLocale
-			// 
-			this->cboLocale->FormattingEnabled = true;
-			this->cboLocale->Location = System::Drawing::Point(144, 3);
-			this->cboLocale->Name = L"cboLocale";
-			this->cboLocale->Size = System::Drawing::Size(214, 21);
-			this->cboLocale->TabIndex = 1;
-			// 
-			// label2
-			// 
-			this->label2->Location = System::Drawing::Point(6, 16);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(360, 42);
-			this->label2->TabIndex = 2;
-			this->label2->Text = L"Unicode DB IME can be installed under different locales to match your keyboard an" 
-				L"d/or spellchecker settings";
-			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(384, 260);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(129, 29);
-			this->button2->TabIndex = 1;
-			this->button2->Text = L"&Remove";
-			this->button2->UseVisualStyleBackColor = true;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(384, 48);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(129, 30);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"&Add";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
-			// 
 			// btnCancel
 			// 
 			this->btnCancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->btnCancel->Location = System::Drawing::Point(435, 463);
+			this->btnCancel->Location = System::Drawing::Point(435, 147);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(95, 28);
 			this->btnCancel->TabIndex = 21;
 			this->btnCancel->Text = L"&Cancel";
 			this->btnCancel->UseVisualStyleBackColor = true;
-			this->btnCancel->Click += gcnew System::EventHandler(this, &Form1::btnCancel_Click);
+			this->btnCancel->Click += gcnew System::EventHandler(this, &SettingsForm::btnCancel_Click);
 			// 
 			// btnOK
 			// 
 			this->btnOK->DialogResult = System::Windows::Forms::DialogResult::OK;
-			this->btnOK->Location = System::Drawing::Point(334, 463);
+			this->btnOK->Location = System::Drawing::Point(334, 147);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(95, 28);
 			this->btnOK->TabIndex = 20;
 			this->btnOK->Text = L"&OK";
 			this->btnOK->UseVisualStyleBackColor = true;
-			this->btnOK->Click += gcnew System::EventHandler(this, &Form1::btnOK_Click);
+			this->btnOK->Click += gcnew System::EventHandler(this, &SettingsForm::btnOK_Click);
 			// 
-			// Form1
+			// SettingsForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(536, 501);
+			this->ClientSize = System::Drawing::Size(536, 191);
 			this->Controls->Add(this->groupBox2);
-			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->btnCancel);
 			this->Controls->Add(this->btnOK);
-			this->Name = L"Form1";
+			this->Name = L"SettingsForm";
 			this->Text = L"Unicode DB IME Settings";
 			this->groupBox2->ResumeLayout(false);
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel1->PerformLayout();
-			this->groupBox1->ResumeLayout(false);
-			this->groupBox1->PerformLayout();
-			this->tableLayoutPanel2->ResumeLayout(false);
-			this->tableLayoutPanel2->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -358,10 +239,6 @@ private: System::Void txtClipboard_TextChanged(System::Object^  sender, System::
 		 }
 private: System::Void txtActivationSequence_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 		 }
-private: System::Void btnCapture_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-            txtActivationSequence->Enabled = true;
-            txtActivationSequence->Focus();
-		 }
 private: System::Void btnOK_Click(System::Object^  sender, System::EventArgs^  e) {
             SaveSettings();
             this->Close();
@@ -373,6 +250,16 @@ private: System::Void txtActivationSequence_PreviewKeyDown(System::Object^  send
             // Accept all keys as input keys since we want to capture them
             e->IsInputKey = true;
 		 }
+		 private: void ExitCapture() {
+            txtActivationSequence->Enabled = false;
+            txtActivationSequence->Text = activationSequence.ToString();
+            btnCapture->Text = "C&apture...";
+		}
+		 void EnterCapture() {
+            txtActivationSequence->Enabled = true;
+            txtActivationSequence->Focus();
+            btnCapture->Text = "Capturing... (ESC to cancel)";
+		}
 private: System::Void txtActivationSequence_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
             // don't let the event bubble up
             e->Handled = true;
@@ -382,8 +269,7 @@ private: System::Void txtActivationSequence_KeyDown(System::Object^  sender, Sys
             if (e->KeyCode == Keys::Escape && !(e->Control || e->Alt || e->Shift))
             {
                 /* No change */
-                txtActivationSequence->Text = activationSequence.ToString();
-                txtActivationSequence->Enabled = false;
+				ExitCapture();
                 return;
             }
 
@@ -412,7 +298,6 @@ private: System::Void txtActivationSequence_KeyDown(System::Object^  sender, Sys
 		 }
 private: System::Void txtActivationSequence_Enter(System::Object^  sender, System::EventArgs^  e) {
             txtActivationSequence->Text = "";
-            btnCapture->Text = "Capturing... (ESC to cancel)";
             activationSequence.capturingKey = (Keys)0;
             activationSequence.capturingModifiers = 0;
 		 }
@@ -422,9 +307,7 @@ private: System::Void txtActivationSequence_KeyUp(System::Object^  sender, Syste
             activationSequence.currentModifiers = activationSequence.capturingModifiers;
 
             // End capture
-            txtActivationSequence->Enabled = false;
-            txtActivationSequence->Text = activationSequence.ToString();
-            btnCapture->Text = "C&apture...";
+			ExitCapture();
 		 }
 
 private: void SaveSettings()
@@ -493,12 +376,13 @@ private: void SaveSettings()
 			/* TODO: then add all the stuff */
 		}
 		void LoadLocales() {
+			/*
             array<CultureInfo^>^ cultures =
                 CultureInfo::GetCultures(CultureTypes::AllCultures);
 
             for (int i=0; i<cultures->Length; i++) {
                 cboLocale->Items->Add(cultures[i]->EnglishName);
-            }
+            }*/
 		}
 		void LoadSettingsFromRegistry() {
             /* Default settings first */
@@ -574,6 +458,7 @@ private: void SaveSettings()
 		KeyCapture activationSequence;
         static String^ RegistrySubKey = L"Software\\UnicodeDbIME";
 private: System::Void btnCapture_Click(System::Object^  sender, System::EventArgs^  e) {
+			 EnterCapture();
 		 }
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		 }
